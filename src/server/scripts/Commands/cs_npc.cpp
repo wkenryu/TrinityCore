@@ -211,19 +211,21 @@ public:
         };
         static std::vector<ChatCommand> npcCommandTable =
         {
-            { "info",      rbac::RBAC_PERM_COMMAND_NPC_INFO,      false, &HandleNpcInfoCommand,              ""       },
-            { "near",      rbac::RBAC_PERM_COMMAND_NPC_NEAR,      false, &HandleNpcNearCommand,              ""       },
-            { "move",      rbac::RBAC_PERM_COMMAND_NPC_MOVE,      false, &HandleNpcMoveCommand,              ""       },
-            { "playemote", rbac::RBAC_PERM_COMMAND_NPC_PLAYEMOTE, false, &HandleNpcPlayEmoteCommand,         ""       },
-            { "say",       rbac::RBAC_PERM_COMMAND_NPC_SAY,       false, &HandleNpcSayCommand,               ""       },
-            { "textemote", rbac::RBAC_PERM_COMMAND_NPC_TEXTEMOTE, false, &HandleNpcTextEmoteCommand,         ""       },
-            { "whisper",   rbac::RBAC_PERM_COMMAND_NPC_WHISPER,   false, &HandleNpcWhisperCommand,           ""       },
-            { "yell",      rbac::RBAC_PERM_COMMAND_NPC_YELL,      false, &HandleNpcYellCommand,              ""       },
-            { "tame",      rbac::RBAC_PERM_COMMAND_NPC_TAME,      false, &HandleNpcTameCommand,              ""       },
-            { "add",       rbac::RBAC_PERM_COMMAND_NPC_ADD,       false, NULL,                 "", npcAddCommandTable },
-            { "delete",    rbac::RBAC_PERM_COMMAND_NPC_DELETE,    false, NULL,              "", npcDeleteCommandTable },
-            { "follow",    rbac::RBAC_PERM_COMMAND_NPC_FOLLOW,    false, NULL,              "", npcFollowCommandTable },
-            { "set",       rbac::RBAC_PERM_COMMAND_NPC_SET,       false, NULL,                 "", npcSetCommandTable },
+            { "info",         rbac::RBAC_PERM_COMMAND_NPC_INFO,         false, &HandleNpcInfoCommand,              ""       },
+            { "near",         rbac::RBAC_PERM_COMMAND_NPC_NEAR,         false, &HandleNpcNearCommand,              ""       },
+            { "move",         rbac::RBAC_PERM_COMMAND_NPC_MOVE,         false, &HandleNpcMoveCommand,              ""       },
+            { "playemote",    rbac::RBAC_PERM_COMMAND_NPC_PLAYEMOTE,    false, &HandleNpcPlayEmoteCommand,         ""       },
+            { "say",          rbac::RBAC_PERM_COMMAND_NPC_SAY,          false, &HandleNpcSayCommand,               ""       },
+            { "textemote",    rbac::RBAC_PERM_COMMAND_NPC_TEXTEMOTE,    false, &HandleNpcTextEmoteCommand,         ""       },
+            { "whisper",      rbac::RBAC_PERM_COMMAND_NPC_WHISPER,      false, &HandleNpcWhisperCommand,           ""       },
+            { "yell",         rbac::RBAC_PERM_COMMAND_NPC_YELL,         false, &HandleNpcYellCommand,              ""       },
+            { "tame",         rbac::RBAC_PERM_COMMAND_NPC_TAME,         false, &HandleNpcTameCommand,              ""       },
+            { "spawngroup",   rbac::RBAC_PERM_COMMAND_NPC_SPAWNGROUP,   false, &HandleNpcSpawnGroup,               ""       },
+            { "despawngroup", rbac::RBAC_PERM_COMMAND_NPC_DESPAWNGROUP, false, &HandleNpcDepawnGroup,              ""       },
+            { "add",          rbac::RBAC_PERM_COMMAND_NPC_ADD,          false, NULL,                 "", npcAddCommandTable },
+            { "delete",       rbac::RBAC_PERM_COMMAND_NPC_DELETE,       false, NULL,              "", npcDeleteCommandTable },
+            { "follow",       rbac::RBAC_PERM_COMMAND_NPC_FOLLOW,       false, NULL,              "", npcFollowCommandTable },
+            { "set",          rbac::RBAC_PERM_COMMAND_NPC_SET,          false, NULL,                 "", npcSetCommandTable },
         };
         static std::vector<ChatCommand> commandTable =
         {
@@ -701,6 +703,12 @@ public:
         std::string defRespawnDelayStr = secsToTimeString(target->GetRespawnDelay(), true);
 
         handler->PSendSysMessage(LANG_NPCINFO_CHAR, target->GetSpawnId(), target->GetGUID().GetCounter(), faction, npcflags, Entry, displayid, nativeid);
+        if (target->GetCreatureData())
+        {
+            if (CreatureGroupTemplateData* groupData = target->GetCreatureData()->groupdata)
+                handler->PSendSysMessage(LANG_NPCINFO_GROUP_ID, groupData->groupId, groupData->flags, groupData->isActive);
+        }
+        handler->PSendSysMessage(LANG_NPCINFO_COMPATIBILITY_MODE, target->GetRespawnCompatibilityMode());
         handler->PSendSysMessage(LANG_NPCINFO_LEVEL, target->getLevel());
         handler->PSendSysMessage(LANG_NPCINFO_EQUIPMENT, target->GetCurrentEquipmentId(), target->GetOriginalEquipmentId());
         handler->PSendSysMessage(LANG_NPCINFO_HEALTH, target->GetCreateHealth(), target->GetMaxHealth(), target->GetHealth());
@@ -1400,6 +1408,85 @@ public:
 
         pet->SavePetToDB(PET_SAVE_AS_CURRENT);
         player->PetSpellInitialize();
+
+        return true;
+    }
+
+    static bool HandleNpcSpawnGroup(ChatHandler* handler, char const* args)
+    {
+        if (!*args)
+            return false;
+
+        bool ignoreRespawn = false;
+        bool force = false;
+        uint32 groupId = 0;
+
+        // Decode arguments
+        char* arg = strtok((char*)args, " ");
+        while (arg)
+        {
+            std::string thisArg = arg;
+            std::transform(thisArg.begin(), thisArg.end(), thisArg.begin(), ::tolower);
+            if (thisArg == "ignorerespawn")
+                ignoreRespawn = true;
+            else if (thisArg == "force")
+                force = true;
+            else if (thisArg.empty() || !(std::count_if(thisArg.begin(), thisArg.end(), ::isdigit) == (int)thisArg.size()))
+                return false;
+            else
+                groupId = atoi(thisArg.c_str());
+
+            arg = strtok(NULL, " ");
+        }
+
+        Player* player = handler->GetSession()->GetPlayer();
+
+        std::vector <ObjectGuid> creatureList;
+        if (!sObjectMgr->SpawnCreatureGroup(groupId, player->GetMap(), ignoreRespawn, force, &creatureList))
+        {
+            handler->PSendSysMessage(LANG_NPCSPAWNGROUP_BADGROUP, groupId);
+            handler->SetSentErrorMessage(true);
+            return false;
+        }
+
+        for (ObjectGuid thisGuid : creatureList)
+            handler->PSendSysMessage("%s", thisGuid.ToString().c_str());
+
+        return true;
+    }
+
+    static bool HandleNpcDepawnGroup(ChatHandler* handler, char const* args)
+    {
+        if (!*args)
+            return false;
+
+        bool deleteRespawnTimes = false;
+        uint32 groupId = 0;
+
+        // Decode arguments
+        char* arg = strtok((char*)args, " ");
+        while (arg)
+        {
+            std::string thisArg = arg;
+            std::transform(thisArg.begin(), thisArg.end(), thisArg.begin(), ::tolower);
+            if (thisArg == "removerespawntime")
+                deleteRespawnTimes = true;
+            else if (thisArg.empty() || !(std::count_if(thisArg.begin(), thisArg.end(), ::isdigit) == (int)thisArg.size()))
+                return false;
+            else
+                groupId = atoi(thisArg.c_str());
+
+            arg = strtok(NULL, " ");
+        }
+
+        Player* player = handler->GetSession()->GetPlayer();
+
+        if (!sObjectMgr->DespawnCreatureGroup(groupId, player->GetMap(), deleteRespawnTimes))
+        {
+            handler->PSendSysMessage(LANG_NPCSPAWNGROUP_BADGROUP, groupId);
+            handler->SetSentErrorMessage(true);
+            return false;
+        }
 
         return true;
     }
