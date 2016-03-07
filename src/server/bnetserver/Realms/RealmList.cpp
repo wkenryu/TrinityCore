@@ -20,11 +20,10 @@
 #include "Database/DatabaseEnv.h"
 #include "SessionManager.h"
 #include "Util.h"
-#include "Commands.h"
 #include "RealmList.h"
 #include <boost/asio/ip/tcp.hpp>
 
-RealmList::RealmList() : _updateInterval(0), _updateTimer(nullptr), _resolver(nullptr), _worldListener(nullptr)
+RealmList::RealmList() : _updateInterval(0), _updateTimer(nullptr), _resolver(nullptr)
 {
 }
 
@@ -32,11 +31,10 @@ RealmList::~RealmList()
 {
     delete _updateTimer;
     delete _resolver;
-    delete _worldListener;
 }
 
 // Load the realm list from the database
-void RealmList::Initialize(boost::asio::io_service& ioService, uint32 updateInterval, uint16 worldListenPort)
+void RealmList::Initialize(boost::asio::io_service& ioService, uint32 updateInterval)
 {
     _updateInterval = updateInterval;
     _updateTimer = new boost::asio::deadline_timer(ioService);
@@ -44,14 +42,10 @@ void RealmList::Initialize(boost::asio::io_service& ioService, uint32 updateInte
 
     // Get the content of the realmlist table in the database
     UpdateRealms(boost::system::error_code());
-
-    _worldListener = new WorldListener(worldListenPort);
-    _worldListener->Start();
 }
 
 void RealmList::Close()
 {
-    _worldListener->End();
     _updateTimer->cancel();
 }
 

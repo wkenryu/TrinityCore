@@ -3461,7 +3461,6 @@ Logger.sql.updates=3,Console Server
 #Logger.scenes=3,Console Server
 #Logger.scripts=3,Console Server
 #Logger.scripts.ai=3,Console Server
-#Logger.server.bnetserver=3,Console Server
 #Logger.spells=3,Console Server
 #Logger.spells.periodic=3,Console Server
 #Logger.sql.dev=3,Console Server
@@ -3620,27 +3619,6 @@ PacketSpoof.BanMode = 0
 #
 
 PacketSpoof.BanDuration = 86400
-
-#
-###################################################################################################
-
-###################################################################################################
-# IPC SETTINGS
-#
-#    BnetServer.Address
-#        Description: Determines IP address of battle.net server to connect to.
-#        Default:     127.0.0.1
-#
-
-BnetServer.Address = 127.0.0.1
-
-#
-#    BnetServer.Port
-#        Description: Determines port to use when connecting to battle.net server.
-#        Default:     1118
-#
-
-BnetServer.Port = 1118
 
 #
 ###################################################################################################
