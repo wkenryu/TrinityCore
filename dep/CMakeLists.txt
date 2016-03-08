@@ -37,6 +37,7 @@ endif()
 
 if(SERVERS)
   add_subdirectory(gsoap)
+  add_subdirectory(protobuf)
 endif()
 
 if(TOOLS)

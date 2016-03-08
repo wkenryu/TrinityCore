@@ -1,0 +1,7 @@
+Removed everything except the sources
+* Tests
+* Build scripts
+* Examples
+* Non C++ sources
+
+file config.h is completely custom that uses unordered_set and unordered_map instead of old deprecated hash_set and hash_map to avoid compatibility issues
