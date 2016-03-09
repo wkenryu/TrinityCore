@@ -4,4 +4,7 @@ Removed everything except the sources
 * Examples
 * Non C++ sources
 
-file config.h is completely custom that uses unordered_set and unordered_map instead of old deprecated hash_set and hash_map to avoid compatibility issues
+No source file was modified in the process.
+
+file config.h is completely custom that forces protobuf to emulate hash_* structures using std::set and std::map to avoid compatibility issues
+otherwise it would be looking for old deprecated std::hash_set and std::hash_map
