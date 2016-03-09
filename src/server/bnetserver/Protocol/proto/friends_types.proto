@@ -1,0 +1,41 @@
+syntax = "proto2";
+
+import "attribute_types.proto";
+import "entity_types.proto";
+import "invitation_types.proto";
+package Battlenet.friends;
+
+option optimize_for = CODE_SIZE;
+
+message Friend {
+  required .Battlenet.EntityId account_id = 1;
+  repeated .Battlenet.Attribute attribute = 2;
+  repeated uint32 role = 3 [packed = true];
+  optional uint64 privileges = 4 [default = 0];
+  optional uint64 attributes_epoch = 5;
+  optional string full_name = 6;
+  optional string battle_tag = 7;
+}
+
+message FriendInvitation {
+  optional bool first_received = 1 [default = false];
+  repeated uint32 role = 2 [packed = true];
+  extend .Battlenet.Invitation {
+    optional .Battlenet.friends.FriendInvitation friend_invitation = 103;
+  }
+}
+
+message FriendInvitationParams {
+  optional string target_email = 1;
+  optional string target_battle_tag = 2;
+  optional string inviter_battle_tag = 3;
+  optional string inviter_full_name = 4;
+  optional string invitee_display_name = 5;
+  repeated uint32 role = 6 [packed = true];
+  repeated uint32 previous_role_deprecated = 7 [packed = true, deprecated = true];
+  extend .Battlenet.InvitationParams {
+    optional .Battlenet.friends.FriendInvitationParams friend_params = 103;
+  }
+}
+
+

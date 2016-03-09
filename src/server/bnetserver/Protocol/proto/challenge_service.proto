@@ -1,0 +1,118 @@
+syntax = "proto2";
+
+import "attribute_types.proto";
+import "entity_types.proto";
+import "rpc_types.proto";
+package Battlenet.challenge;
+
+option optimize_for = CODE_SIZE;
+option cc_generic_services = true;
+
+message Challenge {
+  required fixed32 type = 1;
+  optional string info = 2;
+  optional string answer = 3 [(.Battlenet.log) = HIDDEN];
+  optional uint32 retries = 4;
+}
+
+message ChallengePickedRequest {
+  required fixed32 challenge = 1;
+  optional uint32 id = 2;
+  optional bool new_challenge_protocol = 3 [default = false];
+}
+
+message ChallengePickedResponse {
+  optional bytes data = 1 [(.Battlenet.log) = HIDDEN];
+}
+
+message ChallengeAnsweredRequest {
+  required string answer = 1 [(.Battlenet.log) = HIDDEN];
+  optional bytes data = 2 [(.Battlenet.log) = HIDDEN];
+  optional uint32 id = 3;
+}
+
+message ChallengeAnsweredResponse {
+  optional bytes data = 1 [(.Battlenet.log) = HIDDEN];
+  optional bool do_retry = 2;
+  optional bool record_not_found = 3;
+}
+
+message ChallengeCancelledRequest {
+  optional uint32 id = 1;
+}
+
+message SendChallengeToUserRequest {
+  optional .Battlenet.ProcessId peer_id = 1;
+  optional .Battlenet.EntityId game_account_id = 2;
+  repeated .Battlenet.challenge.Challenge challenges = 3;
+  required fixed32 context = 4;
+  optional uint64 timeout = 5;
+  repeated .Battlenet.Attribute attributes = 6;
+  optional .Battlenet.ProcessId host = 7;
+  optional .Battlenet.EntityId account_id = 8;
+}
+
+message SendChallengeToUserResponse {
+  optional uint32 id = 1;
+}
+
+message ChallengeUserRequest {
+  repeated .Battlenet.challenge.Challenge challenges = 1;
+  required fixed32 context = 2;
+  optional uint32 id = 3;
+  optional uint64 deadline = 4;
+  repeated .Battlenet.Attribute attributes = 5;
+  optional .Battlenet.EntityId game_account_id = 6;
+}
+
+message ChallengeResultRequest {
+  optional uint32 id = 1;
+  optional fixed32 type = 2;
+  optional uint32 error_id = 3;
+  optional bytes answer = 4 [(.Battlenet.log) = HIDDEN];
+}
+
+message ChallengeExternalRequest {
+  optional string request_token = 1;
+  optional string payload_type = 2;
+  optional bytes payload = 3;
+}
+
+message ChallengeExternalResult {
+  optional string request_token = 1;
+  optional bool passed = 2 [default = true];
+}
+
+service ChallengeService {
+  option (.Battlenet.original_fully_qualified_descriptor_name) = "bnet.protocol.challenge.ChallengeService";
+  rpc ChallengePicked(.Battlenet.challenge.ChallengePickedRequest) returns (.Battlenet.challenge.ChallengePickedResponse) {
+    option (.Battlenet.method_id) = 1;
+  }
+  rpc ChallengeAnswered(.Battlenet.challenge.ChallengeAnsweredRequest) returns (.Battlenet.challenge.ChallengeAnsweredResponse) {
+    option (.Battlenet.method_id) = 2;
+  }
+  rpc ChallengeCancelled(.Battlenet.challenge.ChallengeCancelledRequest) returns (.Battlenet.NoData) {
+    option (.Battlenet.method_id) = 3;
+  }
+  rpc SendChallengeToUser(.Battlenet.challenge.SendChallengeToUserRequest) returns (.Battlenet.challenge.SendChallengeToUserResponse) {
+    option (.Battlenet.method_id) = 4;
+  }
+}
+
+service ChallengeListener {
+  option (.Battlenet.original_fully_qualified_descriptor_name) = "bnet.protocol.challenge.ChallengeNotify";
+  rpc OnChallengeUser(.Battlenet.challenge.ChallengeUserRequest) returns (.Battlenet.NO_RESPONSE) {
+    option (.Battlenet.method_id) = 1;
+  }
+  rpc OnChallengeResult(.Battlenet.challenge.ChallengeResultRequest) returns (.Battlenet.NO_RESPONSE) {
+    option (.Battlenet.method_id) = 2;
+  }
+  rpc OnExternalChallenge(.Battlenet.challenge.ChallengeExternalRequest) returns (.Battlenet.NO_RESPONSE) {
+    option (.Battlenet.method_id) = 3;
+  }
+  rpc OnExternalChallengeResult(.Battlenet.challenge.ChallengeExternalResult) returns (.Battlenet.NO_RESPONSE) {
+    option (.Battlenet.method_id) = 4;
+  }
+}
+
+

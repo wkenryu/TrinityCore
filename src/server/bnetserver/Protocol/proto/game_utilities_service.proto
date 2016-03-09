@@ -1,0 +1,110 @@
+syntax = "proto2";
+
+import "attribute_types.proto";
+import "content_handle_types.proto";
+import "entity_types.proto";
+import "game_utilities_types.proto";
+import "rpc_types.proto";
+package Battlenet.game_utilities;
+
+option optimize_for = SPEED;
+option cc_generic_services = true;
+
+message ClientRequest {
+  repeated .Battlenet.Attribute attribute = 1;
+  optional .Battlenet.ProcessId host = 2;
+  optional .Battlenet.EntityId account_id = 3;
+  optional .Battlenet.EntityId game_account_id = 4;
+  optional fixed32 program = 5;
+  optional .Battlenet.game_utilities.ClientInfo client_info = 6;
+}
+
+message ClientResponse {
+  repeated .Battlenet.Attribute attribute = 1;
+}
+
+message ServerRequest {
+  repeated .Battlenet.Attribute attribute = 1;
+  required fixed32 program = 2;
+  optional .Battlenet.ProcessId host = 3;
+}
+
+message ServerResponse {
+  repeated .Battlenet.Attribute attribute = 1;
+}
+
+message PresenceChannelCreatedRequest {
+  required .Battlenet.EntityId id = 1;
+  optional .Battlenet.EntityId game_account_id = 3;
+  optional .Battlenet.EntityId account_id = 4;
+  optional .Battlenet.ProcessId host = 5;
+}
+
+message GetPlayerVariablesRequest {
+  repeated .Battlenet.game_utilities.PlayerVariables player_variables = 1;
+  optional .Battlenet.ProcessId host = 2;
+}
+
+message GetPlayerVariablesResponse {
+  repeated .Battlenet.game_utilities.PlayerVariables player_variables = 1;
+}
+
+message GameAccountOnlineNotification {
+  required .Battlenet.EntityId game_account_id = 1;
+  optional .Battlenet.ProcessId host = 2;
+  optional string session_id = 3;
+}
+
+message GameAccountOfflineNotification {
+  required .Battlenet.EntityId game_account_id = 1;
+  optional .Battlenet.ProcessId host = 2;
+  optional string session_id = 3;
+}
+
+message GetAchievementsFileRequest {
+  optional .Battlenet.ProcessId host = 1;
+}
+
+message GetAchievementsFileResponse {
+  optional .Battlenet.ContentHandle content_handle = 1;
+}
+
+message GetAllValuesForAttributeRequest {
+  optional string attribute_key = 1;
+  optional .Battlenet.EntityId agent_id = 2;
+  optional fixed32 program = 5;
+}
+
+message GetAllValuesForAttributeResponse {
+  repeated .Battlenet.Variant attribute_value = 1;
+}
+
+service GameUtilitiesService {
+  option (.Battlenet.original_fully_qualified_descriptor_name) = "bnet.protocol.game_utilities.GameUtilities";
+  rpc ProcessClientRequest(.Battlenet.game_utilities.ClientRequest) returns (.Battlenet.game_utilities.ClientResponse) {
+    option (.Battlenet.method_id) = 1;
+  }
+  rpc PresenceChannelCreated(.Battlenet.game_utilities.PresenceChannelCreatedRequest) returns (.Battlenet.NoData) {
+    option (.Battlenet.method_id) = 2;
+  }
+  rpc GetPlayerVariables(.Battlenet.game_utilities.GetPlayerVariablesRequest) returns (.Battlenet.game_utilities.GetPlayerVariablesResponse) {
+    option (.Battlenet.method_id) = 3;
+  }
+  rpc ProcessServerRequest(.Battlenet.game_utilities.ServerRequest) returns (.Battlenet.game_utilities.ServerResponse) {
+    option (.Battlenet.method_id) = 6;
+  }
+  rpc OnGameAccountOnline(.Battlenet.game_utilities.GameAccountOnlineNotification) returns (.Battlenet.NO_RESPONSE) {
+    option (.Battlenet.method_id) = 7;
+  }
+  rpc OnGameAccountOffline(.Battlenet.game_utilities.GameAccountOfflineNotification) returns (.Battlenet.NO_RESPONSE) {
+    option (.Battlenet.method_id) = 8;
+  }
+  rpc GetAchievementsFile(.Battlenet.game_utilities.GetAchievementsFileRequest) returns (.Battlenet.game_utilities.GetAchievementsFileResponse) {
+    option (.Battlenet.method_id) = 9;
+  }
+  rpc GetAllValuesForAttribute(.Battlenet.game_utilities.GetAllValuesForAttributeRequest) returns (.Battlenet.game_utilities.GetAllValuesForAttributeResponse) {
+    option (.Battlenet.method_id) = 10;
+  }
+}
+
+

@@ -131,7 +131,7 @@ private:
 
     ConnectionType _type;
 
-    uint32 _authSeed;
+    BigNumber _authSeed;
     WorldPacketCrypt _authCrypt;
     BigNumber _encryptSeed;
     BigNumber _decryptSeed;

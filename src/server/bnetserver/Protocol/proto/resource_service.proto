@@ -1,0 +1,23 @@
+syntax = "proto2";
+
+import "content_handle_types.proto";
+import "rpc_types.proto";
+package Battlenet.resources;
+
+option optimize_for = CODE_SIZE;
+option cc_generic_services = false;
+
+message ContentHandleRequest {
+  required fixed32 program = 1;
+  required fixed32 stream = 2;
+  optional fixed32 version = 3 [default = 1701729619];
+}
+
+service ResourcesService {
+  option (.Battlenet.original_fully_qualified_descriptor_name) = "bnet.protocol.resources.Resources";
+  rpc GetContentHandle(.Battlenet.resources.ContentHandleRequest) returns (.Battlenet.ContentHandle) {
+    option (.Battlenet.method_id) = 1;
+  }
+}
+
+

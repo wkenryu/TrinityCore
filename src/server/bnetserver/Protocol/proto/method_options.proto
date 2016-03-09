@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+import "google/protobuf/descriptor.proto";
+package Battlenet;
+
+option optimize_for = CODE_SIZE;
+
+extend .google.protobuf.MethodOptions {
+  optional uint32 method_id = 50000;
+}
+
+

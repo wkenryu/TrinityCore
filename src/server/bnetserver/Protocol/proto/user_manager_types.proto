@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+import "entity_types.proto";
+import "attribute_types.proto";
+package Battlenet.user_manager;
+
+option optimize_for = CODE_SIZE;
+
+message RecentPlayer {
+  required .Battlenet.EntityId entity_id = 1;
+  optional string program = 2;
+  optional fixed64 timestamp_played = 3;
+  repeated .Battlenet.Attribute attributes = 4;
+  optional fixed32 id = 5 [default = 0];
+  optional fixed32 counter = 6 [default = 0];
+}
+
+message BlockedPlayer {
+  required .Battlenet.EntityId account_id = 1;
+  optional string name = 2;
+  repeated uint32 role = 3 [packed = true];
+  optional uint64 privileges = 4 [default = 0];
+}
+
+

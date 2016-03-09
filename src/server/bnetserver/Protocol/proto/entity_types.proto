@@ -1,0 +1,27 @@
+syntax = "proto2";
+
+import "field_options.proto";
+package Battlenet;
+
+option optimize_for = CODE_SIZE;
+
+message EntityId {
+  required fixed64 high = 1 [(.Battlenet.log) = HEX];
+  required fixed64 low = 2 [(.Battlenet.log) = HEX];
+}
+
+message Identity {
+  optional .Battlenet.EntityId account_id = 1;
+  optional .Battlenet.EntityId game_account_id = 2;
+}
+
+message AccountInfo {
+  optional bool account_paid = 1 [default = false];
+  optional fixed32 country_id = 2 [default = 0];
+  optional string battle_tag = 3;
+  optional bool manual_review = 4 [default = false];
+  optional .Battlenet.Identity identity = 5;
+  optional bool account_muted = 6 [default = false];
+}
+
+

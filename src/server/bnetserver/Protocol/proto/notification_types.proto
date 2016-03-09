@@ -1,0 +1,35 @@
+syntax = "proto2";
+
+import "account_types.proto";
+import "attribute_types.proto";
+import "entity_types.proto";
+import "rpc_types.proto";
+package Battlenet.notification;
+
+option optimize_for = CODE_SIZE;
+
+message Target {
+  optional .Battlenet.account.Identity identity = 1;
+  optional string type = 2;
+}
+
+message Subscription {
+  repeated .Battlenet.notification.Target target = 1;
+  optional .Battlenet.account.Identity subscriber = 2;
+  optional bool delivery_required = 3 [default = false];
+}
+
+message Notification {
+  optional .Battlenet.EntityId sender_id = 1;
+  required .Battlenet.EntityId target_id = 2;
+  required string type = 3;
+  repeated .Battlenet.Attribute attribute = 4;
+  optional .Battlenet.EntityId sender_account_id = 5;
+  optional .Battlenet.EntityId target_account_id = 6;
+  optional string sender_battle_tag = 7;
+  optional string target_battle_tag = 8;
+  optional .Battlenet.ProcessId peer = 9;
+  optional .Battlenet.account.Identity forwarding_identity = 10;
+}
+
+

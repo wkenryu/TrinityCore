@@ -1,0 +1,31 @@
+syntax = "proto2";
+
+import "attribute_types.proto";
+import "entity_types.proto";
+import "rpc_types.proto";
+package Battlenet.report;
+
+option optimize_for = CODE_SIZE;
+option cc_generic_services = false;
+
+message Report {
+  required string report_type = 1;
+  repeated .Battlenet.Attribute attribute = 2;
+  optional int32 report_qos = 3 [default = 0];
+  optional .Battlenet.EntityId reporting_account = 4;
+  optional .Battlenet.EntityId reporting_game_account = 5;
+  optional fixed64 report_timestamp = 6;
+}
+
+message SendReportRequest {
+  required .Battlenet.report.Report report = 1;
+}
+
+service ReportService {
+  option (.Battlenet.original_fully_qualified_descriptor_name) = "bnet.protocol.report.ReportService";
+  rpc SendReport(.Battlenet.report.SendReportRequest) returns (.Battlenet.NoData) {
+    option (.Battlenet.method_id) = 1;
+  }
+}
+
+

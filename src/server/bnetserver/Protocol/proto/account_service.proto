@@ -1,0 +1,269 @@
+syntax = "proto2";
+
+import "account_types.proto";
+import "entity_types.proto";
+import "rpc_types.proto";
+package Battlenet.account;
+
+option optimize_for = SPEED;
+option cc_generic_services = true;
+
+message GetAccountRequest {
+  optional .Battlenet.account.AccountReference ref = 1;
+  optional bool fetch_all = 10 [default = false];
+  optional bool fetch_blob = 11 [default = false];
+  optional bool fetch_id = 12 [default = false];
+  optional bool fetch_email = 13 [default = false];
+  optional bool fetch_battle_tag = 14 [default = false];
+  optional bool fetch_full_name = 15 [default = false];
+  optional bool fetch_links = 16 [default = false];
+  optional bool fetch_parental_controls = 17 [default = false];
+}
+
+message GetAccountResponse {
+  optional .Battlenet.account.AccountBlob blob = 11;
+  optional .Battlenet.account.AccountId id = 12;
+  repeated string email = 13;
+  optional string battle_tag = 14;
+  optional string full_name = 15;
+  repeated .Battlenet.account.GameAccountLink links = 16;
+  optional .Battlenet.account.ParentalControlInfo parental_control_info = 17;
+}
+
+message CreateGameAccountRequest {
+  optional .Battlenet.account.AccountId account = 1;
+  optional uint32 region = 2;
+  optional fixed32 program = 3;
+  optional uint32 realm_permissions = 4 [default = 1];
+}
+
+message CacheExpireRequest {
+  repeated .Battlenet.account.AccountId account = 1;
+  repeated .Battlenet.account.GameAccountHandle game_account = 2;
+  repeated string email = 3;
+}
+
+message CredentialUpdateRequest {
+  required .Battlenet.account.AccountId account = 1;
+  repeated .Battlenet.account.AccountCredential old_credentials = 2;
+  repeated .Battlenet.account.AccountCredential new_credentials = 3;
+  optional uint32 region = 4;
+}
+
+message CredentialUpdateResponse {
+}
+
+message AccountFlagUpdateRequest {
+  optional .Battlenet.account.AccountId account = 1;
+  optional uint32 region = 2;
+  optional uint64 flag = 3;
+  optional bool active = 4;
+}
+
+message GameAccountFlagUpdateRequest {
+  optional .Battlenet.account.GameAccountHandle game_account = 1;
+  optional uint64 flag = 2;
+  optional bool active = 3;
+}
+
+message SubscriptionUpdateRequest {
+  repeated .Battlenet.account.SubscriberReference ref = 2;
+}
+
+message SubscriptionUpdateResponse {
+  repeated .Battlenet.account.SubscriberReference ref = 1;
+}
+
+message IsIgrAddressRequest {
+  optional string client_address = 1;
+  optional uint32 region = 2;
+}
+
+message AccountServiceRegion {
+  required uint32 id = 1;
+  required string shard = 2;
+}
+
+message AccountServiceConfig {
+  repeated .Battlenet.account.AccountServiceRegion region = 1;
+}
+
+message GetAccountStateRequest {
+  optional .Battlenet.EntityId entity_id = 1;
+  optional uint32 program = 2;
+  optional uint32 region = 3;
+  optional .Battlenet.account.AccountFieldOptions options = 10;
+  optional .Battlenet.account.AccountFieldTags tags = 11;
+}
+
+message GetAccountStateResponse {
+  optional .Battlenet.account.AccountState state = 1;
+  optional .Battlenet.account.AccountFieldTags tags = 2;
+}
+
+message GetGameAccountStateRequest {
+  optional .Battlenet.EntityId account_id = 1 [deprecated = true];
+  optional .Battlenet.EntityId game_account_id = 2;
+  optional .Battlenet.account.GameAccountFieldOptions options = 10;
+  optional .Battlenet.account.GameAccountFieldTags tags = 11;
+}
+
+message GetGameAccountStateResponse {
+  optional .Battlenet.account.GameAccountState state = 1;
+  optional .Battlenet.account.GameAccountFieldTags tags = 2;
+}
+
+message GetLicensesRequest {
+  optional .Battlenet.EntityId target_id = 1;
+  optional bool fetch_account_licenses = 2;
+  optional bool fetch_game_account_licenses = 3;
+  optional bool fetch_dynamic_account_licenses = 4;
+  optional fixed32 program = 5;
+  optional bool exclude_unknown_program = 6 [default = false];
+}
+
+message GetLicensesResponse {
+  repeated .Battlenet.account.AccountLicense licenses = 1;
+}
+
+message GetGameSessionInfoRequest {
+  optional .Battlenet.EntityId entity_id = 1;
+}
+
+message GetGameSessionInfoResponse {
+  optional .Battlenet.account.GameSessionInfo session_info = 2;
+}
+
+message GetGameTimeRemainingInfoRequest {
+  optional .Battlenet.EntityId game_account_id = 1;
+  optional .Battlenet.EntityId account_id = 2;
+}
+
+message GetGameTimeRemainingInfoResponse {
+  optional .Battlenet.account.GameTimeRemainingInfo game_time_remaining_info = 1;
+}
+
+message GetCAISInfoRequest {
+  optional .Battlenet.EntityId entity_id = 1;
+}
+
+message GetCAISInfoResponse {
+  optional .Battlenet.account.CAIS cais_info = 1;
+}
+
+message ForwardCacheExpireRequest {
+  optional .Battlenet.EntityId entity_id = 1;
+}
+
+message GetAuthorizedDataRequest {
+  optional .Battlenet.EntityId entity_id = 1;
+  repeated string tag = 2;
+  optional bool privileged_network = 3;
+}
+
+message GetAuthorizedDataResponse {
+  repeated .Battlenet.account.AuthorizedData data = 1;
+}
+
+message AccountStateNotification {
+  optional .Battlenet.account.AccountState account_state = 1;
+  optional uint64 subscriber_id = 2;
+  optional .Battlenet.account.AccountFieldTags account_tags = 3;
+  optional bool subscription_completed = 4;
+}
+
+message GameAccountStateNotification {
+  optional .Battlenet.account.GameAccountState game_account_state = 1;
+  optional uint64 subscriber_id = 2;
+  optional .Battlenet.account.GameAccountFieldTags game_account_tags = 3;
+  optional bool subscription_completed = 4;
+}
+
+message GameAccountNotification {
+  repeated .Battlenet.account.GameAccountList game_accounts = 1;
+  optional uint64 subscriber_id = 2;
+  optional .Battlenet.account.AccountFieldTags account_tags = 3;
+}
+
+message GameAccountSessionNotification {
+  optional .Battlenet.account.GameAccountHandle game_account = 1;
+  optional .Battlenet.account.GameSessionUpdateInfo session_info = 2;
+}
+
+service AccountService {
+  option (.Battlenet.original_fully_qualified_descriptor_name) = "bnet.protocol.account.AccountService";
+  rpc GetGameAccount(.Battlenet.account.GameAccountHandle) returns (.Battlenet.account.GameAccountBlob) {
+    option (.Battlenet.method_id) = 12;
+  }
+  rpc GetAccount(.Battlenet.account.GetAccountRequest) returns (.Battlenet.account.GetAccountResponse) {
+    option (.Battlenet.method_id) = 13;
+  }
+  rpc CreateGameAccount(.Battlenet.account.CreateGameAccountRequest) returns (.Battlenet.account.GameAccountHandle) {
+    option (.Battlenet.method_id) = 14;
+  }
+  rpc IsIgrAddress(.Battlenet.account.IsIgrAddressRequest) returns (.Battlenet.NoData) {
+    option (.Battlenet.method_id) = 15;
+  }
+  rpc CacheExpire(.Battlenet.account.CacheExpireRequest) returns (.Battlenet.NO_RESPONSE) {
+    option (.Battlenet.method_id) = 20;
+  }
+  rpc CredentialUpdate(.Battlenet.account.CredentialUpdateRequest) returns (.Battlenet.account.CredentialUpdateResponse) {
+    option (.Battlenet.method_id) = 21;
+  }
+  rpc Subscribe(.Battlenet.account.SubscriptionUpdateRequest) returns (.Battlenet.account.SubscriptionUpdateResponse) {
+    option (.Battlenet.method_id) = 25;
+  }
+  rpc Unsubscribe(.Battlenet.account.SubscriptionUpdateRequest) returns (.Battlenet.NoData) {
+    option (.Battlenet.method_id) = 26;
+  }
+  rpc GetAccountState(.Battlenet.account.GetAccountStateRequest) returns (.Battlenet.account.GetAccountStateResponse) {
+    option (.Battlenet.method_id) = 30;
+  }
+  rpc GetGameAccountState(.Battlenet.account.GetGameAccountStateRequest) returns (.Battlenet.account.GetGameAccountStateResponse) {
+    option (.Battlenet.method_id) = 31;
+  }
+  rpc GetLicenses(.Battlenet.account.GetLicensesRequest) returns (.Battlenet.account.GetLicensesResponse) {
+    option (.Battlenet.method_id) = 32;
+  }
+  rpc GetGameTimeRemainingInfo(.Battlenet.account.GetGameTimeRemainingInfoRequest) returns (.Battlenet.account.GetGameTimeRemainingInfoResponse) {
+    option (.Battlenet.method_id) = 33;
+  }
+  rpc GetGameSessionInfo(.Battlenet.account.GetGameSessionInfoRequest) returns (.Battlenet.account.GetGameSessionInfoResponse) {
+    option (.Battlenet.method_id) = 34;
+  }
+  rpc GetCAISInfo(.Battlenet.account.GetCAISInfoRequest) returns (.Battlenet.account.GetCAISInfoResponse) {
+    option (.Battlenet.method_id) = 35;
+  }
+  rpc ForwardCacheExpire(.Battlenet.account.ForwardCacheExpireRequest) returns (.Battlenet.NoData) {
+    option (.Battlenet.method_id) = 36;
+  }
+  rpc GetAuthorizedData(.Battlenet.account.GetAuthorizedDataRequest) returns (.Battlenet.account.GetAuthorizedDataResponse) {
+    option (.Battlenet.method_id) = 37;
+  }
+  rpc AccountFlagUpdate(.Battlenet.account.AccountFlagUpdateRequest) returns (.Battlenet.NO_RESPONSE) {
+    option (.Battlenet.method_id) = 38;
+  }
+  rpc GameAccountFlagUpdate(.Battlenet.account.GameAccountFlagUpdateRequest) returns (.Battlenet.NO_RESPONSE) {
+    option (.Battlenet.method_id) = 39;
+  }
+}
+
+service AccountListener {
+  option (.Battlenet.original_fully_qualified_descriptor_name) = "bnet.protocol.account.AccountNotify";
+  rpc OnAccountStateUpdated(.Battlenet.account.AccountStateNotification) returns (.Battlenet.NO_RESPONSE) {
+    option (.Battlenet.method_id) = 1;
+  }
+  rpc OnGameAccountStateUpdated(.Battlenet.account.GameAccountStateNotification) returns (.Battlenet.NO_RESPONSE) {
+    option (.Battlenet.method_id) = 2;
+  }
+  rpc OnGameAccountsUpdated(.Battlenet.account.GameAccountNotification) returns (.Battlenet.NO_RESPONSE) {
+    option deprecated = true;
+    option (.Battlenet.method_id) = 3;
+  }
+  rpc OnGameSessionUpdated(.Battlenet.account.GameAccountSessionNotification) returns (.Battlenet.NO_RESPONSE) {
+    option deprecated = true;
+    option (.Battlenet.method_id) = 4;
+  }
+}
+
+

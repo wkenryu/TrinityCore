@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+import "google/protobuf/descriptor.proto";
+package Battlenet;
+
+option optimize_for = CODE_SIZE;
+
+extend .google.protobuf.ServiceOptions {
+  optional string original_fully_qualified_descriptor_name = 1001;
+  optional uint32 service_id = 50000;
+}
+
+

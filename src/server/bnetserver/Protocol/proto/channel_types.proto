@@ -1,0 +1,85 @@
+syntax = "proto2";
+
+import "attribute_types.proto";
+import "entity_types.proto";
+import "invitation_types.proto";
+import "rpc_types.proto";
+package Battlenet.channel;
+
+option optimize_for = CODE_SIZE;
+
+message ChannelId {
+  optional uint32 type = 1;
+  optional .Battlenet.ProcessId host = 2;
+  optional fixed32 id = 3;
+}
+
+message Message {
+  repeated .Battlenet.Attribute attribute = 1;
+  optional uint32 role = 2;
+  extensions 100 to 9999;
+}
+
+message ListChannelsOptions {
+  optional uint32 start_index = 1 [default = 0];
+  optional uint32 max_results = 2 [default = 16];
+  optional string name = 3;
+  optional fixed32 program = 4;
+  optional fixed32 locale = 5;
+  optional uint32 capacity_full = 6;
+  required .Battlenet.AttributeFilter attribute_filter = 7;
+  optional string channel_type = 8;
+  extensions 100 to 9999;
+}
+
+message ChannelDescription {
+  required .Battlenet.EntityId channel_id = 1;
+  optional uint32 current_members = 2;
+  optional .Battlenet.channel.ChannelState state = 3;
+}
+
+message ChannelInfo {
+  required .Battlenet.channel.ChannelDescription description = 1;
+  repeated .Battlenet.channel.Member member = 2;
+  extensions 100 to 9999;
+}
+
+message ChannelState {
+  enum PrivacyLevel {
+    PRIVACY_LEVEL_OPEN = 1;
+    PRIVACY_LEVEL_OPEN_INVITATION_AND_FRIEND = 2;
+    PRIVACY_LEVEL_OPEN_INVITATION = 3;
+    PRIVACY_LEVEL_CLOSED = 4;
+  }
+  optional uint32 max_members = 1;
+  optional uint32 min_members = 2;
+  repeated .Battlenet.Attribute attribute = 3;
+  repeated .Battlenet.Invitation invitation = 4;
+  optional uint32 max_invitations = 5;
+  optional uint32 reason = 6;
+  optional .Battlenet.channel.ChannelState.PrivacyLevel privacy_level = 7 [default = PRIVACY_LEVEL_OPEN];
+  optional string name = 8;
+  optional string delegate_name = 9;
+  optional string channel_type = 10 [default = "default"];
+  optional fixed32 program = 11 [default = 0];
+  optional bool allow_offline_members = 12 [default = false];
+  optional bool subscribe_to_presence = 13 [default = true];
+  optional bool destroy_on_founder_leave = 14 [default = false];
+  extensions 100 to 9999;
+}
+
+message MemberState {
+  repeated .Battlenet.Attribute attribute = 1;
+  repeated uint32 role = 2 [packed = true];
+  optional uint64 privileges = 3 [default = 0];
+  optional .Battlenet.AccountInfo info = 4;
+  optional bool DEPRECATED_hidden = 5 [default = false, deprecated = true];
+  extensions 100 to 9999;
+}
+
+message Member {
+  required .Battlenet.Identity identity = 1;
+  required .Battlenet.channel.MemberState state = 2;
+}
+
+

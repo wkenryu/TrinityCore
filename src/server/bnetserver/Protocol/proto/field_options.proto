@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+import "google/protobuf/descriptor.proto";
+package Battlenet;
+
+option optimize_for = CODE_SIZE;
+
+enum LogOption {
+  HIDDEN = 1;
+  HEX = 2;
+}
+
+extend .google.protobuf.FieldOptions {
+  optional .Battlenet.LogOption log = 50000;
+}
+
+
