@@ -225,14 +225,21 @@ uint32 CreatePIDFile(const std::string& filename)
     if (pid_file == NULL)
         return 0;
 
+    uint32 pid = GetPID();
+
+    fprintf(pid_file, "%u", pid );
+    fclose(pid_file);
+
+    return (uint32)pid;
+}
+
+uint32 GetPID()
+{
 #ifdef _WIN32
     DWORD pid = GetCurrentProcessId();
 #else
     pid_t pid = getpid();
 #endif
-
-    fprintf(pid_file, "%u", pid );
-    fclose(pid_file);
 
     return (uint32)pid;
 }
