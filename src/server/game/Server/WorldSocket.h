@@ -52,13 +52,13 @@ union ClientPktHeader
     struct
     {
         uint16 Size;
-        uint32 Command;
+        uint16 Command;
     } Setup;
 
     struct
     {
-        uint32 Command : 13;
-        uint32 Size : 19;
+        uint32 Size;
+        uint16 Command;
     } Normal;
 
     static bool IsValidSize(uint32 size) { return size < 10240; }
@@ -107,6 +107,7 @@ protected:
     ReadDataHandlerResult ReadDataHandler();
 private:
     void CheckIpCallback(PreparedQueryResult result);
+    void InitializeHandler(boost::system::error_code error, std::size_t transferedBytes);
 
     /// writes network.opcode log
     /// accessing WorldSession is not threadsafe, only do it when holding _worldSessionLock
@@ -147,8 +148,6 @@ private:
     MPSCQueue<EncryptablePacket> _bufferQueue;
 
     z_stream_s* _compressionStream;
-
-    bool _initialized;
 
     PreparedQueryResultFuture _queryFuture;
     std::function<void(PreparedQueryResult&&)> _queryCallback;
