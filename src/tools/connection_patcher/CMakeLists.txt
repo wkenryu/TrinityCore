@@ -48,8 +48,13 @@ target_link_libraries(connection_patcher
   ${Boost_LIBRARIES}
 )
 
+
 if (UNIX)
+  set(connection_patcher_install_dest "bin")
   install(TARGETS connection_patcher DESTINATION bin)
 elseif (WIN32)
-  install(TARGETS connection_patcher DESTINATION "${CMAKE_INSTALL_PREFIX}")
+  set(connection_patcher_install_dest "${CMAKE_INSTALL_PREFIX}")
 endif ()
+
+install(TARGETS connection_patcher DESTINATION ${connection_patcher_install_dest})
+install(FILES tc_bundle.txt DESTINATION ${connection_patcher_install_dest})
