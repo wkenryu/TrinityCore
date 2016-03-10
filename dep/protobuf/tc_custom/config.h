@@ -5,3 +5,7 @@
 
 /* define if the compiler has hash_set */
 //#define HAVE_HASH_SET 1
+
+#if !defined(_MSC_VER)
+#define HAVE_PTHREAD
+#endif

@@ -1,0 +1,13 @@
+diff --git a/dep/protobuf/src/google/protobuf/repeated_field.h b/dep/protobuf/src/google/protobuf/repeated_field.h
+index 5005183..c4dced3 100644
+--- a/dep/protobuf/src/google/protobuf/repeated_field.h
++++ b/dep/protobuf/src/google/protobuf/repeated_field.h
+@@ -83,7 +83,7 @@ inline int CalculateReserve(Iter begin, Iter end, std::forward_iterator_tag) {
+ }
+ 
+ template <typename Iter>
+-inline int CalculateReserve(Iter begin, Iter end, std::input_iterator_tag) {
++inline int CalculateReserve(Iter /*begin*/, Iter /*end*/, std::input_iterator_tag) {
+   return -1;
+ }
+ 
