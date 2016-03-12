@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -297,7 +298,7 @@ void protobuf_AddDesc_invitation_5ftypes_2eproto() {
     "id\030\003 \002(\006\022\024\n\014invitee_name\030\004 \001(\t\022\024\n\014invite"
     "r_name\030\005 \001(\t\022\031\n\rprevious_role\030\006 \003(\rB\002\020\001\022"
     "\030\n\014desired_role\030\007 \003(\rB\002\020\001\022\016\n\006reason\030\010 \001("
-    "\rB\002H\002", 1445);
+    "\rB\002H\001", 1445);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "invitation_types.proto", &protobuf_RegisterTypes);
   Invitation::default_instance_ = new Invitation();
@@ -413,9 +414,513 @@ Invitation* Invitation::New() const {
   return new Invitation;
 }
 
+void Invitation::Clear() {
+  _extensions_.Clear();
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<Invitation*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 255) {
+    ZR_(creation_time_, expiration_time_);
+    id_ = GOOGLE_ULONGLONG(0);
+    if (has_inviter_identity()) {
+      if (inviter_identity_ != NULL) inviter_identity_->::Battlenet::Identity::Clear();
+    }
+    if (has_invitee_identity()) {
+      if (invitee_identity_ != NULL) invitee_identity_->::Battlenet::Identity::Clear();
+    }
+    if (has_inviter_name()) {
+      if (inviter_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        inviter_name_->clear();
+      }
+    }
+    if (has_invitee_name()) {
+      if (invitee_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        invitee_name_->clear();
+      }
+    }
+    if (has_invitation_message()) {
+      if (invitation_message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        invitation_message_->clear();
+      }
+    }
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool Invitation::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.Invitation)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required fixed64 id = 1;
+      case 1: {
+        if (tag == 9) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED64>(
+                 input, &id_)));
+          set_has_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_inviter_identity;
+        break;
+      }
+
+      // required .Battlenet.Identity inviter_identity = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_inviter_identity:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_inviter_identity()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_invitee_identity;
+        break;
+      }
+
+      // required .Battlenet.Identity invitee_identity = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_invitee_identity:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_invitee_identity()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_inviter_name;
+        break;
+      }
+
+      // optional string inviter_name = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_inviter_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_inviter_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->inviter_name().data(), this->inviter_name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "inviter_name");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_invitee_name;
+        break;
+      }
+
+      // optional string invitee_name = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_invitee_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_invitee_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->invitee_name().data(), this->invitee_name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "invitee_name");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_invitation_message;
+        break;
+      }
+
+      // optional string invitation_message = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_invitation_message:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_invitation_message()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->invitation_message().data(), this->invitation_message().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "invitation_message");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(56)) goto parse_creation_time;
+        break;
+      }
+
+      // optional uint64 creation_time = 7;
+      case 7: {
+        if (tag == 56) {
+         parse_creation_time:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &creation_time_)));
+          set_has_creation_time();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(64)) goto parse_expiration_time;
+        break;
+      }
+
+      // optional uint64 expiration_time = 8;
+      case 8: {
+        if (tag == 64) {
+         parse_expiration_time:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &expiration_time_)));
+          set_has_expiration_time();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        if ((800u <= tag && tag < 80000u)) {
+          DO_(_extensions_.ParseField(tag, input, default_instance_,
+                                      mutable_unknown_fields()));
+          continue;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.Invitation)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.Invitation)
+  return false;
+#undef DO_
+}
+
+void Invitation::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.Invitation)
+  // required fixed64 id = 1;
+  if (has_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed64(1, this->id(), output);
+  }
+
+  // required .Battlenet.Identity inviter_identity = 2;
+  if (has_inviter_identity()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->inviter_identity(), output);
+  }
+
+  // required .Battlenet.Identity invitee_identity = 3;
+  if (has_invitee_identity()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->invitee_identity(), output);
+  }
+
+  // optional string inviter_name = 4;
+  if (has_inviter_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->inviter_name().data(), this->inviter_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "inviter_name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->inviter_name(), output);
+  }
+
+  // optional string invitee_name = 5;
+  if (has_invitee_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->invitee_name().data(), this->invitee_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "invitee_name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->invitee_name(), output);
+  }
+
+  // optional string invitation_message = 6;
+  if (has_invitation_message()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->invitation_message().data(), this->invitation_message().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "invitation_message");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      6, this->invitation_message(), output);
+  }
+
+  // optional uint64 creation_time = 7;
+  if (has_creation_time()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(7, this->creation_time(), output);
+  }
+
+  // optional uint64 expiration_time = 8;
+  if (has_expiration_time()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(8, this->expiration_time(), output);
+  }
+
+  // Extension range [100, 10000)
+  _extensions_.SerializeWithCachedSizes(
+      100, 10000, output);
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.Invitation)
+}
+
+::google::protobuf::uint8* Invitation::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.Invitation)
+  // required fixed64 id = 1;
+  if (has_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed64ToArray(1, this->id(), target);
+  }
+
+  // required .Battlenet.Identity inviter_identity = 2;
+  if (has_inviter_identity()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->inviter_identity(), target);
+  }
+
+  // required .Battlenet.Identity invitee_identity = 3;
+  if (has_invitee_identity()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->invitee_identity(), target);
+  }
+
+  // optional string inviter_name = 4;
+  if (has_inviter_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->inviter_name().data(), this->inviter_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "inviter_name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->inviter_name(), target);
+  }
+
+  // optional string invitee_name = 5;
+  if (has_invitee_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->invitee_name().data(), this->invitee_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "invitee_name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->invitee_name(), target);
+  }
+
+  // optional string invitation_message = 6;
+  if (has_invitation_message()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->invitation_message().data(), this->invitation_message().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "invitation_message");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        6, this->invitation_message(), target);
+  }
+
+  // optional uint64 creation_time = 7;
+  if (has_creation_time()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(7, this->creation_time(), target);
+  }
+
+  // optional uint64 expiration_time = 8;
+  if (has_expiration_time()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(8, this->expiration_time(), target);
+  }
+
+  // Extension range [100, 10000)
+  target = _extensions_.SerializeWithCachedSizesToArray(
+      100, 10000, target);
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.Invitation)
+  return target;
+}
+
+int Invitation::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required fixed64 id = 1;
+    if (has_id()) {
+      total_size += 1 + 8;
+    }
+
+    // required .Battlenet.Identity inviter_identity = 2;
+    if (has_inviter_identity()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->inviter_identity());
+    }
+
+    // required .Battlenet.Identity invitee_identity = 3;
+    if (has_invitee_identity()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->invitee_identity());
+    }
+
+    // optional string inviter_name = 4;
+    if (has_inviter_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->inviter_name());
+    }
+
+    // optional string invitee_name = 5;
+    if (has_invitee_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->invitee_name());
+    }
+
+    // optional string invitation_message = 6;
+    if (has_invitation_message()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->invitation_message());
+    }
+
+    // optional uint64 creation_time = 7;
+    if (has_creation_time()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->creation_time());
+    }
+
+    // optional uint64 expiration_time = 8;
+    if (has_expiration_time()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->expiration_time());
+    }
+
+  }
+  total_size += _extensions_.ByteSize();
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Invitation::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const Invitation* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Invitation*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Invitation::MergeFrom(const Invitation& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_id()) {
+      set_id(from.id());
+    }
+    if (from.has_inviter_identity()) {
+      mutable_inviter_identity()->::Battlenet::Identity::MergeFrom(from.inviter_identity());
+    }
+    if (from.has_invitee_identity()) {
+      mutable_invitee_identity()->::Battlenet::Identity::MergeFrom(from.invitee_identity());
+    }
+    if (from.has_inviter_name()) {
+      set_inviter_name(from.inviter_name());
+    }
+    if (from.has_invitee_name()) {
+      set_invitee_name(from.invitee_name());
+    }
+    if (from.has_invitation_message()) {
+      set_invitation_message(from.invitation_message());
+    }
+    if (from.has_creation_time()) {
+      set_creation_time(from.creation_time());
+    }
+    if (from.has_expiration_time()) {
+      set_expiration_time(from.expiration_time());
+    }
+  }
+  _extensions_.MergeFrom(from._extensions_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void Invitation::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Invitation::CopyFrom(const Invitation& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Invitation::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+
+  if (has_inviter_identity()) {
+    if (!this->inviter_identity().IsInitialized()) return false;
+  }
+  if (has_invitee_identity()) {
+    if (!this->invitee_identity().IsInitialized()) return false;
+  }
+
+  if (!_extensions_.IsInitialized()) return false;  return true;
+}
+
 void Invitation::Swap(Invitation* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(id_, other->id_);
+    std::swap(inviter_identity_, other->inviter_identity_);
+    std::swap(invitee_identity_, other->invitee_identity_);
+    std::swap(inviter_name_, other->inviter_name_);
+    std::swap(invitee_name_, other->invitee_name_);
+    std::swap(invitation_message_, other->invitation_message_);
+    std::swap(creation_time_, other->creation_time_);
+    std::swap(expiration_time_, other->expiration_time_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+    _extensions_.Swap(&other->_extensions_);
+  }
 }
 
 ::google::protobuf::Metadata Invitation::GetMetadata() const {
@@ -511,9 +1016,404 @@ InvitationSuggestion* InvitationSuggestion::New() const {
   return new InvitationSuggestion;
 }
 
+void InvitationSuggestion::Clear() {
+  if (_has_bits_[0 / 32] & 63) {
+    if (has_channel_id()) {
+      if (channel_id_ != NULL) channel_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_suggester_id()) {
+      if (suggester_id_ != NULL) suggester_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_suggestee_id()) {
+      if (suggestee_id_ != NULL) suggestee_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_suggester_name()) {
+      if (suggester_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        suggester_name_->clear();
+      }
+    }
+    if (has_suggestee_name()) {
+      if (suggestee_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        suggestee_name_->clear();
+      }
+    }
+    if (has_suggester_account_id()) {
+      if (suggester_account_id_ != NULL) suggester_account_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool InvitationSuggestion::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.InvitationSuggestion)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId channel_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_channel_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_suggester_id;
+        break;
+      }
+
+      // required .Battlenet.EntityId suggester_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_suggester_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_suggester_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_suggestee_id;
+        break;
+      }
+
+      // required .Battlenet.EntityId suggestee_id = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_suggestee_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_suggestee_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_suggester_name;
+        break;
+      }
+
+      // optional string suggester_name = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_suggester_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_suggester_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->suggester_name().data(), this->suggester_name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "suggester_name");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_suggestee_name;
+        break;
+      }
+
+      // optional string suggestee_name = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_suggestee_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_suggestee_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->suggestee_name().data(), this->suggestee_name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "suggestee_name");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_suggester_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId suggester_account_id = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_suggester_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_suggester_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.InvitationSuggestion)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.InvitationSuggestion)
+  return false;
+#undef DO_
+}
+
+void InvitationSuggestion::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.InvitationSuggestion)
+  // optional .Battlenet.EntityId channel_id = 1;
+  if (has_channel_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->channel_id(), output);
+  }
+
+  // required .Battlenet.EntityId suggester_id = 2;
+  if (has_suggester_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->suggester_id(), output);
+  }
+
+  // required .Battlenet.EntityId suggestee_id = 3;
+  if (has_suggestee_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->suggestee_id(), output);
+  }
+
+  // optional string suggester_name = 4;
+  if (has_suggester_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->suggester_name().data(), this->suggester_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "suggester_name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->suggester_name(), output);
+  }
+
+  // optional string suggestee_name = 5;
+  if (has_suggestee_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->suggestee_name().data(), this->suggestee_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "suggestee_name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->suggestee_name(), output);
+  }
+
+  // optional .Battlenet.EntityId suggester_account_id = 6;
+  if (has_suggester_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      6, this->suggester_account_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.InvitationSuggestion)
+}
+
+::google::protobuf::uint8* InvitationSuggestion::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.InvitationSuggestion)
+  // optional .Battlenet.EntityId channel_id = 1;
+  if (has_channel_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->channel_id(), target);
+  }
+
+  // required .Battlenet.EntityId suggester_id = 2;
+  if (has_suggester_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->suggester_id(), target);
+  }
+
+  // required .Battlenet.EntityId suggestee_id = 3;
+  if (has_suggestee_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->suggestee_id(), target);
+  }
+
+  // optional string suggester_name = 4;
+  if (has_suggester_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->suggester_name().data(), this->suggester_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "suggester_name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->suggester_name(), target);
+  }
+
+  // optional string suggestee_name = 5;
+  if (has_suggestee_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->suggestee_name().data(), this->suggestee_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "suggestee_name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->suggestee_name(), target);
+  }
+
+  // optional .Battlenet.EntityId suggester_account_id = 6;
+  if (has_suggester_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        6, this->suggester_account_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.InvitationSuggestion)
+  return target;
+}
+
+int InvitationSuggestion::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId channel_id = 1;
+    if (has_channel_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->channel_id());
+    }
+
+    // required .Battlenet.EntityId suggester_id = 2;
+    if (has_suggester_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->suggester_id());
+    }
+
+    // required .Battlenet.EntityId suggestee_id = 3;
+    if (has_suggestee_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->suggestee_id());
+    }
+
+    // optional string suggester_name = 4;
+    if (has_suggester_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->suggester_name());
+    }
+
+    // optional string suggestee_name = 5;
+    if (has_suggestee_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->suggestee_name());
+    }
+
+    // optional .Battlenet.EntityId suggester_account_id = 6;
+    if (has_suggester_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->suggester_account_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void InvitationSuggestion::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const InvitationSuggestion* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const InvitationSuggestion*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void InvitationSuggestion::MergeFrom(const InvitationSuggestion& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_channel_id()) {
+      mutable_channel_id()->::Battlenet::EntityId::MergeFrom(from.channel_id());
+    }
+    if (from.has_suggester_id()) {
+      mutable_suggester_id()->::Battlenet::EntityId::MergeFrom(from.suggester_id());
+    }
+    if (from.has_suggestee_id()) {
+      mutable_suggestee_id()->::Battlenet::EntityId::MergeFrom(from.suggestee_id());
+    }
+    if (from.has_suggester_name()) {
+      set_suggester_name(from.suggester_name());
+    }
+    if (from.has_suggestee_name()) {
+      set_suggestee_name(from.suggestee_name());
+    }
+    if (from.has_suggester_account_id()) {
+      mutable_suggester_account_id()->::Battlenet::EntityId::MergeFrom(from.suggester_account_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void InvitationSuggestion::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void InvitationSuggestion::CopyFrom(const InvitationSuggestion& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool InvitationSuggestion::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000006) != 0x00000006) return false;
+
+  if (has_channel_id()) {
+    if (!this->channel_id().IsInitialized()) return false;
+  }
+  if (has_suggester_id()) {
+    if (!this->suggester_id().IsInitialized()) return false;
+  }
+  if (has_suggestee_id()) {
+    if (!this->suggestee_id().IsInitialized()) return false;
+  }
+  if (has_suggester_account_id()) {
+    if (!this->suggester_account_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void InvitationSuggestion::Swap(InvitationSuggestion* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(channel_id_, other->channel_id_);
+    std::swap(suggester_id_, other->suggester_id_);
+    std::swap(suggestee_id_, other->suggestee_id_);
+    std::swap(suggester_name_, other->suggester_name_);
+    std::swap(suggestee_name_, other->suggestee_name_);
+    std::swap(suggester_account_id_, other->suggester_account_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata InvitationSuggestion::GetMetadata() const {
@@ -597,9 +1497,293 @@ InvitationTarget* InvitationTarget::New() const {
   return new InvitationTarget;
 }
 
+void InvitationTarget::Clear() {
+  _extensions_.Clear();
+  if (_has_bits_[0 / 32] & 7) {
+    if (has_identity()) {
+      if (identity_ != NULL) identity_->::Battlenet::Identity::Clear();
+    }
+    if (has_email()) {
+      if (email_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        email_->clear();
+      }
+    }
+    if (has_battle_tag()) {
+      if (battle_tag_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        battle_tag_->clear();
+      }
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool InvitationTarget::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.InvitationTarget)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.Identity identity = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_identity()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_email;
+        break;
+      }
+
+      // optional string email = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_email:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_email()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->email().data(), this->email().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "email");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_battle_tag;
+        break;
+      }
+
+      // optional string battle_tag = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_battle_tag:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_battle_tag()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->battle_tag().data(), this->battle_tag().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "battle_tag");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        if ((800u <= tag && tag < 80000u)) {
+          DO_(_extensions_.ParseField(tag, input, default_instance_,
+                                      mutable_unknown_fields()));
+          continue;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.InvitationTarget)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.InvitationTarget)
+  return false;
+#undef DO_
+}
+
+void InvitationTarget::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.InvitationTarget)
+  // optional .Battlenet.Identity identity = 1;
+  if (has_identity()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->identity(), output);
+  }
+
+  // optional string email = 2;
+  if (has_email()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->email().data(), this->email().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "email");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->email(), output);
+  }
+
+  // optional string battle_tag = 3;
+  if (has_battle_tag()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->battle_tag().data(), this->battle_tag().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "battle_tag");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->battle_tag(), output);
+  }
+
+  // Extension range [100, 10000)
+  _extensions_.SerializeWithCachedSizes(
+      100, 10000, output);
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.InvitationTarget)
+}
+
+::google::protobuf::uint8* InvitationTarget::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.InvitationTarget)
+  // optional .Battlenet.Identity identity = 1;
+  if (has_identity()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->identity(), target);
+  }
+
+  // optional string email = 2;
+  if (has_email()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->email().data(), this->email().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "email");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->email(), target);
+  }
+
+  // optional string battle_tag = 3;
+  if (has_battle_tag()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->battle_tag().data(), this->battle_tag().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "battle_tag");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->battle_tag(), target);
+  }
+
+  // Extension range [100, 10000)
+  target = _extensions_.SerializeWithCachedSizesToArray(
+      100, 10000, target);
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.InvitationTarget)
+  return target;
+}
+
+int InvitationTarget::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.Identity identity = 1;
+    if (has_identity()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->identity());
+    }
+
+    // optional string email = 2;
+    if (has_email()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->email());
+    }
+
+    // optional string battle_tag = 3;
+    if (has_battle_tag()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->battle_tag());
+    }
+
+  }
+  total_size += _extensions_.ByteSize();
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void InvitationTarget::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const InvitationTarget* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const InvitationTarget*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void InvitationTarget::MergeFrom(const InvitationTarget& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_identity()) {
+      mutable_identity()->::Battlenet::Identity::MergeFrom(from.identity());
+    }
+    if (from.has_email()) {
+      set_email(from.email());
+    }
+    if (from.has_battle_tag()) {
+      set_battle_tag(from.battle_tag());
+    }
+  }
+  _extensions_.MergeFrom(from._extensions_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void InvitationTarget::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void InvitationTarget::CopyFrom(const InvitationTarget& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool InvitationTarget::IsInitialized() const {
+
+  if (has_identity()) {
+    if (!this->identity().IsInitialized()) return false;
+  }
+
+  if (!_extensions_.IsInitialized()) return false;  return true;
+}
+
 void InvitationTarget::Swap(InvitationTarget* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(identity_, other->identity_);
+    std::swap(email_, other->email_);
+    std::swap(battle_tag_, other->battle_tag_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+    _extensions_.Swap(&other->_extensions_);
+  }
 }
 
 ::google::protobuf::Metadata InvitationTarget::GetMetadata() const {
@@ -676,9 +1860,233 @@ InvitationParams* InvitationParams::New() const {
   return new InvitationParams;
 }
 
+void InvitationParams::Clear() {
+  _extensions_.Clear();
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_invitation_message()) {
+      if (invitation_message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        invitation_message_->clear();
+      }
+    }
+    expiration_time_ = GOOGLE_ULONGLONG(0);
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool InvitationParams::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.InvitationParams)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string invitation_message = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_invitation_message()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->invitation_message().data(), this->invitation_message().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "invitation_message");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_expiration_time;
+        break;
+      }
+
+      // optional uint64 expiration_time = 2 [default = 0];
+      case 2: {
+        if (tag == 16) {
+         parse_expiration_time:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &expiration_time_)));
+          set_has_expiration_time();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        if ((800u <= tag && tag < 80000u)) {
+          DO_(_extensions_.ParseField(tag, input, default_instance_,
+                                      mutable_unknown_fields()));
+          continue;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.InvitationParams)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.InvitationParams)
+  return false;
+#undef DO_
+}
+
+void InvitationParams::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.InvitationParams)
+  // optional string invitation_message = 1;
+  if (has_invitation_message()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->invitation_message().data(), this->invitation_message().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "invitation_message");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->invitation_message(), output);
+  }
+
+  // optional uint64 expiration_time = 2 [default = 0];
+  if (has_expiration_time()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(2, this->expiration_time(), output);
+  }
+
+  // Extension range [100, 10000)
+  _extensions_.SerializeWithCachedSizes(
+      100, 10000, output);
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.InvitationParams)
+}
+
+::google::protobuf::uint8* InvitationParams::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.InvitationParams)
+  // optional string invitation_message = 1;
+  if (has_invitation_message()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->invitation_message().data(), this->invitation_message().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "invitation_message");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->invitation_message(), target);
+  }
+
+  // optional uint64 expiration_time = 2 [default = 0];
+  if (has_expiration_time()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(2, this->expiration_time(), target);
+  }
+
+  // Extension range [100, 10000)
+  target = _extensions_.SerializeWithCachedSizesToArray(
+      100, 10000, target);
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.InvitationParams)
+  return target;
+}
+
+int InvitationParams::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional string invitation_message = 1;
+    if (has_invitation_message()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->invitation_message());
+    }
+
+    // optional uint64 expiration_time = 2 [default = 0];
+    if (has_expiration_time()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->expiration_time());
+    }
+
+  }
+  total_size += _extensions_.ByteSize();
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void InvitationParams::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const InvitationParams* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const InvitationParams*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void InvitationParams::MergeFrom(const InvitationParams& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_invitation_message()) {
+      set_invitation_message(from.invitation_message());
+    }
+    if (from.has_expiration_time()) {
+      set_expiration_time(from.expiration_time());
+    }
+  }
+  _extensions_.MergeFrom(from._extensions_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void InvitationParams::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void InvitationParams::CopyFrom(const InvitationParams& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool InvitationParams::IsInitialized() const {
+
+
+  if (!_extensions_.IsInitialized()) return false;  return true;
+}
+
 void InvitationParams::Swap(InvitationParams* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(invitation_message_, other->invitation_message_);
+    std::swap(expiration_time_, other->expiration_time_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+    _extensions_.Swap(&other->_extensions_);
+  }
 }
 
 ::google::protobuf::Metadata InvitationParams::GetMetadata() const {
@@ -767,9 +2175,339 @@ SendInvitationRequest* SendInvitationRequest::New() const {
   return new SendInvitationRequest;
 }
 
+void SendInvitationRequest::Clear() {
+  if (_has_bits_[0 / 32] & 31) {
+    if (has_agent_identity()) {
+      if (agent_identity_ != NULL) agent_identity_->::Battlenet::Identity::Clear();
+    }
+    if (has_target_id()) {
+      if (target_id_ != NULL) target_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_params()) {
+      if (params_ != NULL) params_->::Battlenet::InvitationParams::Clear();
+    }
+    if (has_agent_info()) {
+      if (agent_info_ != NULL) agent_info_->::Battlenet::AccountInfo::Clear();
+    }
+    if (has_target()) {
+      if (target_ != NULL) target_->::Battlenet::InvitationTarget::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SendInvitationRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.SendInvitationRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.Identity agent_identity = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_identity()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_target_id;
+        break;
+      }
+
+      // required .Battlenet.EntityId target_id = 2 [deprecated = true];
+      case 2: {
+        if (tag == 18) {
+         parse_target_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_target_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_params;
+        break;
+      }
+
+      // required .Battlenet.InvitationParams params = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_params:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_params()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_agent_info;
+        break;
+      }
+
+      // optional .Battlenet.AccountInfo agent_info = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_agent_info:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_info()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_target;
+        break;
+      }
+
+      // optional .Battlenet.InvitationTarget target = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_target:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_target()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.SendInvitationRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.SendInvitationRequest)
+  return false;
+#undef DO_
+}
+
+void SendInvitationRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.SendInvitationRequest)
+  // optional .Battlenet.Identity agent_identity = 1;
+  if (has_agent_identity()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_identity(), output);
+  }
+
+  // required .Battlenet.EntityId target_id = 2 [deprecated = true];
+  if (has_target_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->target_id(), output);
+  }
+
+  // required .Battlenet.InvitationParams params = 3;
+  if (has_params()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->params(), output);
+  }
+
+  // optional .Battlenet.AccountInfo agent_info = 4;
+  if (has_agent_info()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->agent_info(), output);
+  }
+
+  // optional .Battlenet.InvitationTarget target = 5;
+  if (has_target()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->target(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.SendInvitationRequest)
+}
+
+::google::protobuf::uint8* SendInvitationRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.SendInvitationRequest)
+  // optional .Battlenet.Identity agent_identity = 1;
+  if (has_agent_identity()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_identity(), target);
+  }
+
+  // required .Battlenet.EntityId target_id = 2 [deprecated = true];
+  if (has_target_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->target_id(), target);
+  }
+
+  // required .Battlenet.InvitationParams params = 3;
+  if (has_params()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->params(), target);
+  }
+
+  // optional .Battlenet.AccountInfo agent_info = 4;
+  if (has_agent_info()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->agent_info(), target);
+  }
+
+  // optional .Battlenet.InvitationTarget target = 5;
+  if (has_target()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->target(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.SendInvitationRequest)
+  return target;
+}
+
+int SendInvitationRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.Identity agent_identity = 1;
+    if (has_agent_identity()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_identity());
+    }
+
+    // required .Battlenet.EntityId target_id = 2 [deprecated = true];
+    if (has_target_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->target_id());
+    }
+
+    // required .Battlenet.InvitationParams params = 3;
+    if (has_params()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->params());
+    }
+
+    // optional .Battlenet.AccountInfo agent_info = 4;
+    if (has_agent_info()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_info());
+    }
+
+    // optional .Battlenet.InvitationTarget target = 5;
+    if (has_target()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->target());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SendInvitationRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SendInvitationRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SendInvitationRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SendInvitationRequest::MergeFrom(const SendInvitationRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_identity()) {
+      mutable_agent_identity()->::Battlenet::Identity::MergeFrom(from.agent_identity());
+    }
+    if (from.has_target_id()) {
+      mutable_target_id()->::Battlenet::EntityId::MergeFrom(from.target_id());
+    }
+    if (from.has_params()) {
+      mutable_params()->::Battlenet::InvitationParams::MergeFrom(from.params());
+    }
+    if (from.has_agent_info()) {
+      mutable_agent_info()->::Battlenet::AccountInfo::MergeFrom(from.agent_info());
+    }
+    if (from.has_target()) {
+      mutable_target()->::Battlenet::InvitationTarget::MergeFrom(from.target());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SendInvitationRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SendInvitationRequest::CopyFrom(const SendInvitationRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SendInvitationRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000006) != 0x00000006) return false;
+
+  if (has_agent_identity()) {
+    if (!this->agent_identity().IsInitialized()) return false;
+  }
+  if (has_target_id()) {
+    if (!this->target_id().IsInitialized()) return false;
+  }
+  if (has_params()) {
+    if (!this->params().IsInitialized()) return false;
+  }
+  if (has_agent_info()) {
+    if (!this->agent_info().IsInitialized()) return false;
+  }
+  if (has_target()) {
+    if (!this->target().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void SendInvitationRequest::Swap(SendInvitationRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_identity_, other->agent_identity_);
+    std::swap(target_id_, other->target_id_);
+    std::swap(params_, other->params_);
+    std::swap(agent_info_, other->agent_info_);
+    std::swap(target_, other->target_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata SendInvitationRequest::GetMetadata() const {
@@ -842,9 +2580,164 @@ SendInvitationResponse* SendInvitationResponse::New() const {
   return new SendInvitationResponse;
 }
 
+void SendInvitationResponse::Clear() {
+  if (has_invitation()) {
+    if (invitation_ != NULL) invitation_->::Battlenet::Invitation::Clear();
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SendInvitationResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.SendInvitationResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.Invitation invitation = 2;
+      case 2: {
+        if (tag == 18) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_invitation()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.SendInvitationResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.SendInvitationResponse)
+  return false;
+#undef DO_
+}
+
+void SendInvitationResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.SendInvitationResponse)
+  // optional .Battlenet.Invitation invitation = 2;
+  if (has_invitation()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->invitation(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.SendInvitationResponse)
+}
+
+::google::protobuf::uint8* SendInvitationResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.SendInvitationResponse)
+  // optional .Battlenet.Invitation invitation = 2;
+  if (has_invitation()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->invitation(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.SendInvitationResponse)
+  return target;
+}
+
+int SendInvitationResponse::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.Invitation invitation = 2;
+    if (has_invitation()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->invitation());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SendInvitationResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SendInvitationResponse* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SendInvitationResponse*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SendInvitationResponse::MergeFrom(const SendInvitationResponse& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_invitation()) {
+      mutable_invitation()->::Battlenet::Invitation::MergeFrom(from.invitation());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SendInvitationResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SendInvitationResponse::CopyFrom(const SendInvitationResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SendInvitationResponse::IsInitialized() const {
+
+  if (has_invitation()) {
+    if (!this->invitation().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void SendInvitationResponse::Swap(SendInvitationResponse* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(invitation_, other->invitation_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata SendInvitationResponse::GetMetadata() const {
@@ -923,9 +2816,245 @@ UpdateInvitationRequest* UpdateInvitationRequest::New() const {
   return new UpdateInvitationRequest;
 }
 
+void UpdateInvitationRequest::Clear() {
+  if (_has_bits_[0 / 32] & 7) {
+    if (has_agent_identity()) {
+      if (agent_identity_ != NULL) agent_identity_->::Battlenet::Identity::Clear();
+    }
+    invitation_id_ = GOOGLE_ULONGLONG(0);
+    if (has_params()) {
+      if (params_ != NULL) params_->::Battlenet::InvitationParams::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool UpdateInvitationRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.UpdateInvitationRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.Identity agent_identity = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_identity()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(17)) goto parse_invitation_id;
+        break;
+      }
+
+      // required fixed64 invitation_id = 2;
+      case 2: {
+        if (tag == 17) {
+         parse_invitation_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED64>(
+                 input, &invitation_id_)));
+          set_has_invitation_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_params;
+        break;
+      }
+
+      // required .Battlenet.InvitationParams params = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_params:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_params()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.UpdateInvitationRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.UpdateInvitationRequest)
+  return false;
+#undef DO_
+}
+
+void UpdateInvitationRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.UpdateInvitationRequest)
+  // optional .Battlenet.Identity agent_identity = 1;
+  if (has_agent_identity()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_identity(), output);
+  }
+
+  // required fixed64 invitation_id = 2;
+  if (has_invitation_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed64(2, this->invitation_id(), output);
+  }
+
+  // required .Battlenet.InvitationParams params = 3;
+  if (has_params()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->params(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.UpdateInvitationRequest)
+}
+
+::google::protobuf::uint8* UpdateInvitationRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.UpdateInvitationRequest)
+  // optional .Battlenet.Identity agent_identity = 1;
+  if (has_agent_identity()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_identity(), target);
+  }
+
+  // required fixed64 invitation_id = 2;
+  if (has_invitation_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed64ToArray(2, this->invitation_id(), target);
+  }
+
+  // required .Battlenet.InvitationParams params = 3;
+  if (has_params()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->params(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.UpdateInvitationRequest)
+  return target;
+}
+
+int UpdateInvitationRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.Identity agent_identity = 1;
+    if (has_agent_identity()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_identity());
+    }
+
+    // required fixed64 invitation_id = 2;
+    if (has_invitation_id()) {
+      total_size += 1 + 8;
+    }
+
+    // required .Battlenet.InvitationParams params = 3;
+    if (has_params()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->params());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void UpdateInvitationRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const UpdateInvitationRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const UpdateInvitationRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void UpdateInvitationRequest::MergeFrom(const UpdateInvitationRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_identity()) {
+      mutable_agent_identity()->::Battlenet::Identity::MergeFrom(from.agent_identity());
+    }
+    if (from.has_invitation_id()) {
+      set_invitation_id(from.invitation_id());
+    }
+    if (from.has_params()) {
+      mutable_params()->::Battlenet::InvitationParams::MergeFrom(from.params());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void UpdateInvitationRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UpdateInvitationRequest::CopyFrom(const UpdateInvitationRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdateInvitationRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000006) != 0x00000006) return false;
+
+  if (has_agent_identity()) {
+    if (!this->agent_identity().IsInitialized()) return false;
+  }
+  if (has_params()) {
+    if (!this->params().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void UpdateInvitationRequest::Swap(UpdateInvitationRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_identity_, other->agent_identity_);
+    std::swap(invitation_id_, other->invitation_id_);
+    std::swap(params_, other->params_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata UpdateInvitationRequest::GetMetadata() const {
@@ -1019,9 +3148,514 @@ GenericInvitationRequest* GenericInvitationRequest::New() const {
   return new GenericInvitationRequest;
 }
 
+void GenericInvitationRequest::Clear() {
+  if (_has_bits_[0 / 32] & 159) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_target_id()) {
+      if (target_id_ != NULL) target_id_->::Battlenet::EntityId::Clear();
+    }
+    invitation_id_ = GOOGLE_ULONGLONG(0);
+    if (has_invitee_name()) {
+      if (invitee_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        invitee_name_->clear();
+      }
+    }
+    if (has_inviter_name()) {
+      if (inviter_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        inviter_name_->clear();
+      }
+    }
+    reason_ = 0u;
+  }
+  previous_role_.Clear();
+  desired_role_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool GenericInvitationRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.GenericInvitationRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_target_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId target_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_target_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_target_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(25)) goto parse_invitation_id;
+        break;
+      }
+
+      // required fixed64 invitation_id = 3;
+      case 3: {
+        if (tag == 25) {
+         parse_invitation_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED64>(
+                 input, &invitation_id_)));
+          set_has_invitation_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_invitee_name;
+        break;
+      }
+
+      // optional string invitee_name = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_invitee_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_invitee_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->invitee_name().data(), this->invitee_name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "invitee_name");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_inviter_name;
+        break;
+      }
+
+      // optional string inviter_name = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_inviter_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_inviter_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->inviter_name().data(), this->inviter_name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "inviter_name");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_previous_role;
+        break;
+      }
+
+      // repeated uint32 previous_role = 6 [packed = true];
+      case 6: {
+        if (tag == 50) {
+         parse_previous_role:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_previous_role())));
+        } else if (tag == 48) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 50, input, this->mutable_previous_role())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(58)) goto parse_desired_role;
+        break;
+      }
+
+      // repeated uint32 desired_role = 7 [packed = true];
+      case 7: {
+        if (tag == 58) {
+         parse_desired_role:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_desired_role())));
+        } else if (tag == 56) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 58, input, this->mutable_desired_role())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(64)) goto parse_reason;
+        break;
+      }
+
+      // optional uint32 reason = 8;
+      case 8: {
+        if (tag == 64) {
+         parse_reason:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &reason_)));
+          set_has_reason();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.GenericInvitationRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.GenericInvitationRequest)
+  return false;
+#undef DO_
+}
+
+void GenericInvitationRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.GenericInvitationRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // optional .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->target_id(), output);
+  }
+
+  // required fixed64 invitation_id = 3;
+  if (has_invitation_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed64(3, this->invitation_id(), output);
+  }
+
+  // optional string invitee_name = 4;
+  if (has_invitee_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->invitee_name().data(), this->invitee_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "invitee_name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->invitee_name(), output);
+  }
+
+  // optional string inviter_name = 5;
+  if (has_inviter_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->inviter_name().data(), this->inviter_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "inviter_name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->inviter_name(), output);
+  }
+
+  // repeated uint32 previous_role = 6 [packed = true];
+  if (this->previous_role_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(6, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_previous_role_cached_byte_size_);
+  }
+  for (int i = 0; i < this->previous_role_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32NoTag(
+      this->previous_role(i), output);
+  }
+
+  // repeated uint32 desired_role = 7 [packed = true];
+  if (this->desired_role_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(7, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_desired_role_cached_byte_size_);
+  }
+  for (int i = 0; i < this->desired_role_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32NoTag(
+      this->desired_role(i), output);
+  }
+
+  // optional uint32 reason = 8;
+  if (has_reason()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(8, this->reason(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.GenericInvitationRequest)
+}
+
+::google::protobuf::uint8* GenericInvitationRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.GenericInvitationRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // optional .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->target_id(), target);
+  }
+
+  // required fixed64 invitation_id = 3;
+  if (has_invitation_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed64ToArray(3, this->invitation_id(), target);
+  }
+
+  // optional string invitee_name = 4;
+  if (has_invitee_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->invitee_name().data(), this->invitee_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "invitee_name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->invitee_name(), target);
+  }
+
+  // optional string inviter_name = 5;
+  if (has_inviter_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->inviter_name().data(), this->inviter_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "inviter_name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->inviter_name(), target);
+  }
+
+  // repeated uint32 previous_role = 6 [packed = true];
+  if (this->previous_role_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      6,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _previous_role_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->previous_role_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteUInt32NoTagToArray(this->previous_role(i), target);
+  }
+
+  // repeated uint32 desired_role = 7 [packed = true];
+  if (this->desired_role_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      7,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _desired_role_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->desired_role_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteUInt32NoTagToArray(this->desired_role(i), target);
+  }
+
+  // optional uint32 reason = 8;
+  if (has_reason()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(8, this->reason(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.GenericInvitationRequest)
+  return target;
+}
+
+int GenericInvitationRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // optional .Battlenet.EntityId target_id = 2;
+    if (has_target_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->target_id());
+    }
+
+    // required fixed64 invitation_id = 3;
+    if (has_invitation_id()) {
+      total_size += 1 + 8;
+    }
+
+    // optional string invitee_name = 4;
+    if (has_invitee_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->invitee_name());
+    }
+
+    // optional string inviter_name = 5;
+    if (has_inviter_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->inviter_name());
+    }
+
+    // optional uint32 reason = 8;
+    if (has_reason()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->reason());
+    }
+
+  }
+  // repeated uint32 previous_role = 6 [packed = true];
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->previous_role_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        UInt32Size(this->previous_role(i));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _previous_role_cached_byte_size_ = data_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  // repeated uint32 desired_role = 7 [packed = true];
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->desired_role_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        UInt32Size(this->desired_role(i));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _desired_role_cached_byte_size_ = data_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void GenericInvitationRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const GenericInvitationRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const GenericInvitationRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void GenericInvitationRequest::MergeFrom(const GenericInvitationRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  previous_role_.MergeFrom(from.previous_role_);
+  desired_role_.MergeFrom(from.desired_role_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_target_id()) {
+      mutable_target_id()->::Battlenet::EntityId::MergeFrom(from.target_id());
+    }
+    if (from.has_invitation_id()) {
+      set_invitation_id(from.invitation_id());
+    }
+    if (from.has_invitee_name()) {
+      set_invitee_name(from.invitee_name());
+    }
+    if (from.has_inviter_name()) {
+      set_inviter_name(from.inviter_name());
+    }
+    if (from.has_reason()) {
+      set_reason(from.reason());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void GenericInvitationRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void GenericInvitationRequest::CopyFrom(const GenericInvitationRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GenericInvitationRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000004) != 0x00000004) return false;
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  if (has_target_id()) {
+    if (!this->target_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void GenericInvitationRequest::Swap(GenericInvitationRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(target_id_, other->target_id_);
+    std::swap(invitation_id_, other->invitation_id_);
+    std::swap(invitee_name_, other->invitee_name_);
+    std::swap(inviter_name_, other->inviter_name_);
+    previous_role_.Swap(&other->previous_role_);
+    desired_role_.Swap(&other->desired_role_);
+    std::swap(reason_, other->reason_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata GenericInvitationRequest::GetMetadata() const {

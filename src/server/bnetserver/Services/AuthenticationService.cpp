@@ -19,16 +19,16 @@
 #include "SessionManager.h"
 #include "Session.h"
 
-Battlenet::Service::Authentication::Authentication(Session* session) : AuthenticationServiceBase(session)
+Battlenet::Service::Authentication::Authentication(Session* session) : authentication::AuthenticationService(session)
 {
 }
 
-void Battlenet::Service::Authentication::Logon(pb::RpcController* /*controller*/, authentication::LogonRequest const* request, NoData* /*response*/, pb::Closure* /*done*/)
+uint32 Battlenet::Service::Authentication::HandleLogon(authentication::LogonRequest const* request, NoData* /*respons*/)
 {
-    _session->HandleLogon(request);
+    return _session->HandleLogon(request);
 }
 
-void Battlenet::Service::Authentication::VerifyWebCredentials(pb::RpcController* /*controller*/, authentication::VerifyWebCredentialsRequest const* request, NoData* /*response*/, pb::Closure* /*done*/)
+uint32 Battlenet::Service::Authentication::HandleVerifyWebCredentials(authentication::VerifyWebCredentialsRequest const* request, NoData* /*respons*/)
 {
-    _session->HandleVerifyWebCredentials(request);
+    return _session->HandleVerifyWebCredentials(request);
 }

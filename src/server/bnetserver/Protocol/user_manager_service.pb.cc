@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -440,7 +441,7 @@ void protobuf_AddDesc_user_5fmanager_5fservice_2eproto() {
     "emoved\0228.Battlenet.user_manager.RecentPl"
     "ayersRemovedNotification\032\026.Battlenet.NO_"
     "RESPONSE\"\004\200\265\030\014\032/\312>,bnet.protocol.user_ma"
-    "nager.UserManagerNotifyB\005H\002\200\001\001", 2990);
+    "nager.UserManagerNotifyB\005H\001\200\001\000", 2990);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "user_manager_service.proto", &protobuf_RegisterTypes);
   SubscribeRequest::default_instance_ = new SubscribeRequest();
@@ -542,9 +543,204 @@ SubscribeRequest* SubscribeRequest::New() const {
   return new SubscribeRequest;
 }
 
+void SubscribeRequest::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    object_id_ = GOOGLE_ULONGLONG(0);
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SubscribeRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.SubscribeRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_object_id;
+        break;
+      }
+
+      // required uint64 object_id = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_object_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &object_id_)));
+          set_has_object_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.SubscribeRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.SubscribeRequest)
+  return false;
+#undef DO_
+}
+
+void SubscribeRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.SubscribeRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // required uint64 object_id = 2;
+  if (has_object_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(2, this->object_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.SubscribeRequest)
+}
+
+::google::protobuf::uint8* SubscribeRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.SubscribeRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // required uint64 object_id = 2;
+  if (has_object_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(2, this->object_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.SubscribeRequest)
+  return target;
+}
+
+int SubscribeRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // required uint64 object_id = 2;
+    if (has_object_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->object_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SubscribeRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SubscribeRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SubscribeRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SubscribeRequest::MergeFrom(const SubscribeRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_object_id()) {
+      set_object_id(from.object_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SubscribeRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SubscribeRequest::CopyFrom(const SubscribeRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SubscribeRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void SubscribeRequest::Swap(SubscribeRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(object_id_, other->object_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata SubscribeRequest::GetMetadata() const {
@@ -616,9 +812,235 @@ SubscribeResponse* SubscribeResponse::New() const {
   return new SubscribeResponse;
 }
 
+void SubscribeResponse::Clear() {
+  blocked_players_.Clear();
+  recent_players_.Clear();
+  role_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SubscribeResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.SubscribeResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .Battlenet.user_manager.BlockedPlayer blocked_players = 1;
+      case 1: {
+        if (tag == 10) {
+         parse_blocked_players:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_blocked_players()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_blocked_players;
+        if (input->ExpectTag(18)) goto parse_recent_players;
+        break;
+      }
+
+      // repeated .Battlenet.user_manager.RecentPlayer recent_players = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_recent_players:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_recent_players()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_recent_players;
+        if (input->ExpectTag(26)) goto parse_role;
+        break;
+      }
+
+      // repeated .Battlenet.Role role = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_role:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_role()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_role;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.SubscribeResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.SubscribeResponse)
+  return false;
+#undef DO_
+}
+
+void SubscribeResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.SubscribeResponse)
+  // repeated .Battlenet.user_manager.BlockedPlayer blocked_players = 1;
+  for (int i = 0; i < this->blocked_players_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->blocked_players(i), output);
+  }
+
+  // repeated .Battlenet.user_manager.RecentPlayer recent_players = 2;
+  for (int i = 0; i < this->recent_players_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->recent_players(i), output);
+  }
+
+  // repeated .Battlenet.Role role = 3;
+  for (int i = 0; i < this->role_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->role(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.SubscribeResponse)
+}
+
+::google::protobuf::uint8* SubscribeResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.SubscribeResponse)
+  // repeated .Battlenet.user_manager.BlockedPlayer blocked_players = 1;
+  for (int i = 0; i < this->blocked_players_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->blocked_players(i), target);
+  }
+
+  // repeated .Battlenet.user_manager.RecentPlayer recent_players = 2;
+  for (int i = 0; i < this->recent_players_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->recent_players(i), target);
+  }
+
+  // repeated .Battlenet.Role role = 3;
+  for (int i = 0; i < this->role_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->role(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.SubscribeResponse)
+  return target;
+}
+
+int SubscribeResponse::ByteSize() const {
+  int total_size = 0;
+
+  // repeated .Battlenet.user_manager.BlockedPlayer blocked_players = 1;
+  total_size += 1 * this->blocked_players_size();
+  for (int i = 0; i < this->blocked_players_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->blocked_players(i));
+  }
+
+  // repeated .Battlenet.user_manager.RecentPlayer recent_players = 2;
+  total_size += 1 * this->recent_players_size();
+  for (int i = 0; i < this->recent_players_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->recent_players(i));
+  }
+
+  // repeated .Battlenet.Role role = 3;
+  total_size += 1 * this->role_size();
+  for (int i = 0; i < this->role_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->role(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SubscribeResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SubscribeResponse* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SubscribeResponse*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SubscribeResponse::MergeFrom(const SubscribeResponse& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  blocked_players_.MergeFrom(from.blocked_players_);
+  recent_players_.MergeFrom(from.recent_players_);
+  role_.MergeFrom(from.role_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SubscribeResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SubscribeResponse::CopyFrom(const SubscribeResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SubscribeResponse::IsInitialized() const {
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->blocked_players())) return false;
+  if (!::google::protobuf::internal::AllAreInitialized(this->recent_players())) return false;
+  if (!::google::protobuf::internal::AllAreInitialized(this->role())) return false;
+  return true;
+}
+
 void SubscribeResponse::Swap(SubscribeResponse* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    blocked_players_.Swap(&other->blocked_players_);
+    recent_players_.Swap(&other->recent_players_);
+    role_.Swap(&other->role_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata SubscribeResponse::GetMetadata() const {
@@ -693,9 +1115,203 @@ UnsubscribeRequest* UnsubscribeRequest::New() const {
   return new UnsubscribeRequest;
 }
 
+void UnsubscribeRequest::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    object_id_ = GOOGLE_ULONGLONG(0);
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool UnsubscribeRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.UnsubscribeRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_object_id;
+        break;
+      }
+
+      // optional uint64 object_id = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_object_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &object_id_)));
+          set_has_object_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.UnsubscribeRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.UnsubscribeRequest)
+  return false;
+#undef DO_
+}
+
+void UnsubscribeRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.UnsubscribeRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // optional uint64 object_id = 2;
+  if (has_object_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(2, this->object_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.UnsubscribeRequest)
+}
+
+::google::protobuf::uint8* UnsubscribeRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.UnsubscribeRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // optional uint64 object_id = 2;
+  if (has_object_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(2, this->object_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.UnsubscribeRequest)
+  return target;
+}
+
+int UnsubscribeRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // optional uint64 object_id = 2;
+    if (has_object_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->object_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void UnsubscribeRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const UnsubscribeRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const UnsubscribeRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void UnsubscribeRequest::MergeFrom(const UnsubscribeRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_object_id()) {
+      set_object_id(from.object_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void UnsubscribeRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UnsubscribeRequest::CopyFrom(const UnsubscribeRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UnsubscribeRequest::IsInitialized() const {
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void UnsubscribeRequest::Swap(UnsubscribeRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(object_id_, other->object_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata UnsubscribeRequest::GetMetadata() const {
@@ -771,9 +1387,243 @@ AddRecentPlayersRequest* AddRecentPlayersRequest::New() const {
   return new AddRecentPlayersRequest;
 }
 
+void AddRecentPlayersRequest::Clear() {
+  if (_has_bits_[0 / 32] & 6) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    program_ = 0u;
+  }
+  players_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool AddRecentPlayersRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.AddRecentPlayersRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .Battlenet.user_manager.RecentPlayer players = 1;
+      case 1: {
+        if (tag == 10) {
+         parse_players:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_players()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_players;
+        if (input->ExpectTag(18)) goto parse_agent_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId agent_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_agent_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_program;
+        break;
+      }
+
+      // optional uint32 program = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_program:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &program_)));
+          set_has_program();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.AddRecentPlayersRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.AddRecentPlayersRequest)
+  return false;
+#undef DO_
+}
+
+void AddRecentPlayersRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.AddRecentPlayersRequest)
+  // repeated .Battlenet.user_manager.RecentPlayer players = 1;
+  for (int i = 0; i < this->players_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->players(i), output);
+  }
+
+  // optional .Battlenet.EntityId agent_id = 2;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->agent_id(), output);
+  }
+
+  // optional uint32 program = 3;
+  if (has_program()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->program(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.AddRecentPlayersRequest)
+}
+
+::google::protobuf::uint8* AddRecentPlayersRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.AddRecentPlayersRequest)
+  // repeated .Battlenet.user_manager.RecentPlayer players = 1;
+  for (int i = 0; i < this->players_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->players(i), target);
+  }
+
+  // optional .Battlenet.EntityId agent_id = 2;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->agent_id(), target);
+  }
+
+  // optional uint32 program = 3;
+  if (has_program()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->program(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.AddRecentPlayersRequest)
+  return target;
+}
+
+int AddRecentPlayersRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[1 / 32] & (0xffu << (1 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 2;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // optional uint32 program = 3;
+    if (has_program()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->program());
+    }
+
+  }
+  // repeated .Battlenet.user_manager.RecentPlayer players = 1;
+  total_size += 1 * this->players_size();
+  for (int i = 0; i < this->players_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->players(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void AddRecentPlayersRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const AddRecentPlayersRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const AddRecentPlayersRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void AddRecentPlayersRequest::MergeFrom(const AddRecentPlayersRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  players_.MergeFrom(from.players_);
+  if (from._has_bits_[1 / 32] & (0xffu << (1 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_program()) {
+      set_program(from.program());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void AddRecentPlayersRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void AddRecentPlayersRequest::CopyFrom(const AddRecentPlayersRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AddRecentPlayersRequest::IsInitialized() const {
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->players())) return false;
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void AddRecentPlayersRequest::Swap(AddRecentPlayersRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    players_.Swap(&other->players_);
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(program_, other->program_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata AddRecentPlayersRequest::GetMetadata() const {
@@ -844,9 +1694,198 @@ AddRecentPlayersResponse* AddRecentPlayersResponse::New() const {
   return new AddRecentPlayersResponse;
 }
 
+void AddRecentPlayersResponse::Clear() {
+  players_added_.Clear();
+  players_removed_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool AddRecentPlayersResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.AddRecentPlayersResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .Battlenet.user_manager.RecentPlayer players_added = 1;
+      case 1: {
+        if (tag == 10) {
+         parse_players_added:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_players_added()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_players_added;
+        if (input->ExpectTag(29)) goto parse_players_removed;
+        break;
+      }
+
+      // repeated fixed32 players_removed = 3;
+      case 3: {
+        if (tag == 29) {
+         parse_players_removed:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 1, 29, input, this->mutable_players_removed())));
+        } else if (tag == 26) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, this->mutable_players_removed())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(29)) goto parse_players_removed;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.AddRecentPlayersResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.AddRecentPlayersResponse)
+  return false;
+#undef DO_
+}
+
+void AddRecentPlayersResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.AddRecentPlayersResponse)
+  // repeated .Battlenet.user_manager.RecentPlayer players_added = 1;
+  for (int i = 0; i < this->players_added_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->players_added(i), output);
+  }
+
+  // repeated fixed32 players_removed = 3;
+  for (int i = 0; i < this->players_removed_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(
+      3, this->players_removed(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.AddRecentPlayersResponse)
+}
+
+::google::protobuf::uint8* AddRecentPlayersResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.AddRecentPlayersResponse)
+  // repeated .Battlenet.user_manager.RecentPlayer players_added = 1;
+  for (int i = 0; i < this->players_added_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->players_added(i), target);
+  }
+
+  // repeated fixed32 players_removed = 3;
+  for (int i = 0; i < this->players_removed_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteFixed32ToArray(3, this->players_removed(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.AddRecentPlayersResponse)
+  return target;
+}
+
+int AddRecentPlayersResponse::ByteSize() const {
+  int total_size = 0;
+
+  // repeated .Battlenet.user_manager.RecentPlayer players_added = 1;
+  total_size += 1 * this->players_added_size();
+  for (int i = 0; i < this->players_added_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->players_added(i));
+  }
+
+  // repeated fixed32 players_removed = 3;
+  {
+    int data_size = 0;
+    data_size = 4 * this->players_removed_size();
+    total_size += 1 * this->players_removed_size() + data_size;
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void AddRecentPlayersResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const AddRecentPlayersResponse* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const AddRecentPlayersResponse*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void AddRecentPlayersResponse::MergeFrom(const AddRecentPlayersResponse& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  players_added_.MergeFrom(from.players_added_);
+  players_removed_.MergeFrom(from.players_removed_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void AddRecentPlayersResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void AddRecentPlayersResponse::CopyFrom(const AddRecentPlayersResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AddRecentPlayersResponse::IsInitialized() const {
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->players_added())) return false;
+  return true;
+}
+
 void AddRecentPlayersResponse::Swap(AddRecentPlayersResponse* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    players_added_.Swap(&other->players_added_);
+    players_removed_.Swap(&other->players_removed_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata AddRecentPlayersResponse::GetMetadata() const {
@@ -921,9 +1960,203 @@ ClearRecentPlayersRequest* ClearRecentPlayersRequest::New() const {
   return new ClearRecentPlayersRequest;
 }
 
+void ClearRecentPlayersRequest::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    program_ = 0u;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ClearRecentPlayersRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.ClearRecentPlayersRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_program;
+        break;
+      }
+
+      // optional uint32 program = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_program:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &program_)));
+          set_has_program();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.ClearRecentPlayersRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.ClearRecentPlayersRequest)
+  return false;
+#undef DO_
+}
+
+void ClearRecentPlayersRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.ClearRecentPlayersRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // optional uint32 program = 2;
+  if (has_program()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->program(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.ClearRecentPlayersRequest)
+}
+
+::google::protobuf::uint8* ClearRecentPlayersRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.ClearRecentPlayersRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // optional uint32 program = 2;
+  if (has_program()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->program(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.ClearRecentPlayersRequest)
+  return target;
+}
+
+int ClearRecentPlayersRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // optional uint32 program = 2;
+    if (has_program()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->program());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ClearRecentPlayersRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ClearRecentPlayersRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ClearRecentPlayersRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ClearRecentPlayersRequest::MergeFrom(const ClearRecentPlayersRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_program()) {
+      set_program(from.program());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ClearRecentPlayersRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ClearRecentPlayersRequest::CopyFrom(const ClearRecentPlayersRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ClearRecentPlayersRequest::IsInitialized() const {
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void ClearRecentPlayersRequest::Swap(ClearRecentPlayersRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(program_, other->program_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ClearRecentPlayersRequest::GetMetadata() const {
@@ -993,9 +2226,159 @@ ClearRecentPlayersResponse* ClearRecentPlayersResponse::New() const {
   return new ClearRecentPlayersResponse;
 }
 
+void ClearRecentPlayersResponse::Clear() {
+  players_removed_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ClearRecentPlayersResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.ClearRecentPlayersResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated fixed32 players_removed = 1;
+      case 1: {
+        if (tag == 13) {
+         parse_players_removed:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 1, 13, input, this->mutable_players_removed())));
+        } else if (tag == 10) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, this->mutable_players_removed())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(13)) goto parse_players_removed;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.ClearRecentPlayersResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.ClearRecentPlayersResponse)
+  return false;
+#undef DO_
+}
+
+void ClearRecentPlayersResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.ClearRecentPlayersResponse)
+  // repeated fixed32 players_removed = 1;
+  for (int i = 0; i < this->players_removed_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(
+      1, this->players_removed(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.ClearRecentPlayersResponse)
+}
+
+::google::protobuf::uint8* ClearRecentPlayersResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.ClearRecentPlayersResponse)
+  // repeated fixed32 players_removed = 1;
+  for (int i = 0; i < this->players_removed_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteFixed32ToArray(1, this->players_removed(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.ClearRecentPlayersResponse)
+  return target;
+}
+
+int ClearRecentPlayersResponse::ByteSize() const {
+  int total_size = 0;
+
+  // repeated fixed32 players_removed = 1;
+  {
+    int data_size = 0;
+    data_size = 4 * this->players_removed_size();
+    total_size += 1 * this->players_removed_size() + data_size;
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ClearRecentPlayersResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ClearRecentPlayersResponse* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ClearRecentPlayersResponse*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ClearRecentPlayersResponse::MergeFrom(const ClearRecentPlayersResponse& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  players_removed_.MergeFrom(from.players_removed_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ClearRecentPlayersResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ClearRecentPlayersResponse::CopyFrom(const ClearRecentPlayersResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ClearRecentPlayersResponse::IsInitialized() const {
+
+  return true;
+}
+
 void ClearRecentPlayersResponse::Swap(ClearRecentPlayersResponse* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    players_removed_.Swap(&other->players_removed_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ClearRecentPlayersResponse::GetMetadata() const {
@@ -1074,9 +2457,247 @@ BlockPlayerRequest* BlockPlayerRequest::New() const {
   return new BlockPlayerRequest;
 }
 
+void BlockPlayerRequest::Clear() {
+  if (_has_bits_[0 / 32] & 7) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_target_id()) {
+      if (target_id_ != NULL) target_id_->::Battlenet::EntityId::Clear();
+    }
+    role_ = 0u;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool BlockPlayerRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.BlockPlayerRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_target_id;
+        break;
+      }
+
+      // required .Battlenet.EntityId target_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_target_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_target_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_role;
+        break;
+      }
+
+      // optional uint32 role = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_role:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &role_)));
+          set_has_role();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.BlockPlayerRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.BlockPlayerRequest)
+  return false;
+#undef DO_
+}
+
+void BlockPlayerRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.BlockPlayerRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // required .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->target_id(), output);
+  }
+
+  // optional uint32 role = 3;
+  if (has_role()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->role(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.BlockPlayerRequest)
+}
+
+::google::protobuf::uint8* BlockPlayerRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.BlockPlayerRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // required .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->target_id(), target);
+  }
+
+  // optional uint32 role = 3;
+  if (has_role()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->role(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.BlockPlayerRequest)
+  return target;
+}
+
+int BlockPlayerRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // required .Battlenet.EntityId target_id = 2;
+    if (has_target_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->target_id());
+    }
+
+    // optional uint32 role = 3;
+    if (has_role()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->role());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BlockPlayerRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const BlockPlayerRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const BlockPlayerRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BlockPlayerRequest::MergeFrom(const BlockPlayerRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_target_id()) {
+      mutable_target_id()->::Battlenet::EntityId::MergeFrom(from.target_id());
+    }
+    if (from.has_role()) {
+      set_role(from.role());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void BlockPlayerRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BlockPlayerRequest::CopyFrom(const BlockPlayerRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BlockPlayerRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  if (has_target_id()) {
+    if (!this->target_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void BlockPlayerRequest::Swap(BlockPlayerRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(target_id_, other->target_id_);
+    std::swap(role_, other->role_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata BlockPlayerRequest::GetMetadata() const {
@@ -1153,9 +2774,210 @@ UnblockPlayerRequest* UnblockPlayerRequest::New() const {
   return new UnblockPlayerRequest;
 }
 
+void UnblockPlayerRequest::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_target_id()) {
+      if (target_id_ != NULL) target_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool UnblockPlayerRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.UnblockPlayerRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_target_id;
+        break;
+      }
+
+      // required .Battlenet.EntityId target_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_target_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_target_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.UnblockPlayerRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.UnblockPlayerRequest)
+  return false;
+#undef DO_
+}
+
+void UnblockPlayerRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.UnblockPlayerRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // required .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->target_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.UnblockPlayerRequest)
+}
+
+::google::protobuf::uint8* UnblockPlayerRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.UnblockPlayerRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // required .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->target_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.UnblockPlayerRequest)
+  return target;
+}
+
+int UnblockPlayerRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // required .Battlenet.EntityId target_id = 2;
+    if (has_target_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->target_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void UnblockPlayerRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const UnblockPlayerRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const UnblockPlayerRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void UnblockPlayerRequest::MergeFrom(const UnblockPlayerRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_target_id()) {
+      mutable_target_id()->::Battlenet::EntityId::MergeFrom(from.target_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void UnblockPlayerRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UnblockPlayerRequest::CopyFrom(const UnblockPlayerRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UnblockPlayerRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  if (has_target_id()) {
+    if (!this->target_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void UnblockPlayerRequest::Swap(UnblockPlayerRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(target_id_, other->target_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata UnblockPlayerRequest::GetMetadata() const {
@@ -1236,9 +3058,253 @@ BlockedPlayerAddedNotification* BlockedPlayerAddedNotification::New() const {
   return new BlockedPlayerAddedNotification;
 }
 
+void BlockedPlayerAddedNotification::Clear() {
+  if (_has_bits_[0 / 32] & 7) {
+    if (has_player()) {
+      if (player_ != NULL) player_->::Battlenet::user_manager::BlockedPlayer::Clear();
+    }
+    if (has_game_account_id()) {
+      if (game_account_id_ != NULL) game_account_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_account_id()) {
+      if (account_id_ != NULL) account_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool BlockedPlayerAddedNotification::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.BlockedPlayerAddedNotification)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.user_manager.BlockedPlayer player = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_player()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_game_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId game_account_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_game_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_game_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId account_id = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.BlockedPlayerAddedNotification)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.BlockedPlayerAddedNotification)
+  return false;
+#undef DO_
+}
+
+void BlockedPlayerAddedNotification::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.BlockedPlayerAddedNotification)
+  // required .Battlenet.user_manager.BlockedPlayer player = 1;
+  if (has_player()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->player(), output);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->game_account_id(), output);
+  }
+
+  // optional .Battlenet.EntityId account_id = 3;
+  if (has_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->account_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.BlockedPlayerAddedNotification)
+}
+
+::google::protobuf::uint8* BlockedPlayerAddedNotification::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.BlockedPlayerAddedNotification)
+  // required .Battlenet.user_manager.BlockedPlayer player = 1;
+  if (has_player()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->player(), target);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->game_account_id(), target);
+  }
+
+  // optional .Battlenet.EntityId account_id = 3;
+  if (has_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->account_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.BlockedPlayerAddedNotification)
+  return target;
+}
+
+int BlockedPlayerAddedNotification::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.user_manager.BlockedPlayer player = 1;
+    if (has_player()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->player());
+    }
+
+    // optional .Battlenet.EntityId game_account_id = 2;
+    if (has_game_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->game_account_id());
+    }
+
+    // optional .Battlenet.EntityId account_id = 3;
+    if (has_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->account_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BlockedPlayerAddedNotification::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const BlockedPlayerAddedNotification* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const BlockedPlayerAddedNotification*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BlockedPlayerAddedNotification::MergeFrom(const BlockedPlayerAddedNotification& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_player()) {
+      mutable_player()->::Battlenet::user_manager::BlockedPlayer::MergeFrom(from.player());
+    }
+    if (from.has_game_account_id()) {
+      mutable_game_account_id()->::Battlenet::EntityId::MergeFrom(from.game_account_id());
+    }
+    if (from.has_account_id()) {
+      mutable_account_id()->::Battlenet::EntityId::MergeFrom(from.account_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void BlockedPlayerAddedNotification::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BlockedPlayerAddedNotification::CopyFrom(const BlockedPlayerAddedNotification& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BlockedPlayerAddedNotification::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_player()) {
+    if (!this->player().IsInitialized()) return false;
+  }
+  if (has_game_account_id()) {
+    if (!this->game_account_id().IsInitialized()) return false;
+  }
+  if (has_account_id()) {
+    if (!this->account_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void BlockedPlayerAddedNotification::Swap(BlockedPlayerAddedNotification* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(player_, other->player_);
+    std::swap(game_account_id_, other->game_account_id_);
+    std::swap(account_id_, other->account_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata BlockedPlayerAddedNotification::GetMetadata() const {
@@ -1319,9 +3385,253 @@ BlockedPlayerRemovedNotification* BlockedPlayerRemovedNotification::New() const 
   return new BlockedPlayerRemovedNotification;
 }
 
+void BlockedPlayerRemovedNotification::Clear() {
+  if (_has_bits_[0 / 32] & 7) {
+    if (has_player()) {
+      if (player_ != NULL) player_->::Battlenet::user_manager::BlockedPlayer::Clear();
+    }
+    if (has_game_account_id()) {
+      if (game_account_id_ != NULL) game_account_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_account_id()) {
+      if (account_id_ != NULL) account_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool BlockedPlayerRemovedNotification::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.BlockedPlayerRemovedNotification)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.user_manager.BlockedPlayer player = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_player()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_game_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId game_account_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_game_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_game_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId account_id = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.BlockedPlayerRemovedNotification)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.BlockedPlayerRemovedNotification)
+  return false;
+#undef DO_
+}
+
+void BlockedPlayerRemovedNotification::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.BlockedPlayerRemovedNotification)
+  // required .Battlenet.user_manager.BlockedPlayer player = 1;
+  if (has_player()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->player(), output);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->game_account_id(), output);
+  }
+
+  // optional .Battlenet.EntityId account_id = 3;
+  if (has_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->account_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.BlockedPlayerRemovedNotification)
+}
+
+::google::protobuf::uint8* BlockedPlayerRemovedNotification::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.BlockedPlayerRemovedNotification)
+  // required .Battlenet.user_manager.BlockedPlayer player = 1;
+  if (has_player()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->player(), target);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->game_account_id(), target);
+  }
+
+  // optional .Battlenet.EntityId account_id = 3;
+  if (has_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->account_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.BlockedPlayerRemovedNotification)
+  return target;
+}
+
+int BlockedPlayerRemovedNotification::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.user_manager.BlockedPlayer player = 1;
+    if (has_player()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->player());
+    }
+
+    // optional .Battlenet.EntityId game_account_id = 2;
+    if (has_game_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->game_account_id());
+    }
+
+    // optional .Battlenet.EntityId account_id = 3;
+    if (has_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->account_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BlockedPlayerRemovedNotification::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const BlockedPlayerRemovedNotification* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const BlockedPlayerRemovedNotification*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BlockedPlayerRemovedNotification::MergeFrom(const BlockedPlayerRemovedNotification& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_player()) {
+      mutable_player()->::Battlenet::user_manager::BlockedPlayer::MergeFrom(from.player());
+    }
+    if (from.has_game_account_id()) {
+      mutable_game_account_id()->::Battlenet::EntityId::MergeFrom(from.game_account_id());
+    }
+    if (from.has_account_id()) {
+      mutable_account_id()->::Battlenet::EntityId::MergeFrom(from.account_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void BlockedPlayerRemovedNotification::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BlockedPlayerRemovedNotification::CopyFrom(const BlockedPlayerRemovedNotification& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BlockedPlayerRemovedNotification::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_player()) {
+    if (!this->player().IsInitialized()) return false;
+  }
+  if (has_game_account_id()) {
+    if (!this->game_account_id().IsInitialized()) return false;
+  }
+  if (has_account_id()) {
+    if (!this->account_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void BlockedPlayerRemovedNotification::Swap(BlockedPlayerRemovedNotification* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(player_, other->player_);
+    std::swap(game_account_id_, other->game_account_id_);
+    std::swap(account_id_, other->account_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata BlockedPlayerRemovedNotification::GetMetadata() const {
@@ -1391,9 +3701,157 @@ RecentPlayersAddedNotification* RecentPlayersAddedNotification::New() const {
   return new RecentPlayersAddedNotification;
 }
 
+void RecentPlayersAddedNotification::Clear() {
+  player_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool RecentPlayersAddedNotification::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.RecentPlayersAddedNotification)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .Battlenet.user_manager.RecentPlayer player = 1;
+      case 1: {
+        if (tag == 10) {
+         parse_player:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_player()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_player;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.RecentPlayersAddedNotification)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.RecentPlayersAddedNotification)
+  return false;
+#undef DO_
+}
+
+void RecentPlayersAddedNotification::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.RecentPlayersAddedNotification)
+  // repeated .Battlenet.user_manager.RecentPlayer player = 1;
+  for (int i = 0; i < this->player_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->player(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.RecentPlayersAddedNotification)
+}
+
+::google::protobuf::uint8* RecentPlayersAddedNotification::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.RecentPlayersAddedNotification)
+  // repeated .Battlenet.user_manager.RecentPlayer player = 1;
+  for (int i = 0; i < this->player_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->player(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.RecentPlayersAddedNotification)
+  return target;
+}
+
+int RecentPlayersAddedNotification::ByteSize() const {
+  int total_size = 0;
+
+  // repeated .Battlenet.user_manager.RecentPlayer player = 1;
+  total_size += 1 * this->player_size();
+  for (int i = 0; i < this->player_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->player(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RecentPlayersAddedNotification::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const RecentPlayersAddedNotification* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const RecentPlayersAddedNotification*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void RecentPlayersAddedNotification::MergeFrom(const RecentPlayersAddedNotification& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  player_.MergeFrom(from.player_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void RecentPlayersAddedNotification::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RecentPlayersAddedNotification::CopyFrom(const RecentPlayersAddedNotification& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RecentPlayersAddedNotification::IsInitialized() const {
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->player())) return false;
+  return true;
+}
+
 void RecentPlayersAddedNotification::Swap(RecentPlayersAddedNotification* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    player_.Swap(&other->player_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata RecentPlayersAddedNotification::GetMetadata() const {
@@ -1463,9 +3921,157 @@ RecentPlayersRemovedNotification* RecentPlayersRemovedNotification::New() const 
   return new RecentPlayersRemovedNotification;
 }
 
+void RecentPlayersRemovedNotification::Clear() {
+  player_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool RecentPlayersRemovedNotification::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.user_manager.RecentPlayersRemovedNotification)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .Battlenet.user_manager.RecentPlayer player = 1;
+      case 1: {
+        if (tag == 10) {
+         parse_player:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_player()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_player;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.user_manager.RecentPlayersRemovedNotification)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.user_manager.RecentPlayersRemovedNotification)
+  return false;
+#undef DO_
+}
+
+void RecentPlayersRemovedNotification::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.user_manager.RecentPlayersRemovedNotification)
+  // repeated .Battlenet.user_manager.RecentPlayer player = 1;
+  for (int i = 0; i < this->player_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->player(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.user_manager.RecentPlayersRemovedNotification)
+}
+
+::google::protobuf::uint8* RecentPlayersRemovedNotification::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.user_manager.RecentPlayersRemovedNotification)
+  // repeated .Battlenet.user_manager.RecentPlayer player = 1;
+  for (int i = 0; i < this->player_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->player(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.user_manager.RecentPlayersRemovedNotification)
+  return target;
+}
+
+int RecentPlayersRemovedNotification::ByteSize() const {
+  int total_size = 0;
+
+  // repeated .Battlenet.user_manager.RecentPlayer player = 1;
+  total_size += 1 * this->player_size();
+  for (int i = 0; i < this->player_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->player(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RecentPlayersRemovedNotification::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const RecentPlayersRemovedNotification* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const RecentPlayersRemovedNotification*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void RecentPlayersRemovedNotification::MergeFrom(const RecentPlayersRemovedNotification& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  player_.MergeFrom(from.player_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void RecentPlayersRemovedNotification::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RecentPlayersRemovedNotification::CopyFrom(const RecentPlayersRemovedNotification& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RecentPlayersRemovedNotification::IsInitialized() const {
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->player())) return false;
+  return true;
+}
+
 void RecentPlayersRemovedNotification::Swap(RecentPlayersRemovedNotification* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    player_.Swap(&other->player_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata RecentPlayersRemovedNotification::GetMetadata() const {
@@ -1479,420 +4085,312 @@ void RecentPlayersRemovedNotification::Swap(RecentPlayersRemovedNotification* ot
 
 // ===================================================================
 
-UserManagerService::~UserManagerService() {}
-
-const ::google::protobuf::ServiceDescriptor* UserManagerService::descriptor() {
+google::protobuf::ServiceDescriptor const* UserManagerService::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return UserManagerService_descriptor_;
 }
 
-const ::google::protobuf::ServiceDescriptor* UserManagerService::GetDescriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return UserManagerService_descriptor_;
-}
+void UserManagerService::CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) {
+  switch(methodId) {
+    case 1: {
+      ::Battlenet::user_manager::SubscribeRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for UserManagerService.Subscribe server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
 
-void UserManagerService::Subscribe(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::user_manager::SubscribeRequest*,
-                         ::Battlenet::user_manager::SubscribeResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Subscribe() not implemented.");
-  done->Run();
-}
-
-void UserManagerService::AddRecentPlayers(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::user_manager::AddRecentPlayersRequest*,
-                         ::Battlenet::user_manager::AddRecentPlayersResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method AddRecentPlayers() not implemented.");
-  done->Run();
-}
-
-void UserManagerService::ClearRecentPlayers(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::user_manager::ClearRecentPlayersRequest*,
-                         ::Battlenet::user_manager::ClearRecentPlayersResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method ClearRecentPlayers() not implemented.");
-  done->Run();
-}
-
-void UserManagerService::BlockPlayer(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::user_manager::BlockPlayerRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method BlockPlayer() not implemented.");
-  done->Run();
-}
-
-void UserManagerService::UnblockPlayer(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::user_manager::UnblockPlayerRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method UnblockPlayer() not implemented.");
-  done->Run();
-}
-
-void UserManagerService::BlockPlayerForSession(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::user_manager::BlockPlayerRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method BlockPlayerForSession() not implemented.");
-  done->Run();
-}
-
-void UserManagerService::LoadBlockList(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::EntityId*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method LoadBlockList() not implemented.");
-  done->Run();
-}
-
-void UserManagerService::Unsubscribe(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::user_manager::UnsubscribeRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Unsubscribe() not implemented.");
-  done->Run();
-}
-
-void UserManagerService::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                             ::google::protobuf::RpcController* controller,
-                             const ::google::protobuf::Message* request,
-                             ::google::protobuf::Message* response,
-                             ::google::protobuf::Closure* done) {
-  GOOGLE_DCHECK_EQ(method->service(), UserManagerService_descriptor_);
-  switch(method->index()) {
-    case 0:
-      Subscribe(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::user_manager::SubscribeRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::user_manager::SubscribeResponse*>(response),
-             done);
+      ::Battlenet::user_manager::SubscribeResponse response;
+      uint32 status = HandleSubscribe(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method UserManagerService.Subscribe(Battlenet.user_manager.SubscribeRequest{ %s }) returned Battlenet.user_manager.SubscribeResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 1:
-      AddRecentPlayers(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::user_manager::AddRecentPlayersRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::user_manager::AddRecentPlayersResponse*>(response),
-             done);
+    }
+    case 10: {
+      ::Battlenet::user_manager::AddRecentPlayersRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for UserManagerService.AddRecentPlayers server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::user_manager::AddRecentPlayersResponse response;
+      uint32 status = HandleAddRecentPlayers(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method UserManagerService.AddRecentPlayers(Battlenet.user_manager.AddRecentPlayersRequest{ %s }) returned Battlenet.user_manager.AddRecentPlayersResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 2:
-      ClearRecentPlayers(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::user_manager::ClearRecentPlayersRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::user_manager::ClearRecentPlayersResponse*>(response),
-             done);
+    }
+    case 11: {
+      ::Battlenet::user_manager::ClearRecentPlayersRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for UserManagerService.ClearRecentPlayers server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::user_manager::ClearRecentPlayersResponse response;
+      uint32 status = HandleClearRecentPlayers(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method UserManagerService.ClearRecentPlayers(Battlenet.user_manager.ClearRecentPlayersRequest{ %s }) returned Battlenet.user_manager.ClearRecentPlayersResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 3:
-      BlockPlayer(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::user_manager::BlockPlayerRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 20: {
+      ::Battlenet::user_manager::BlockPlayerRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for UserManagerService.BlockPlayer server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleBlockPlayer(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method UserManagerService.BlockPlayer(Battlenet.user_manager.BlockPlayerRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 4:
-      UnblockPlayer(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::user_manager::UnblockPlayerRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 21: {
+      ::Battlenet::user_manager::UnblockPlayerRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for UserManagerService.UnblockPlayer server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleUnblockPlayer(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method UserManagerService.UnblockPlayer(Battlenet.user_manager.UnblockPlayerRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 5:
-      BlockPlayerForSession(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::user_manager::BlockPlayerRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 40: {
+      ::Battlenet::user_manager::BlockPlayerRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for UserManagerService.BlockPlayerForSession server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleBlockPlayerForSession(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method UserManagerService.BlockPlayerForSession(Battlenet.user_manager.BlockPlayerRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 6:
-      LoadBlockList(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::EntityId*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 50: {
+      ::Battlenet::EntityId request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for UserManagerService.LoadBlockList server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleLoadBlockList(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method UserManagerService.LoadBlockList(Battlenet.EntityId{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 7:
-      Unsubscribe(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::user_manager::UnsubscribeRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 51: {
+      ::Battlenet::user_manager::UnsubscribeRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for UserManagerService.Unsubscribe server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleUnsubscribe(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method UserManagerService.Unsubscribe(Battlenet.user_manager.UnsubscribeRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
+    }
     default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      TC_LOG_ERROR("session.rpc", "Bad method id %u.", methodId);
+      _session->SendResponse(token, ERROR_RPC_INVALID_METHOD);
       break;
-  }
+    }
 }
 
-const ::google::protobuf::Message& UserManagerService::GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::user_manager::SubscribeRequest::default_instance();
-    case 1:
-      return ::Battlenet::user_manager::AddRecentPlayersRequest::default_instance();
-    case 2:
-      return ::Battlenet::user_manager::ClearRecentPlayersRequest::default_instance();
-    case 3:
-      return ::Battlenet::user_manager::BlockPlayerRequest::default_instance();
-    case 4:
-      return ::Battlenet::user_manager::UnblockPlayerRequest::default_instance();
-    case 5:
-      return ::Battlenet::user_manager::BlockPlayerRequest::default_instance();
-    case 6:
-      return ::Battlenet::EntityId::default_instance();
-    case 7:
-      return ::Battlenet::user_manager::UnsubscribeRequest::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 UserManagerService::HandleSubscribe(::Battlenet::user_manager::SubscribeRequest const* request, ::Battlenet::user_manager::SubscribeResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method UserManagerService.Subscribe({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-const ::google::protobuf::Message& UserManagerService::GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::user_manager::SubscribeResponse::default_instance();
-    case 1:
-      return ::Battlenet::user_manager::AddRecentPlayersResponse::default_instance();
-    case 2:
-      return ::Battlenet::user_manager::ClearRecentPlayersResponse::default_instance();
-    case 3:
-      return ::Battlenet::NoData::default_instance();
-    case 4:
-      return ::Battlenet::NoData::default_instance();
-    case 5:
-      return ::Battlenet::NoData::default_instance();
-    case 6:
-      return ::Battlenet::NoData::default_instance();
-    case 7:
-      return ::Battlenet::NoData::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 UserManagerService::HandleAddRecentPlayers(::Battlenet::user_manager::AddRecentPlayersRequest const* request, ::Battlenet::user_manager::AddRecentPlayersResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method UserManagerService.AddRecentPlayers({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-UserManagerService_Stub::UserManagerService_Stub(::google::protobuf::RpcChannel* channel)
-  : channel_(channel), owns_channel_(false) {}
-UserManagerService_Stub::UserManagerService_Stub(
-    ::google::protobuf::RpcChannel* channel,
-    ::google::protobuf::Service::ChannelOwnership ownership)
-  : channel_(channel),
-    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
-UserManagerService_Stub::~UserManagerService_Stub() {
-  if (owns_channel_) delete channel_;
+uint32 UserManagerService::HandleClearRecentPlayers(::Battlenet::user_manager::ClearRecentPlayersRequest const* request, ::Battlenet::user_manager::ClearRecentPlayersResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method UserManagerService.ClearRecentPlayers({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-void UserManagerService_Stub::Subscribe(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::user_manager::SubscribeRequest* request,
-                              ::Battlenet::user_manager::SubscribeResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(0),
-                       controller, request, response, done);
+uint32 UserManagerService::HandleBlockPlayer(::Battlenet::user_manager::BlockPlayerRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method UserManagerService.BlockPlayer({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void UserManagerService_Stub::AddRecentPlayers(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::user_manager::AddRecentPlayersRequest* request,
-                              ::Battlenet::user_manager::AddRecentPlayersResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(1),
-                       controller, request, response, done);
+
+uint32 UserManagerService::HandleUnblockPlayer(::Battlenet::user_manager::UnblockPlayerRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method UserManagerService.UnblockPlayer({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void UserManagerService_Stub::ClearRecentPlayers(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::user_manager::ClearRecentPlayersRequest* request,
-                              ::Battlenet::user_manager::ClearRecentPlayersResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(2),
-                       controller, request, response, done);
+
+uint32 UserManagerService::HandleBlockPlayerForSession(::Battlenet::user_manager::BlockPlayerRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method UserManagerService.BlockPlayerForSession({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void UserManagerService_Stub::BlockPlayer(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::user_manager::BlockPlayerRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(3),
-                       controller, request, response, done);
+
+uint32 UserManagerService::HandleLoadBlockList(::Battlenet::EntityId const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method UserManagerService.LoadBlockList({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void UserManagerService_Stub::UnblockPlayer(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::user_manager::UnblockPlayerRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(4),
-                       controller, request, response, done);
+
+uint32 UserManagerService::HandleUnsubscribe(::Battlenet::user_manager::UnsubscribeRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method UserManagerService.Unsubscribe({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void UserManagerService_Stub::BlockPlayerForSession(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::user_manager::BlockPlayerRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(5),
-                       controller, request, response, done);
-}
-void UserManagerService_Stub::LoadBlockList(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::EntityId* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(6),
-                       controller, request, response, done);
-}
-void UserManagerService_Stub::Unsubscribe(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::user_manager::UnsubscribeRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(7),
-                       controller, request, response, done);
-}
+
 // ===================================================================
 
-UserManagerListener::~UserManagerListener() {}
-
-const ::google::protobuf::ServiceDescriptor* UserManagerListener::descriptor() {
+google::protobuf::ServiceDescriptor const* UserManagerListener::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return UserManagerListener_descriptor_;
 }
 
-const ::google::protobuf::ServiceDescriptor* UserManagerListener::GetDescriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return UserManagerListener_descriptor_;
-}
+void UserManagerListener::CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) {
+  switch(methodId) {
+    case 1: {
+      ::Battlenet::user_manager::BlockedPlayerAddedNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for UserManagerListener.OnBlockedPlayerAdded server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
 
-void UserManagerListener::OnBlockedPlayerAdded(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::user_manager::BlockedPlayerAddedNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnBlockedPlayerAdded() not implemented.");
-  done->Run();
-}
-
-void UserManagerListener::OnBlockedPlayerRemoved(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::user_manager::BlockedPlayerRemovedNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnBlockedPlayerRemoved() not implemented.");
-  done->Run();
-}
-
-void UserManagerListener::OnRecentPlayersAdded(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::user_manager::RecentPlayersAddedNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnRecentPlayersAdded() not implemented.");
-  done->Run();
-}
-
-void UserManagerListener::OnRecentPlayersRemoved(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::user_manager::RecentPlayersRemovedNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnRecentPlayersRemoved() not implemented.");
-  done->Run();
-}
-
-void UserManagerListener::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                             ::google::protobuf::RpcController* controller,
-                             const ::google::protobuf::Message* request,
-                             ::google::protobuf::Message* response,
-                             ::google::protobuf::Closure* done) {
-  GOOGLE_DCHECK_EQ(method->service(), UserManagerListener_descriptor_);
-  switch(method->index()) {
-    case 0:
-      OnBlockedPlayerAdded(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::user_manager::BlockedPlayerAddedNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+      uint32 status = HandleOnBlockedPlayerAdded(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method UserManagerListener.OnBlockedPlayerAdded(Battlenet.user_manager.BlockedPlayerAddedNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 1:
-      OnBlockedPlayerRemoved(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::user_manager::BlockedPlayerRemovedNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 2: {
+      ::Battlenet::user_manager::BlockedPlayerRemovedNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for UserManagerListener.OnBlockedPlayerRemoved server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnBlockedPlayerRemoved(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method UserManagerListener.OnBlockedPlayerRemoved(Battlenet.user_manager.BlockedPlayerRemovedNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 2:
-      OnRecentPlayersAdded(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::user_manager::RecentPlayersAddedNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 11: {
+      ::Battlenet::user_manager::RecentPlayersAddedNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for UserManagerListener.OnRecentPlayersAdded server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnRecentPlayersAdded(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method UserManagerListener.OnRecentPlayersAdded(Battlenet.user_manager.RecentPlayersAddedNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 3:
-      OnRecentPlayersRemoved(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::user_manager::RecentPlayersRemovedNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 12: {
+      ::Battlenet::user_manager::RecentPlayersRemovedNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for UserManagerListener.OnRecentPlayersRemoved server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnRecentPlayersRemoved(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method UserManagerListener.OnRecentPlayersRemoved(Battlenet.user_manager.RecentPlayersRemovedNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
+    }
     default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      TC_LOG_ERROR("session.rpc", "Bad method id %u.", methodId);
+      _session->SendResponse(token, ERROR_RPC_INVALID_METHOD);
       break;
-  }
+    }
 }
 
-const ::google::protobuf::Message& UserManagerListener::GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::user_manager::BlockedPlayerAddedNotification::default_instance();
-    case 1:
-      return ::Battlenet::user_manager::BlockedPlayerRemovedNotification::default_instance();
-    case 2:
-      return ::Battlenet::user_manager::RecentPlayersAddedNotification::default_instance();
-    case 3:
-      return ::Battlenet::user_manager::RecentPlayersRemovedNotification::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 UserManagerListener::HandleOnBlockedPlayerAdded(::Battlenet::user_manager::BlockedPlayerAddedNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method UserManagerListener.OnBlockedPlayerAdded({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-const ::google::protobuf::Message& UserManagerListener::GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 1:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 2:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 3:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 UserManagerListener::HandleOnBlockedPlayerRemoved(::Battlenet::user_manager::BlockedPlayerRemovedNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method UserManagerListener.OnBlockedPlayerRemoved({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-UserManagerListener_Stub::UserManagerListener_Stub(::google::protobuf::RpcChannel* channel)
-  : channel_(channel), owns_channel_(false) {}
-UserManagerListener_Stub::UserManagerListener_Stub(
-    ::google::protobuf::RpcChannel* channel,
-    ::google::protobuf::Service::ChannelOwnership ownership)
-  : channel_(channel),
-    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
-UserManagerListener_Stub::~UserManagerListener_Stub() {
-  if (owns_channel_) delete channel_;
+uint32 UserManagerListener::HandleOnRecentPlayersAdded(::Battlenet::user_manager::RecentPlayersAddedNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method UserManagerListener.OnRecentPlayersAdded({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-void UserManagerListener_Stub::OnBlockedPlayerAdded(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::user_manager::BlockedPlayerAddedNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(0),
-                       controller, request, response, done);
+uint32 UserManagerListener::HandleOnRecentPlayersRemoved(::Battlenet::user_manager::RecentPlayersRemovedNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method UserManagerListener.OnRecentPlayersRemoved({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void UserManagerListener_Stub::OnBlockedPlayerRemoved(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::user_manager::BlockedPlayerRemovedNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(1),
-                       controller, request, response, done);
-}
-void UserManagerListener_Stub::OnRecentPlayersAdded(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::user_manager::RecentPlayersAddedNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(2),
-                       controller, request, response, done);
-}
-void UserManagerListener_Stub::OnRecentPlayersRemoved(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::user_manager::RecentPlayersRemovedNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(3),
-                       controller, request, response, done);
-}
+
 
 // @@protoc_insertion_point(namespace_scope)
 

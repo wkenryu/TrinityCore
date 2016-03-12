@@ -23,10 +23,13 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "content_handle_types.pb.h"
 #include "rpc_types.pb.h"
+#include "ServiceBase.h"
+#include "Session.h"
+#include "MessageBuffer.h"
+#include <type_traits>
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -79,6 +82,19 @@ class ConnectRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ConnectRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ConnectRequest& from);
+  void MergeFrom(const ConnectRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -169,6 +185,19 @@ class ConnectionMeteringContentHandles : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ConnectionMeteringContentHandles* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ConnectionMeteringContentHandles& from);
+  void MergeFrom(const ConnectionMeteringContentHandles& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -238,6 +267,19 @@ class ConnectResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ConnectResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ConnectResponse& from);
+  void MergeFrom(const ConnectResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -384,6 +426,19 @@ class BoundService : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   BoundService* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BoundService& from);
+  void MergeFrom(const BoundService& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -460,6 +515,19 @@ class BindRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   BindRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BindRequest& from);
+  void MergeFrom(const BindRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -528,6 +596,7 @@ class BindRequest : public ::google::protobuf::Message {
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > deprecated_imported_service_hash_;
+  mutable int _deprecated_imported_service_hash_cached_byte_size_;
   ::google::protobuf::RepeatedPtrField< ::Battlenet::connection::BoundService > deprecated_exported_service_;
   ::google::protobuf::RepeatedPtrField< ::Battlenet::connection::BoundService > exported_service_;
   ::google::protobuf::RepeatedPtrField< ::Battlenet::connection::BoundService > imported_service_;
@@ -568,6 +637,19 @@ class BindResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   BindResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BindResponse& from);
+  void MergeFrom(const BindResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -600,6 +682,7 @@ class BindResponse : public ::google::protobuf::Message {
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > imported_service_id_;
+  mutable int _imported_service_id_cached_byte_size_;
   friend void  protobuf_AddDesc_connection_5fservice_2eproto();
   friend void protobuf_AssignDesc_connection_5fservice_2eproto();
   friend void protobuf_ShutdownFile_connection_5fservice_2eproto();
@@ -637,6 +720,19 @@ class EchoRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   EchoRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const EchoRequest& from);
+  void MergeFrom(const EchoRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -728,6 +824,19 @@ class EchoResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   EchoResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const EchoResponse& from);
+  void MergeFrom(const EchoResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -809,6 +918,19 @@ class DisconnectRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   DisconnectRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DisconnectRequest& from);
+  void MergeFrom(const DisconnectRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -875,6 +997,19 @@ class DisconnectNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   DisconnectNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DisconnectNotification& from);
+  void MergeFrom(const DisconnectNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -956,6 +1091,19 @@ class EncryptRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   EncryptRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const EncryptRequest& from);
+  void MergeFrom(const EncryptRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -984,110 +1132,82 @@ class EncryptRequest : public ::google::protobuf::Message {
 };
 // ===================================================================
 
-class ConnectionService_Stub;
-
-class ConnectionService : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline ConnectionService() {};
+class ConnectionService : public ServiceBase
+{
  public:
-  virtual ~ConnectionService();
+  explicit ConnectionService(Battlenet::Session* session) : _session(session) { }
+  ~ConnectionService() { }
 
-  typedef ConnectionService_Stub Stub;
+  typedef std::integral_constant<uint32, 0x65446991u> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void Connect(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::connection::ConnectRequest* request,
-                       ::Battlenet::connection::ConnectResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void Bind(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::connection::BindRequest* request,
-                       ::Battlenet::connection::BindResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void Echo(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::connection::EchoRequest* request,
-                       ::Battlenet::connection::EchoResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void ForceDisconnect(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::connection::DisconnectNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void KeepAlive(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::NoData* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void Encrypt(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::connection::EncryptRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void RequestDisconnect(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::connection::DisconnectRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  template<void(Battlenet::Session::*Handler)(::Battlenet::connection::ConnectResponse const*)>
+  inline void Connect(::Battlenet::connection::ConnectRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ConnectionService.Connect(Battlenet.connection.ConnectRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::connection::ConnectResponse, Handler>(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  template<void(Battlenet::Session::*Handler)(::Battlenet::connection::BindResponse const*)>
+  inline void Bind(::Battlenet::connection::BindRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ConnectionService.Bind(Battlenet.connection.BindRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::connection::BindResponse, Handler>(Hash::value, 2, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::connection::EchoResponse const*)>
+  inline void Echo(::Battlenet::connection::EchoRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ConnectionService.Echo(Battlenet.connection.EchoRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::connection::EchoResponse, Handler>(Hash::value, 3, request);
+  }
+
+  inline void ForceDisconnect(::Battlenet::connection::DisconnectNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ConnectionService.ForceDisconnect(Battlenet.connection.DisconnectNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 4, request);
+  }
+
+  inline void KeepAlive(::Battlenet::NoData const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ConnectionService.KeepAlive(Battlenet.NoData{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 5, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void Encrypt(::Battlenet::connection::EncryptRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ConnectionService.Encrypt(Battlenet.connection.EncryptRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 6, request);
+  }
+
+  inline void RequestDisconnect(::Battlenet::connection::DisconnectRequest const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ConnectionService.RequestDisconnect(Battlenet.connection.DisconnectRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 7, request);
+  }
+
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleConnect(::Battlenet::connection::ConnectRequest const* request, ::Battlenet::connection::ConnectResponse* response);
+  virtual uint32 HandleBind(::Battlenet::connection::BindRequest const* request, ::Battlenet::connection::BindResponse* response);
+  virtual uint32 HandleEcho(::Battlenet::connection::EchoRequest const* request, ::Battlenet::connection::EchoResponse* response);
+  virtual uint32 HandleForceDisconnect(::Battlenet::connection::DisconnectNotification const* request);
+  virtual uint32 HandleKeepAlive(::Battlenet::NoData const* request);
+  virtual uint32 HandleEncrypt(::Battlenet::connection::EncryptRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleRequestDisconnect(::Battlenet::connection::DisconnectRequest const* request);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ConnectionService);
 };
-
-class ConnectionService_Stub : public ConnectionService {
- public:
-  ConnectionService_Stub(::google::protobuf::RpcChannel* channel);
-  ConnectionService_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~ConnectionService_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements ConnectionService ------------------------------------------
-
-  void Connect(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::connection::ConnectRequest* request,
-                       ::Battlenet::connection::ConnectResponse* response,
-                       ::google::protobuf::Closure* done);
-  void Bind(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::connection::BindRequest* request,
-                       ::Battlenet::connection::BindResponse* response,
-                       ::google::protobuf::Closure* done);
-  void Echo(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::connection::EchoRequest* request,
-                       ::Battlenet::connection::EchoResponse* response,
-                       ::google::protobuf::Closure* done);
-  void ForceDisconnect(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::connection::DisconnectNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void KeepAlive(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::NoData* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void Encrypt(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::connection::EncryptRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void RequestDisconnect(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::connection::DisconnectRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ConnectionService_Stub);
-};
-
 
 // ===================================================================
 

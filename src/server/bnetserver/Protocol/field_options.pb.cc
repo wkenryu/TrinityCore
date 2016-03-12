@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -63,7 +64,7 @@ void protobuf_AddDesc_field_5foptions_2eproto() {
     "/protobuf/descriptor.proto* \n\tLogOption\022"
     "\n\n\006HIDDEN\020\001\022\007\n\003HEX\020\002:B\n\003log\022\035.google.pro"
     "tobuf.FieldOptions\030\320\206\003 \001(\0162\024.Battlenet.L"
-    "ogOptionB\002H\002", 172);
+    "ogOptionB\002H\001", 172);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "field_options.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::ExtensionSet::RegisterEnumExtension(

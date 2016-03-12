@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -93,7 +94,7 @@ void protobuf_AddDesc_resource_5fservice_2eproto() {
     "\020GetContentHandle\022).Battlenet.resources."
     "ContentHandleRequest\032\030.Battlenet.Content"
     "Handle\"\004\200\265\030\001\032$\312>!bnet.protocol.resources"
-    ".ResourcesB\005H\002\200\001\001", 337);
+    ".ResourcesB\005H\001\200\001\000", 337);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "resource_service.proto", &protobuf_RegisterTypes);
   ContentHandleRequest::default_instance_ = new ContentHandleRequest();
@@ -171,9 +172,242 @@ ContentHandleRequest* ContentHandleRequest::New() const {
   return new ContentHandleRequest;
 }
 
+void ContentHandleRequest::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<ContentHandleRequest*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 7) {
+    ZR_(program_, stream_);
+    version_ = 1701729619u;
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ContentHandleRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.resources.ContentHandleRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required fixed32 program = 1;
+      case 1: {
+        if (tag == 13) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &program_)));
+          set_has_program();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(21)) goto parse_stream;
+        break;
+      }
+
+      // required fixed32 stream = 2;
+      case 2: {
+        if (tag == 21) {
+         parse_stream:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &stream_)));
+          set_has_stream();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(29)) goto parse_version;
+        break;
+      }
+
+      // optional fixed32 version = 3 [default = 1701729619];
+      case 3: {
+        if (tag == 29) {
+         parse_version:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &version_)));
+          set_has_version();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.resources.ContentHandleRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.resources.ContentHandleRequest)
+  return false;
+#undef DO_
+}
+
+void ContentHandleRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.resources.ContentHandleRequest)
+  // required fixed32 program = 1;
+  if (has_program()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(1, this->program(), output);
+  }
+
+  // required fixed32 stream = 2;
+  if (has_stream()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(2, this->stream(), output);
+  }
+
+  // optional fixed32 version = 3 [default = 1701729619];
+  if (has_version()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(3, this->version(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.resources.ContentHandleRequest)
+}
+
+::google::protobuf::uint8* ContentHandleRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.resources.ContentHandleRequest)
+  // required fixed32 program = 1;
+  if (has_program()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(1, this->program(), target);
+  }
+
+  // required fixed32 stream = 2;
+  if (has_stream()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(2, this->stream(), target);
+  }
+
+  // optional fixed32 version = 3 [default = 1701729619];
+  if (has_version()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(3, this->version(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.resources.ContentHandleRequest)
+  return target;
+}
+
+int ContentHandleRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required fixed32 program = 1;
+    if (has_program()) {
+      total_size += 1 + 4;
+    }
+
+    // required fixed32 stream = 2;
+    if (has_stream()) {
+      total_size += 1 + 4;
+    }
+
+    // optional fixed32 version = 3 [default = 1701729619];
+    if (has_version()) {
+      total_size += 1 + 4;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ContentHandleRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ContentHandleRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ContentHandleRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ContentHandleRequest::MergeFrom(const ContentHandleRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_program()) {
+      set_program(from.program());
+    }
+    if (from.has_stream()) {
+      set_stream(from.stream());
+    }
+    if (from.has_version()) {
+      set_version(from.version());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ContentHandleRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ContentHandleRequest::CopyFrom(const ContentHandleRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ContentHandleRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+
+  return true;
+}
+
 void ContentHandleRequest::Swap(ContentHandleRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(program_, other->program_);
+    std::swap(stream_, other->stream_);
+    std::swap(version_, other->version_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ContentHandleRequest::GetMetadata() const {
@@ -187,87 +421,44 @@ void ContentHandleRequest::Swap(ContentHandleRequest* other) {
 
 // ===================================================================
 
-ResourcesService::~ResourcesService() {}
-
-const ::google::protobuf::ServiceDescriptor* ResourcesService::descriptor() {
+google::protobuf::ServiceDescriptor const* ResourcesService::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return ResourcesService_descriptor_;
 }
 
-const ::google::protobuf::ServiceDescriptor* ResourcesService::GetDescriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return ResourcesService_descriptor_;
-}
+void ResourcesService::CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) {
+  switch(methodId) {
+    case 1: {
+      ::Battlenet::resources::ContentHandleRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for ResourcesService.GetContentHandle server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
 
-void ResourcesService::GetContentHandle(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::resources::ContentHandleRequest*,
-                         ::Battlenet::ContentHandle*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetContentHandle() not implemented.");
-  done->Run();
-}
-
-void ResourcesService::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                             ::google::protobuf::RpcController* controller,
-                             const ::google::protobuf::Message* request,
-                             ::google::protobuf::Message* response,
-                             ::google::protobuf::Closure* done) {
-  GOOGLE_DCHECK_EQ(method->service(), ResourcesService_descriptor_);
-  switch(method->index()) {
-    case 0:
-      GetContentHandle(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::resources::ContentHandleRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::ContentHandle*>(response),
-             done);
+      ::Battlenet::ContentHandle response;
+      uint32 status = HandleGetContentHandle(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method ResourcesService.GetContentHandle(Battlenet.resources.ContentHandleRequest{ %s }) returned Battlenet.ContentHandle{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
+    }
     default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      TC_LOG_ERROR("session.rpc", "Bad method id %u.", methodId);
+      _session->SendResponse(token, ERROR_RPC_INVALID_METHOD);
       break;
-  }
+    }
 }
 
-const ::google::protobuf::Message& ResourcesService::GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::resources::ContentHandleRequest::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 ResourcesService::HandleGetContentHandle(::Battlenet::resources::ContentHandleRequest const* request, ::Battlenet::ContentHandle* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method ResourcesService.GetContentHandle({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-const ::google::protobuf::Message& ResourcesService::GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::ContentHandle::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
-}
-
-ResourcesService_Stub::ResourcesService_Stub(::google::protobuf::RpcChannel* channel)
-  : channel_(channel), owns_channel_(false) {}
-ResourcesService_Stub::ResourcesService_Stub(
-    ::google::protobuf::RpcChannel* channel,
-    ::google::protobuf::Service::ChannelOwnership ownership)
-  : channel_(channel),
-    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
-ResourcesService_Stub::~ResourcesService_Stub() {
-  if (owns_channel_) delete channel_;
-}
-
-void ResourcesService_Stub::GetContentHandle(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::resources::ContentHandleRequest* request,
-                              ::Battlenet::ContentHandle* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(0),
-                       controller, request, response, done);
-}
 
 // @@protoc_insertion_point(namespace_scope)
 

@@ -73,6 +73,19 @@ class Invitation : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   Invitation* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Invitation& from);
+  void MergeFrom(const Invitation& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -231,6 +244,19 @@ class InvitationSuggestion : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   InvitationSuggestion* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const InvitationSuggestion& from);
+  void MergeFrom(const InvitationSuggestion& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -365,6 +391,19 @@ class InvitationTarget : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   InvitationTarget* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const InvitationTarget& from);
+  void MergeFrom(const InvitationTarget& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -466,6 +505,19 @@ class InvitationParams : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   InvitationParams* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const InvitationParams& from);
+  void MergeFrom(const InvitationParams& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -550,6 +602,19 @@ class SendInvitationRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SendInvitationRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SendInvitationRequest& from);
+  void MergeFrom(const SendInvitationRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -666,6 +731,19 @@ class SendInvitationResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SendInvitationResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SendInvitationResponse& from);
+  void MergeFrom(const SendInvitationResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -734,6 +812,19 @@ class UpdateInvitationRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UpdateInvitationRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UpdateInvitationRequest& from);
+  void MergeFrom(const UpdateInvitationRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -824,6 +915,19 @@ class GenericInvitationRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   GenericInvitationRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const GenericInvitationRequest& from);
+  void MergeFrom(const GenericInvitationRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -941,7 +1045,9 @@ class GenericInvitationRequest : public ::google::protobuf::Message {
   ::std::string* invitee_name_;
   ::std::string* inviter_name_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > previous_role_;
+  mutable int _previous_role_cached_byte_size_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > desired_role_;
+  mutable int _desired_role_cached_byte_size_;
   ::google::protobuf::uint32 reason_;
   friend void  protobuf_AddDesc_invitation_5ftypes_2eproto();
   friend void protobuf_AssignDesc_invitation_5ftypes_2eproto();
@@ -950,6 +1056,9 @@ class GenericInvitationRequest : public ::google::protobuf::Message {
   void InitAsDefaultInstance();
   static GenericInvitationRequest* default_instance_;
 };
+// ===================================================================
+
+
 // ===================================================================
 
 

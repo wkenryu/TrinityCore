@@ -23,11 +23,14 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "entity_types.pb.h"
 #include "presence_types.pb.h"
 #include "rpc_types.pb.h"
+#include "ServiceBase.h"
+#include "Session.h"
+#include "MessageBuffer.h"
+#include <type_traits>
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -76,6 +79,19 @@ class SubscribeRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SubscribeRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SubscribeRequest& from);
+  void MergeFrom(const SubscribeRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -189,6 +205,19 @@ class SubscribeNotificationRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SubscribeNotificationRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SubscribeNotificationRequest& from);
+  void MergeFrom(const SubscribeNotificationRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -257,6 +286,19 @@ class UnsubscribeRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UnsubscribeRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UnsubscribeRequest& from);
+  void MergeFrom(const UnsubscribeRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -347,6 +389,19 @@ class UpdateRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UpdateRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UpdateRequest& from);
+  void MergeFrom(const UpdateRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -450,6 +505,19 @@ class QueryRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   QueryRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const QueryRequest& from);
+  void MergeFrom(const QueryRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -543,6 +611,19 @@ class QueryResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   QueryResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const QueryResponse& from);
+  void MergeFrom(const QueryResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -612,6 +693,19 @@ class OwnershipRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   OwnershipRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const OwnershipRequest& from);
+  void MergeFrom(const OwnershipRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -662,102 +756,77 @@ class OwnershipRequest : public ::google::protobuf::Message {
 };
 // ===================================================================
 
-class PresenceService_Stub;
-
-class PresenceService : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline PresenceService() {};
+class PresenceService : public ServiceBase
+{
  public:
-  virtual ~PresenceService();
+  explicit PresenceService(Battlenet::Session* session) : _session(session) { }
+  ~PresenceService() { }
 
-  typedef PresenceService_Stub Stub;
+  typedef std::integral_constant<uint32, 0xFA0796FFu> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void Subscribe(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::presence::SubscribeRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void Unsubscribe(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::presence::UnsubscribeRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void Update(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::presence::UpdateRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void Query(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::presence::QueryRequest* request,
-                       ::Battlenet::presence::QueryResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void Ownership(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::presence::OwnershipRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void SubscribeNotification(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::presence::SubscribeNotificationRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void Subscribe(::Battlenet::presence::SubscribeRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method PresenceService.Subscribe(Battlenet.presence.SubscribeRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void Unsubscribe(::Battlenet::presence::UnsubscribeRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method PresenceService.Unsubscribe(Battlenet.presence.UnsubscribeRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 2, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void Update(::Battlenet::presence::UpdateRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method PresenceService.Update(Battlenet.presence.UpdateRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 3, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::presence::QueryResponse const*)>
+  inline void Query(::Battlenet::presence::QueryRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method PresenceService.Query(Battlenet.presence.QueryRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::presence::QueryResponse, Handler>(Hash::value, 4, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void Ownership(::Battlenet::presence::OwnershipRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method PresenceService.Ownership(Battlenet.presence.OwnershipRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 5, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void SubscribeNotification(::Battlenet::presence::SubscribeNotificationRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method PresenceService.SubscribeNotification(Battlenet.presence.SubscribeNotificationRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 7, request);
+  }
+
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleSubscribe(::Battlenet::presence::SubscribeRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleUnsubscribe(::Battlenet::presence::UnsubscribeRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleUpdate(::Battlenet::presence::UpdateRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleQuery(::Battlenet::presence::QueryRequest const* request, ::Battlenet::presence::QueryResponse* response);
+  virtual uint32 HandleOwnership(::Battlenet::presence::OwnershipRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleSubscribeNotification(::Battlenet::presence::SubscribeNotificationRequest const* request, ::Battlenet::NoData* response);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(PresenceService);
 };
-
-class PresenceService_Stub : public PresenceService {
- public:
-  PresenceService_Stub(::google::protobuf::RpcChannel* channel);
-  PresenceService_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~PresenceService_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements PresenceService ------------------------------------------
-
-  void Subscribe(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::presence::SubscribeRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void Unsubscribe(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::presence::UnsubscribeRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void Update(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::presence::UpdateRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void Query(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::presence::QueryRequest* request,
-                       ::Battlenet::presence::QueryResponse* response,
-                       ::google::protobuf::Closure* done);
-  void Ownership(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::presence::OwnershipRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void SubscribeNotification(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::presence::SubscribeNotificationRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(PresenceService_Stub);
-};
-
 
 // ===================================================================
 

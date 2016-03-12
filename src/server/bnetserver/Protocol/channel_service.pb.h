@@ -23,12 +23,15 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "account_types.pb.h"
 #include "entity_types.pb.h"
 #include "channel_types.pb.h"
 #include "rpc_types.pb.h"
+#include "ServiceBase.h"
+#include "Session.h"
+#include "MessageBuffer.h"
+#include <type_traits>
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -85,6 +88,19 @@ class AddMemberRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   AddMemberRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const AddMemberRequest& from);
+  void MergeFrom(const AddMemberRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -197,6 +213,19 @@ class RemoveMemberRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   RemoveMemberRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RemoveMemberRequest& from);
+  void MergeFrom(const RemoveMemberRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -287,6 +316,19 @@ class UnsubscribeMemberRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UnsubscribeMemberRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UnsubscribeMemberRequest& from);
+  void MergeFrom(const UnsubscribeMemberRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -367,6 +409,19 @@ class SendMessageRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SendMessageRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SendMessageRequest& from);
+  void MergeFrom(const SendMessageRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -457,6 +512,19 @@ class UpdateChannelStateRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UpdateChannelStateRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UpdateChannelStateRequest& from);
+  void MergeFrom(const UpdateChannelStateRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -537,6 +605,19 @@ class UpdateMemberStateRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UpdateMemberStateRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UpdateMemberStateRequest& from);
+  void MergeFrom(const UpdateMemberStateRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -594,6 +675,7 @@ class UpdateMemberStateRequest : public ::google::protobuf::Message {
   ::Battlenet::EntityId* agent_id_;
   ::google::protobuf::RepeatedPtrField< ::Battlenet::channel::Member > state_change_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > removed_role_;
+  mutable int _removed_role_cached_byte_size_;
   friend void  protobuf_AddDesc_channel_5fservice_2eproto();
   friend void protobuf_AssignDesc_channel_5fservice_2eproto();
   friend void protobuf_ShutdownFile_channel_5fservice_2eproto();
@@ -631,6 +713,19 @@ class DissolveRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   DissolveRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DissolveRequest& from);
+  void MergeFrom(const DissolveRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -709,6 +804,19 @@ class SetRolesRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SetRolesRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SetRolesRequest& from);
+  void MergeFrom(const SetRolesRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -765,6 +873,7 @@ class SetRolesRequest : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::Battlenet::EntityId* agent_id_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > role_;
+  mutable int _role_cached_byte_size_;
   ::google::protobuf::RepeatedPtrField< ::Battlenet::EntityId > member_id_;
   friend void  protobuf_AddDesc_channel_5fservice_2eproto();
   friend void protobuf_AssignDesc_channel_5fservice_2eproto();
@@ -803,6 +912,19 @@ class JoinNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   JoinNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const JoinNotification& from);
+  void MergeFrom(const JoinNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -920,6 +1042,19 @@ class MemberAddedNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   MemberAddedNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const MemberAddedNotification& from);
+  void MergeFrom(const MemberAddedNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1012,6 +1147,19 @@ class LeaveNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   LeaveNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const LeaveNotification& from);
+  void MergeFrom(const LeaveNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1126,6 +1274,19 @@ class MemberRemovedNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   MemberRemovedNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const MemberRemovedNotification& from);
+  void MergeFrom(const MemberRemovedNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1240,6 +1401,19 @@ class SendMessageNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SendMessageNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SendMessageNotification& from);
+  void MergeFrom(const SendMessageNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1369,6 +1543,19 @@ class UpdateChannelStateNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UpdateChannelStateNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UpdateChannelStateNotification& from);
+  void MergeFrom(const UpdateChannelStateNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1473,6 +1660,19 @@ class UpdateMemberStateNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UpdateMemberStateNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UpdateMemberStateNotification& from);
+  void MergeFrom(const UpdateMemberStateNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1552,6 +1752,7 @@ class UpdateMemberStateNotification : public ::google::protobuf::Message {
   ::Battlenet::EntityId* agent_id_;
   ::google::protobuf::RepeatedPtrField< ::Battlenet::channel::Member > state_change_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > removed_role_;
+  mutable int _removed_role_cached_byte_size_;
   ::Battlenet::channel::ChannelId* channel_id_;
   ::Battlenet::account::Identity* subscriber_;
   friend void  protobuf_AddDesc_channel_5fservice_2eproto();
@@ -1563,225 +1764,168 @@ class UpdateMemberStateNotification : public ::google::protobuf::Message {
 };
 // ===================================================================
 
-class ChannelService_Stub;
-
-class ChannelService : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline ChannelService() {};
+class ChannelService : public ServiceBase
+{
  public:
-  virtual ~ChannelService();
+  explicit ChannelService(Battlenet::Session* session) : _session(session) { }
+  ~ChannelService() { }
 
-  typedef ChannelService_Stub Stub;
+  typedef std::integral_constant<uint32, 0xB732DB32u> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void AddMember(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::AddMemberRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void RemoveMember(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::RemoveMemberRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void SendMessage(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::SendMessageRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void UpdateChannelState(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::UpdateChannelStateRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void UpdateMemberState(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::UpdateMemberStateRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void Dissolve(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::DissolveRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void SetRoles(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::SetRolesRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void UnsubscribeMember(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::UnsubscribeMemberRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void AddMember(::Battlenet::channel::AddMemberRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelService.AddMember(Battlenet.channel.AddMemberRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void RemoveMember(::Battlenet::channel::RemoveMemberRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelService.RemoveMember(Battlenet.channel.RemoveMemberRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 2, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void SendMessage(::Battlenet::channel::SendMessageRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelService.SendMessage(Battlenet.channel.SendMessageRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 3, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void UpdateChannelState(::Battlenet::channel::UpdateChannelStateRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelService.UpdateChannelState(Battlenet.channel.UpdateChannelStateRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 4, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void UpdateMemberState(::Battlenet::channel::UpdateMemberStateRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelService.UpdateMemberState(Battlenet.channel.UpdateMemberStateRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 5, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void Dissolve(::Battlenet::channel::DissolveRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelService.Dissolve(Battlenet.channel.DissolveRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 6, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void SetRoles(::Battlenet::channel::SetRolesRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelService.SetRoles(Battlenet.channel.SetRolesRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 7, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void UnsubscribeMember(::Battlenet::channel::UnsubscribeMemberRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelService.UnsubscribeMember(Battlenet.channel.UnsubscribeMemberRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 8, request);
+  }
+
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleAddMember(::Battlenet::channel::AddMemberRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleRemoveMember(::Battlenet::channel::RemoveMemberRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleSendMessage(::Battlenet::channel::SendMessageRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleUpdateChannelState(::Battlenet::channel::UpdateChannelStateRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleUpdateMemberState(::Battlenet::channel::UpdateMemberStateRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleDissolve(::Battlenet::channel::DissolveRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleSetRoles(::Battlenet::channel::SetRolesRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleUnsubscribeMember(::Battlenet::channel::UnsubscribeMemberRequest const* request, ::Battlenet::NoData* response);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ChannelService);
 };
 
-class ChannelService_Stub : public ChannelService {
- public:
-  ChannelService_Stub(::google::protobuf::RpcChannel* channel);
-  ChannelService_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~ChannelService_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements ChannelService ------------------------------------------
-
-  void AddMember(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::AddMemberRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void RemoveMember(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::RemoveMemberRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void SendMessage(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::SendMessageRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void UpdateChannelState(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::UpdateChannelStateRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void UpdateMemberState(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::UpdateMemberStateRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void Dissolve(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::DissolveRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void SetRoles(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::SetRolesRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void UnsubscribeMember(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::UnsubscribeMemberRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ChannelService_Stub);
-};
-
-
 // -------------------------------------------------------------------
 
-class ChannelListener_Stub;
-
-class ChannelListener : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline ChannelListener() {};
+class ChannelListener : public ServiceBase
+{
  public:
-  virtual ~ChannelListener();
+  explicit ChannelListener(Battlenet::Session* session) : _session(session) { }
+  ~ChannelListener() { }
 
-  typedef ChannelListener_Stub Stub;
+  typedef std::integral_constant<uint32, 0xBF8C8094u> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void OnJoin(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::JoinNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnMemberAdded(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::MemberAddedNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnLeave(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::LeaveNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnMemberRemoved(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::MemberRemovedNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnSendMessage(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::SendMessageNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnUpdateChannelState(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::UpdateChannelStateNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnUpdateMemberState(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::UpdateMemberStateNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  inline void OnJoin(::Battlenet::channel::JoinNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelListener.OnJoin(Battlenet.channel.JoinNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  inline void OnMemberAdded(::Battlenet::channel::MemberAddedNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelListener.OnMemberAdded(Battlenet.channel.MemberAddedNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 2, request);
+  }
+
+  inline void OnLeave(::Battlenet::channel::LeaveNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelListener.OnLeave(Battlenet.channel.LeaveNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 3, request);
+  }
+
+  inline void OnMemberRemoved(::Battlenet::channel::MemberRemovedNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelListener.OnMemberRemoved(Battlenet.channel.MemberRemovedNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 4, request);
+  }
+
+  inline void OnSendMessage(::Battlenet::channel::SendMessageNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelListener.OnSendMessage(Battlenet.channel.SendMessageNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 5, request);
+  }
+
+  inline void OnUpdateChannelState(::Battlenet::channel::UpdateChannelStateNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelListener.OnUpdateChannelState(Battlenet.channel.UpdateChannelStateNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 6, request);
+  }
+
+  inline void OnUpdateMemberState(::Battlenet::channel::UpdateMemberStateNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChannelListener.OnUpdateMemberState(Battlenet.channel.UpdateMemberStateNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 7, request);
+  }
+
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleOnJoin(::Battlenet::channel::JoinNotification const* request);
+  virtual uint32 HandleOnMemberAdded(::Battlenet::channel::MemberAddedNotification const* request);
+  virtual uint32 HandleOnLeave(::Battlenet::channel::LeaveNotification const* request);
+  virtual uint32 HandleOnMemberRemoved(::Battlenet::channel::MemberRemovedNotification const* request);
+  virtual uint32 HandleOnSendMessage(::Battlenet::channel::SendMessageNotification const* request);
+  virtual uint32 HandleOnUpdateChannelState(::Battlenet::channel::UpdateChannelStateNotification const* request);
+  virtual uint32 HandleOnUpdateMemberState(::Battlenet::channel::UpdateMemberStateNotification const* request);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ChannelListener);
 };
-
-class ChannelListener_Stub : public ChannelListener {
- public:
-  ChannelListener_Stub(::google::protobuf::RpcChannel* channel);
-  ChannelListener_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~ChannelListener_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements ChannelListener ------------------------------------------
-
-  void OnJoin(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::JoinNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnMemberAdded(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::MemberAddedNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnLeave(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::LeaveNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnMemberRemoved(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::MemberRemovedNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnSendMessage(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::SendMessageNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnUpdateChannelState(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::UpdateChannelStateNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnUpdateMemberState(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::channel::UpdateMemberStateNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ChannelListener_Stub);
-};
-
 
 // ===================================================================
 

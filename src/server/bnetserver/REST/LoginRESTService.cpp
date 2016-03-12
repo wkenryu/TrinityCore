@@ -254,7 +254,6 @@ int32 LoginRESTService::HandlePost(soap* soapClient)
         }
     }
 
-
     char *buf;
     size_t len;
     soap_http_body(soapClient, &buf, &len);

@@ -23,11 +23,14 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "attribute_types.pb.h"
 #include "entity_types.pb.h"
 #include "rpc_types.pb.h"
+#include "ServiceBase.h"
+#include "Session.h"
+#include "MessageBuffer.h"
+#include <type_traits>
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -71,6 +74,19 @@ class Report : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   Report* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Report& from);
+  void MergeFrom(const Report& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -199,6 +215,19 @@ class SendReportRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SendReportRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SendReportRequest& from);
+  void MergeFrom(const SendReportRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -239,62 +268,37 @@ class SendReportRequest : public ::google::protobuf::Message {
 };
 // ===================================================================
 
-class ReportService_Stub;
-
-class ReportService : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline ReportService() {};
+class ReportService : public ServiceBase
+{
  public:
-  virtual ~ReportService();
+  explicit ReportService(Battlenet::Session* session) : _session(session) { }
+  ~ReportService() { }
 
-  typedef ReportService_Stub Stub;
+  typedef std::integral_constant<uint32, 0x7CAF61C9u> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void SendReport(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::report::SendReportRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void SendReport(::Battlenet::report::SendReportRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ReportService.SendReport(Battlenet.report.SendReportRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleSendReport(::Battlenet::report::SendReportRequest const* request, ::Battlenet::NoData* response);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ReportService);
 };
-
-class ReportService_Stub : public ReportService {
- public:
-  ReportService_Stub(::google::protobuf::RpcChannel* channel);
-  ReportService_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~ReportService_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements ReportService ------------------------------------------
-
-  void SendReport(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::report::SendReportRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ReportService_Stub);
-};
-
 
 // ===================================================================
 

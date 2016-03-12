@@ -23,12 +23,15 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "account_types.pb.h"
 #include "content_handle_types.pb.h"
 #include "entity_types.pb.h"
 #include "rpc_types.pb.h"
+#include "ServiceBase.h"
+#include "Session.h"
+#include "MessageBuffer.h"
+#include <type_traits>
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -90,6 +93,19 @@ class ModuleLoadRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ModuleLoadRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ModuleLoadRequest& from);
+  void MergeFrom(const ModuleLoadRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -173,6 +189,19 @@ class ModuleNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ModuleNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ModuleNotification& from);
+  void MergeFrom(const ModuleNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -249,6 +278,19 @@ class ModuleMessageRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ModuleMessageRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ModuleMessageRequest& from);
+  void MergeFrom(const ModuleMessageRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -330,6 +372,19 @@ class LogonRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   LogonRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const LogonRequest& from);
+  void MergeFrom(const LogonRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -566,6 +621,19 @@ class LogonResult : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   LogonResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const LogonResult& from);
+  void MergeFrom(const LogonResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -750,6 +818,19 @@ class GenerateSSOTokenRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   GenerateSSOTokenRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const GenerateSSOTokenRequest& from);
+  void MergeFrom(const GenerateSSOTokenRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -816,6 +897,19 @@ class GenerateSSOTokenResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   GenerateSSOTokenResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const GenerateSSOTokenResponse& from);
+  void MergeFrom(const GenerateSSOTokenResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -902,6 +996,19 @@ class LogonUpdateRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   LogonUpdateRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const LogonUpdateRequest& from);
+  void MergeFrom(const LogonUpdateRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -968,6 +1075,19 @@ class LogonQueueUpdateRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   LogonQueueUpdateRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const LogonQueueUpdateRequest& from);
+  void MergeFrom(const LogonQueueUpdateRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1054,6 +1174,19 @@ class AccountSettingsNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   AccountSettingsNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const AccountSettingsNotification& from);
+  void MergeFrom(const AccountSettingsNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1163,6 +1296,19 @@ class ServerStateChangeRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ServerStateChangeRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ServerStateChangeRequest& from);
+  void MergeFrom(const ServerStateChangeRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1239,6 +1385,19 @@ class VersionInfo : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   VersionInfo* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const VersionInfo& from);
+  void MergeFrom(const VersionInfo& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1340,6 +1499,19 @@ class VersionInfoNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   VersionInfoNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const VersionInfoNotification& from);
+  void MergeFrom(const VersionInfoNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1408,6 +1580,19 @@ class MemModuleLoadRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   MemModuleLoadRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const MemModuleLoadRequest& from);
+  void MergeFrom(const MemModuleLoadRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1506,6 +1691,19 @@ class MemModuleLoadResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   MemModuleLoadResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const MemModuleLoadResponse& from);
+  void MergeFrom(const MemModuleLoadResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1577,6 +1775,19 @@ class SelectGameAccountRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SelectGameAccountRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SelectGameAccountRequest& from);
+  void MergeFrom(const SelectGameAccountRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1645,6 +1856,19 @@ class GameAccountSelectedRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   GameAccountSelectedRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const GameAccountSelectedRequest& from);
+  void MergeFrom(const GameAccountSelectedRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1723,6 +1947,19 @@ class GenerateWebCredentialsRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   GenerateWebCredentialsRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const GenerateWebCredentialsRequest& from);
+  void MergeFrom(const GenerateWebCredentialsRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1789,6 +2026,19 @@ class GenerateWebCredentialsResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   GenerateWebCredentialsResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const GenerateWebCredentialsResponse& from);
+  void MergeFrom(const GenerateWebCredentialsResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1860,6 +2110,19 @@ class VerifyWebCredentialsRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   VerifyWebCredentialsRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const VerifyWebCredentialsRequest& from);
+  void MergeFrom(const VerifyWebCredentialsRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1903,249 +2166,191 @@ class VerifyWebCredentialsRequest : public ::google::protobuf::Message {
 };
 // ===================================================================
 
-class AuthenticationListener_Stub;
-
-class AuthenticationListener : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline AuthenticationListener() {};
+class AuthenticationListener : public ServiceBase
+{
  public:
-  virtual ~AuthenticationListener();
+  explicit AuthenticationListener(Battlenet::Session* session) : _session(session) { }
+  ~AuthenticationListener() { }
 
-  typedef AuthenticationListener_Stub Stub;
+  typedef std::integral_constant<uint32, 0x71240E35u> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void OnModuleLoad(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::ModuleLoadRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnModuleMessage(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::ModuleMessageRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnServerStateChange(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::ServerStateChangeRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnLogonComplete(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::LogonResult* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnMemModuleLoad(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::MemModuleLoadRequest* request,
-                       ::Battlenet::authentication::MemModuleLoadResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnLogonUpdate(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::LogonUpdateRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnVersionInfoUpdated(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::VersionInfoNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnLogonQueueUpdate(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::LogonQueueUpdateRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnLogonQueueEnd(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::NoData* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnGameAccountSelected(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::GameAccountSelectedRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  inline void OnModuleLoad(::Battlenet::authentication::ModuleLoadRequest const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationListener.OnModuleLoad(Battlenet.authentication.ModuleLoadRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void OnModuleMessage(::Battlenet::authentication::ModuleMessageRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationListener.OnModuleMessage(Battlenet.authentication.ModuleMessageRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 2, request);
+  }
+
+  inline void OnServerStateChange(::Battlenet::authentication::ServerStateChangeRequest const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationListener.OnServerStateChange(Battlenet.authentication.ServerStateChangeRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 4, request);
+  }
+
+  inline void OnLogonComplete(::Battlenet::authentication::LogonResult const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationListener.OnLogonComplete(Battlenet.authentication.LogonResult{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 5, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::authentication::MemModuleLoadResponse const*)>
+  inline void OnMemModuleLoad(::Battlenet::authentication::MemModuleLoadRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationListener.OnMemModuleLoad(Battlenet.authentication.MemModuleLoadRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::authentication::MemModuleLoadResponse, Handler>(Hash::value, 6, request);
+  }
+
+  inline void OnLogonUpdate(::Battlenet::authentication::LogonUpdateRequest const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationListener.OnLogonUpdate(Battlenet.authentication.LogonUpdateRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 10, request);
+  }
+
+  inline void OnVersionInfoUpdated(::Battlenet::authentication::VersionInfoNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationListener.OnVersionInfoUpdated(Battlenet.authentication.VersionInfoNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 11, request);
+  }
+
+  inline void OnLogonQueueUpdate(::Battlenet::authentication::LogonQueueUpdateRequest const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationListener.OnLogonQueueUpdate(Battlenet.authentication.LogonQueueUpdateRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 12, request);
+  }
+
+  inline void OnLogonQueueEnd(::Battlenet::NoData const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationListener.OnLogonQueueEnd(Battlenet.NoData{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 13, request);
+  }
+
+  inline void OnGameAccountSelected(::Battlenet::authentication::GameAccountSelectedRequest const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationListener.OnGameAccountSelected(Battlenet.authentication.GameAccountSelectedRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 14, request);
+  }
+
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleOnModuleLoad(::Battlenet::authentication::ModuleLoadRequest const* request);
+  virtual uint32 HandleOnModuleMessage(::Battlenet::authentication::ModuleMessageRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleOnServerStateChange(::Battlenet::authentication::ServerStateChangeRequest const* request);
+  virtual uint32 HandleOnLogonComplete(::Battlenet::authentication::LogonResult const* request);
+  virtual uint32 HandleOnMemModuleLoad(::Battlenet::authentication::MemModuleLoadRequest const* request, ::Battlenet::authentication::MemModuleLoadResponse* response);
+  virtual uint32 HandleOnLogonUpdate(::Battlenet::authentication::LogonUpdateRequest const* request);
+  virtual uint32 HandleOnVersionInfoUpdated(::Battlenet::authentication::VersionInfoNotification const* request);
+  virtual uint32 HandleOnLogonQueueUpdate(::Battlenet::authentication::LogonQueueUpdateRequest const* request);
+  virtual uint32 HandleOnLogonQueueEnd(::Battlenet::NoData const* request);
+  virtual uint32 HandleOnGameAccountSelected(::Battlenet::authentication::GameAccountSelectedRequest const* request);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(AuthenticationListener);
 };
 
-class AuthenticationListener_Stub : public AuthenticationListener {
- public:
-  AuthenticationListener_Stub(::google::protobuf::RpcChannel* channel);
-  AuthenticationListener_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~AuthenticationListener_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements AuthenticationListener ------------------------------------------
-
-  void OnModuleLoad(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::ModuleLoadRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnModuleMessage(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::ModuleMessageRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void OnServerStateChange(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::ServerStateChangeRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnLogonComplete(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::LogonResult* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnMemModuleLoad(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::MemModuleLoadRequest* request,
-                       ::Battlenet::authentication::MemModuleLoadResponse* response,
-                       ::google::protobuf::Closure* done);
-  void OnLogonUpdate(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::LogonUpdateRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnVersionInfoUpdated(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::VersionInfoNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnLogonQueueUpdate(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::LogonQueueUpdateRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnLogonQueueEnd(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::NoData* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnGameAccountSelected(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::GameAccountSelectedRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(AuthenticationListener_Stub);
-};
-
-
 // -------------------------------------------------------------------
 
-class AuthenticationService_Stub;
-
-class AuthenticationService : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline AuthenticationService() {};
+class AuthenticationService : public ServiceBase
+{
  public:
-  virtual ~AuthenticationService();
+  explicit AuthenticationService(Battlenet::Session* session) : _session(session) { }
+  ~AuthenticationService() { }
 
-  typedef AuthenticationService_Stub Stub;
+  typedef std::integral_constant<uint32, 0xDECFC01u> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void Logon(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::LogonRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void ModuleNotify(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::ModuleNotification* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void ModuleMessage(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::ModuleMessageRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void SelectGameAccount_DEPRECATED(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::EntityId* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void GenerateSSOToken(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::GenerateSSOTokenRequest* request,
-                       ::Battlenet::authentication::GenerateSSOTokenResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void SelectGameAccount(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::SelectGameAccountRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void VerifyWebCredentials(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::VerifyWebCredentialsRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void GenerateWebCredentials(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::GenerateWebCredentialsRequest* request,
-                       ::Battlenet::authentication::GenerateWebCredentialsResponse* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void Logon(::Battlenet::authentication::LogonRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationService.Logon(Battlenet.authentication.LogonRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void ModuleNotify(::Battlenet::authentication::ModuleNotification const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationService.ModuleNotify(Battlenet.authentication.ModuleNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 2, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void ModuleMessage(::Battlenet::authentication::ModuleMessageRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationService.ModuleMessage(Battlenet.authentication.ModuleMessageRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 3, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void SelectGameAccount_DEPRECATED(::Battlenet::EntityId const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationService.SelectGameAccount_DEPRECATED(Battlenet.EntityId{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 4, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::authentication::GenerateSSOTokenResponse const*)>
+  inline void GenerateSSOToken(::Battlenet::authentication::GenerateSSOTokenRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationService.GenerateSSOToken(Battlenet.authentication.GenerateSSOTokenRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::authentication::GenerateSSOTokenResponse, Handler>(Hash::value, 5, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void SelectGameAccount(::Battlenet::authentication::SelectGameAccountRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationService.SelectGameAccount(Battlenet.authentication.SelectGameAccountRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 6, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void VerifyWebCredentials(::Battlenet::authentication::VerifyWebCredentialsRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationService.VerifyWebCredentials(Battlenet.authentication.VerifyWebCredentialsRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 7, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::authentication::GenerateWebCredentialsResponse const*)>
+  inline void GenerateWebCredentials(::Battlenet::authentication::GenerateWebCredentialsRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method AuthenticationService.GenerateWebCredentials(Battlenet.authentication.GenerateWebCredentialsRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::authentication::GenerateWebCredentialsResponse, Handler>(Hash::value, 8, request);
+  }
+
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleLogon(::Battlenet::authentication::LogonRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleModuleNotify(::Battlenet::authentication::ModuleNotification const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleModuleMessage(::Battlenet::authentication::ModuleMessageRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleSelectGameAccount_DEPRECATED(::Battlenet::EntityId const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleGenerateSSOToken(::Battlenet::authentication::GenerateSSOTokenRequest const* request, ::Battlenet::authentication::GenerateSSOTokenResponse* response);
+  virtual uint32 HandleSelectGameAccount(::Battlenet::authentication::SelectGameAccountRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleVerifyWebCredentials(::Battlenet::authentication::VerifyWebCredentialsRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleGenerateWebCredentials(::Battlenet::authentication::GenerateWebCredentialsRequest const* request, ::Battlenet::authentication::GenerateWebCredentialsResponse* response);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(AuthenticationService);
 };
-
-class AuthenticationService_Stub : public AuthenticationService {
- public:
-  AuthenticationService_Stub(::google::protobuf::RpcChannel* channel);
-  AuthenticationService_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~AuthenticationService_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements AuthenticationService ------------------------------------------
-
-  void Logon(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::LogonRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void ModuleNotify(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::ModuleNotification* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void ModuleMessage(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::ModuleMessageRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void SelectGameAccount_DEPRECATED(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::EntityId* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void GenerateSSOToken(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::GenerateSSOTokenRequest* request,
-                       ::Battlenet::authentication::GenerateSSOTokenResponse* response,
-                       ::google::protobuf::Closure* done);
-  void SelectGameAccount(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::SelectGameAccountRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void VerifyWebCredentials(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::VerifyWebCredentialsRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void GenerateWebCredentials(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::authentication::GenerateWebCredentialsRequest* request,
-                       ::Battlenet::authentication::GenerateWebCredentialsResponse* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(AuthenticationService_Stub);
-};
-
 
 // ===================================================================
 

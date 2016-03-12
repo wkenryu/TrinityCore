@@ -23,10 +23,13 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "content_handle_types.pb.h"
 #include "rpc_types.pb.h"
+#include "ServiceBase.h"
+#include "Session.h"
+#include "MessageBuffer.h"
+#include <type_traits>
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -69,6 +72,19 @@ class ContentHandleRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ContentHandleRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ContentHandleRequest& from);
+  void MergeFrom(const ContentHandleRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -127,62 +143,37 @@ class ContentHandleRequest : public ::google::protobuf::Message {
 };
 // ===================================================================
 
-class ResourcesService_Stub;
-
-class ResourcesService : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline ResourcesService() {};
+class ResourcesService : public ServiceBase
+{
  public:
-  virtual ~ResourcesService();
+  explicit ResourcesService(Battlenet::Session* session) : _session(session) { }
+  ~ResourcesService() { }
 
-  typedef ResourcesService_Stub Stub;
+  typedef std::integral_constant<uint32, 0xECBE75BAu> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void GetContentHandle(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::resources::ContentHandleRequest* request,
-                       ::Battlenet::ContentHandle* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  template<void(Battlenet::Session::*Handler)(::Battlenet::ContentHandle const*)>
+  inline void GetContentHandle(::Battlenet::resources::ContentHandleRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ResourcesService.GetContentHandle(Battlenet.resources.ContentHandleRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::ContentHandle, Handler>(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleGetContentHandle(::Battlenet::resources::ContentHandleRequest const* request, ::Battlenet::ContentHandle* response);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ResourcesService);
 };
-
-class ResourcesService_Stub : public ResourcesService {
- public:
-  ResourcesService_Stub(::google::protobuf::RpcChannel* channel);
-  ResourcesService_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~ResourcesService_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements ResourcesService ------------------------------------------
-
-  void GetContentHandle(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::resources::ContentHandleRequest* request,
-                       ::Battlenet::ContentHandle* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ResourcesService_Stub);
-};
-
 
 // ===================================================================
 

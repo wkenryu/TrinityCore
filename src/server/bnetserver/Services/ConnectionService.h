@@ -19,7 +19,6 @@
 #define ConnectionService_h__
 
 #include "Common.h"
-#include "ServiceBase.h"
 #include "connection_service.pb.h"
 
 namespace pb = google::protobuf;
@@ -30,18 +29,15 @@ namespace Battlenet
 
     namespace Service
     {
-        class Connection : public ServiceBase<connection::ConnectionService>
+        class Connection : public connection::ConnectionService
         {
-            typedef ServiceBase<connection::ConnectionService> ConnectionServiceBase;
-
         public:
-            typedef std::integral_constant<uint32, 0x65446991> Hash;
-
             Connection(Session* session);
 
-            void Connect(pb::RpcController* controller, connection::ConnectRequest const* request, connection::ConnectResponse* response, pb::Closure* done) override;
-            void KeepAlive(pb::RpcController* /*controller*/, NoData const* /*request*/, NO_RESPONSE* /*response*/, pb::Closure* /*done*/) override { }
-            void RequestDisconnect(pb::RpcController* controller, connection::DisconnectRequest const* request, NO_RESPONSE* response, pb::Closure* done) override;
+            uint32 HandleConnect(connection::ConnectRequest const* request, connection::ConnectResponse* respons) override;
+            uint32 HandleKeepAlive(NoData const* request) override;
+            uint32 HandleRequestDisconnect(connection::DisconnectRequest const* request) override;
+
         };
     }
 }

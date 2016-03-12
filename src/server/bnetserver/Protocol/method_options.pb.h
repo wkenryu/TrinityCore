@@ -38,6 +38,9 @@ void protobuf_ShutdownFile_method_5foptions_2eproto();
 
 // ===================================================================
 
+
+// ===================================================================
+
 static const int kMethodIdFieldNumber = 50000;
 extern ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MethodOptions,
     ::google::protobuf::internal::PrimitiveTypeTraits< ::google::protobuf::uint32 >, 13, false >

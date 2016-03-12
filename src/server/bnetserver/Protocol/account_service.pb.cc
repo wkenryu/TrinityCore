@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -992,7 +993,7 @@ void protobuf_AddDesc_account_5fservice_2eproto() {
     "ttlenet.account.GameAccountSessionNotifi"
     "cation\032\026.Battlenet.NO_RESPONSE\"\007\210\002\001\200\265\030\004\032"
     "&\312>#bnet.protocol.account.AccountNotifyB"
-    "\005H\001\200\001\001", 6806);
+    "\005H\001\200\001\000", 6806);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "account_service.proto", &protobuf_RegisterTypes);
   GetAccountRequest::default_instance_ = new GetAccountRequest();
@@ -1341,7 +1342,7 @@ void GetAccountRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetAccountRequest)
   // optional .Battlenet.account.AccountReference ref = 1;
   if (has_ref()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->ref(), output);
   }
 
@@ -1861,13 +1862,13 @@ void GetAccountResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetAccountResponse)
   // optional .Battlenet.account.AccountBlob blob = 11;
   if (has_blob()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       11, this->blob(), output);
   }
 
   // optional .Battlenet.account.AccountId id = 12;
   if (has_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       12, this->id(), output);
   }
 
@@ -1903,13 +1904,13 @@ void GetAccountResponse::SerializeWithCachedSizes(
 
   // repeated .Battlenet.account.GameAccountLink links = 16;
   for (int i = 0; i < this->links_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       16, this->links(i), output);
   }
 
   // optional .Battlenet.account.ParentalControlInfo parental_control_info = 17;
   if (has_parental_control_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       17, this->parental_control_info(), output);
   }
 
@@ -2328,7 +2329,7 @@ void CreateGameAccountRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.CreateGameAccountRequest)
   // optional .Battlenet.account.AccountId account = 1;
   if (has_account()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->account(), output);
   }
 
@@ -2654,13 +2655,13 @@ void CacheExpireRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.CacheExpireRequest)
   // repeated .Battlenet.account.AccountId account = 1;
   for (int i = 0; i < this->account_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->account(i), output);
   }
 
   // repeated .Battlenet.account.GameAccountHandle game_account = 2;
   for (int i = 0; i < this->game_account_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->game_account(i), output);
   }
 
@@ -2982,19 +2983,19 @@ void CredentialUpdateRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.CredentialUpdateRequest)
   // required .Battlenet.account.AccountId account = 1;
   if (has_account()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->account(), output);
   }
 
   // repeated .Battlenet.account.AccountCredential old_credentials = 2;
   for (int i = 0; i < this->old_credentials_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->old_credentials(i), output);
   }
 
   // repeated .Battlenet.account.AccountCredential new_credentials = 3;
   for (int i = 0; i < this->new_credentials_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->new_credentials(i), output);
   }
 
@@ -3524,7 +3525,7 @@ void AccountFlagUpdateRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.AccountFlagUpdateRequest)
   // optional .Battlenet.account.AccountId account = 1;
   if (has_account()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->account(), output);
   }
 
@@ -3866,7 +3867,7 @@ void GameAccountFlagUpdateRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GameAccountFlagUpdateRequest)
   // optional .Battlenet.account.GameAccountHandle game_account = 1;
   if (has_game_account()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->game_account(), output);
   }
 
@@ -4133,7 +4134,7 @@ void SubscriptionUpdateRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.SubscriptionUpdateRequest)
   // repeated .Battlenet.account.SubscriberReference ref = 2;
   for (int i = 0; i < this->ref_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->ref(i), output);
   }
 
@@ -4353,7 +4354,7 @@ void SubscriptionUpdateResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.SubscriptionUpdateResponse)
   // repeated .Battlenet.account.SubscriberReference ref = 1;
   for (int i = 0; i < this->ref_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->ref(i), output);
   }
 
@@ -5456,7 +5457,7 @@ void GetAccountStateRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetAccountStateRequest)
   // optional .Battlenet.EntityId entity_id = 1;
   if (has_entity_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->entity_id(), output);
   }
 
@@ -5472,13 +5473,13 @@ void GetAccountStateRequest::SerializeWithCachedSizes(
 
   // optional .Battlenet.account.AccountFieldOptions options = 10;
   if (has_options()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       10, this->options(), output);
   }
 
   // optional .Battlenet.account.AccountFieldTags tags = 11;
   if (has_tags()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       11, this->tags(), output);
   }
 
@@ -5798,13 +5799,13 @@ void GetAccountStateResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetAccountStateResponse)
   // optional .Battlenet.account.AccountState state = 1;
   if (has_state()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->state(), output);
   }
 
   // optional .Battlenet.account.AccountFieldTags tags = 2;
   if (has_tags()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->tags(), output);
   }
 
@@ -6114,25 +6115,25 @@ void GetGameAccountStateRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetGameAccountStateRequest)
   // optional .Battlenet.EntityId account_id = 1 [deprecated = true];
   if (has_account_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->account_id(), output);
   }
 
   // optional .Battlenet.EntityId game_account_id = 2;
   if (has_game_account_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->game_account_id(), output);
   }
 
   // optional .Battlenet.account.GameAccountFieldOptions options = 10;
   if (has_options()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       10, this->options(), output);
   }
 
   // optional .Battlenet.account.GameAccountFieldTags tags = 11;
   if (has_tags()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       11, this->tags(), output);
   }
 
@@ -6441,13 +6442,13 @@ void GetGameAccountStateResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetGameAccountStateResponse)
   // optional .Battlenet.account.GameAccountState state = 1;
   if (has_state()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->state(), output);
   }
 
   // optional .Battlenet.account.GameAccountFieldTags tags = 2;
   if (has_tags()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->tags(), output);
   }
 
@@ -6797,7 +6798,7 @@ void GetLicensesRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetLicensesRequest)
   // optional .Battlenet.EntityId target_id = 1;
   if (has_target_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->target_id(), output);
   }
 
@@ -7119,7 +7120,7 @@ void GetLicensesResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetLicensesResponse)
   // repeated .Battlenet.account.AccountLicense licenses = 1;
   for (int i = 0; i < this->licenses_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->licenses(i), output);
   }
 
@@ -7342,7 +7343,7 @@ void GetGameSessionInfoRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetGameSessionInfoRequest)
   // optional .Battlenet.EntityId entity_id = 1;
   if (has_entity_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->entity_id(), output);
   }
 
@@ -7572,7 +7573,7 @@ void GetGameSessionInfoResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetGameSessionInfoResponse)
   // optional .Battlenet.account.GameSessionInfo session_info = 2;
   if (has_session_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->session_info(), output);
   }
 
@@ -7821,13 +7822,13 @@ void GetGameTimeRemainingInfoRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetGameTimeRemainingInfoRequest)
   // optional .Battlenet.EntityId game_account_id = 1;
   if (has_game_account_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->game_account_id(), output);
   }
 
   // optional .Battlenet.EntityId account_id = 2;
   if (has_account_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->account_id(), output);
   }
 
@@ -8078,7 +8079,7 @@ void GetGameTimeRemainingInfoResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetGameTimeRemainingInfoResponse)
   // optional .Battlenet.account.GameTimeRemainingInfo game_time_remaining_info = 1;
   if (has_game_time_remaining_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->game_time_remaining_info(), output);
   }
 
@@ -8305,7 +8306,7 @@ void GetCAISInfoRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetCAISInfoRequest)
   // optional .Battlenet.EntityId entity_id = 1;
   if (has_entity_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->entity_id(), output);
   }
 
@@ -8535,7 +8536,7 @@ void GetCAISInfoResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetCAISInfoResponse)
   // optional .Battlenet.account.CAIS cais_info = 1;
   if (has_cais_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->cais_info(), output);
   }
 
@@ -8762,7 +8763,7 @@ void ForwardCacheExpireRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.ForwardCacheExpireRequest)
   // optional .Battlenet.EntityId entity_id = 1;
   if (has_entity_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->entity_id(), output);
   }
 
@@ -9034,7 +9035,7 @@ void GetAuthorizedDataRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetAuthorizedDataRequest)
   // optional .Battlenet.EntityId entity_id = 1;
   if (has_entity_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->entity_id(), output);
   }
 
@@ -9309,7 +9310,7 @@ void GetAuthorizedDataResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GetAuthorizedDataResponse)
   // repeated .Battlenet.account.AuthorizedData data = 1;
   for (int i = 0; i < this->data_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->data(i), output);
   }
 
@@ -9589,7 +9590,7 @@ void AccountStateNotification::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.AccountStateNotification)
   // optional .Battlenet.account.AccountState account_state = 1;
   if (has_account_state()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->account_state(), output);
   }
 
@@ -9600,7 +9601,7 @@ void AccountStateNotification::SerializeWithCachedSizes(
 
   // optional .Battlenet.account.AccountFieldTags account_tags = 3;
   if (has_account_tags()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->account_tags(), output);
   }
 
@@ -9941,7 +9942,7 @@ void GameAccountStateNotification::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GameAccountStateNotification)
   // optional .Battlenet.account.GameAccountState game_account_state = 1;
   if (has_game_account_state()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->game_account_state(), output);
   }
 
@@ -9952,7 +9953,7 @@ void GameAccountStateNotification::SerializeWithCachedSizes(
 
   // optional .Battlenet.account.GameAccountFieldTags game_account_tags = 3;
   if (has_game_account_tags()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->game_account_tags(), output);
   }
 
@@ -10272,7 +10273,7 @@ void GameAccountNotification::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GameAccountNotification)
   // repeated .Battlenet.account.GameAccountList game_accounts = 1;
   for (int i = 0; i < this->game_accounts_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->game_accounts(i), output);
   }
 
@@ -10283,7 +10284,7 @@ void GameAccountNotification::SerializeWithCachedSizes(
 
   // optional .Battlenet.account.AccountFieldTags account_tags = 3;
   if (has_account_tags()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->account_tags(), output);
   }
 
@@ -10566,13 +10567,13 @@ void GameAccountSessionNotification::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.account.GameAccountSessionNotification)
   // optional .Battlenet.account.GameAccountHandle game_account = 1;
   if (has_game_account()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->game_account(), output);
   }
 
   // optional .Battlenet.account.GameSessionUpdateInfo session_info = 2;
   if (has_session_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->session_info(), output);
   }
 
@@ -10704,670 +10705,543 @@ void GameAccountSessionNotification::Swap(GameAccountSessionNotification* other)
 
 // ===================================================================
 
-AccountService::~AccountService() {}
-
-const ::google::protobuf::ServiceDescriptor* AccountService::descriptor() {
+google::protobuf::ServiceDescriptor const* AccountService::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return AccountService_descriptor_;
 }
 
-const ::google::protobuf::ServiceDescriptor* AccountService::GetDescriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return AccountService_descriptor_;
-}
+void AccountService::CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) {
+  switch(methodId) {
+    case 12: {
+      ::Battlenet::account::GameAccountHandle request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.GetGameAccount server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
 
-void AccountService::GetGameAccount(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GameAccountHandle*,
-                         ::Battlenet::account::GameAccountBlob*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetGameAccount() not implemented.");
-  done->Run();
-}
-
-void AccountService::GetAccount(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GetAccountRequest*,
-                         ::Battlenet::account::GetAccountResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetAccount() not implemented.");
-  done->Run();
-}
-
-void AccountService::CreateGameAccount(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::CreateGameAccountRequest*,
-                         ::Battlenet::account::GameAccountHandle*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method CreateGameAccount() not implemented.");
-  done->Run();
-}
-
-void AccountService::IsIgrAddress(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::IsIgrAddressRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method IsIgrAddress() not implemented.");
-  done->Run();
-}
-
-void AccountService::CacheExpire(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::CacheExpireRequest*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method CacheExpire() not implemented.");
-  done->Run();
-}
-
-void AccountService::CredentialUpdate(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::CredentialUpdateRequest*,
-                         ::Battlenet::account::CredentialUpdateResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method CredentialUpdate() not implemented.");
-  done->Run();
-}
-
-void AccountService::Subscribe(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::SubscriptionUpdateRequest*,
-                         ::Battlenet::account::SubscriptionUpdateResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Subscribe() not implemented.");
-  done->Run();
-}
-
-void AccountService::Unsubscribe(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::SubscriptionUpdateRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Unsubscribe() not implemented.");
-  done->Run();
-}
-
-void AccountService::GetAccountState(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GetAccountStateRequest*,
-                         ::Battlenet::account::GetAccountStateResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetAccountState() not implemented.");
-  done->Run();
-}
-
-void AccountService::GetGameAccountState(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GetGameAccountStateRequest*,
-                         ::Battlenet::account::GetGameAccountStateResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetGameAccountState() not implemented.");
-  done->Run();
-}
-
-void AccountService::GetLicenses(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GetLicensesRequest*,
-                         ::Battlenet::account::GetLicensesResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetLicenses() not implemented.");
-  done->Run();
-}
-
-void AccountService::GetGameTimeRemainingInfo(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GetGameTimeRemainingInfoRequest*,
-                         ::Battlenet::account::GetGameTimeRemainingInfoResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetGameTimeRemainingInfo() not implemented.");
-  done->Run();
-}
-
-void AccountService::GetGameSessionInfo(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GetGameSessionInfoRequest*,
-                         ::Battlenet::account::GetGameSessionInfoResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetGameSessionInfo() not implemented.");
-  done->Run();
-}
-
-void AccountService::GetCAISInfo(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GetCAISInfoRequest*,
-                         ::Battlenet::account::GetCAISInfoResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetCAISInfo() not implemented.");
-  done->Run();
-}
-
-void AccountService::ForwardCacheExpire(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::ForwardCacheExpireRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method ForwardCacheExpire() not implemented.");
-  done->Run();
-}
-
-void AccountService::GetAuthorizedData(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GetAuthorizedDataRequest*,
-                         ::Battlenet::account::GetAuthorizedDataResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetAuthorizedData() not implemented.");
-  done->Run();
-}
-
-void AccountService::AccountFlagUpdate(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::AccountFlagUpdateRequest*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method AccountFlagUpdate() not implemented.");
-  done->Run();
-}
-
-void AccountService::GameAccountFlagUpdate(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GameAccountFlagUpdateRequest*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GameAccountFlagUpdate() not implemented.");
-  done->Run();
-}
-
-void AccountService::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                             ::google::protobuf::RpcController* controller,
-                             const ::google::protobuf::Message* request,
-                             ::google::protobuf::Message* response,
-                             ::google::protobuf::Closure* done) {
-  GOOGLE_DCHECK_EQ(method->service(), AccountService_descriptor_);
-  switch(method->index()) {
-    case 0:
-      GetGameAccount(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GameAccountHandle*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::account::GameAccountBlob*>(response),
-             done);
+      ::Battlenet::account::GameAccountBlob response;
+      uint32 status = HandleGetGameAccount(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.GetGameAccount(Battlenet.account.GameAccountHandle{ %s }) returned Battlenet.account.GameAccountBlob{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 1:
-      GetAccount(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GetAccountRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::account::GetAccountResponse*>(response),
-             done);
+    }
+    case 13: {
+      ::Battlenet::account::GetAccountRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.GetAccount server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::account::GetAccountResponse response;
+      uint32 status = HandleGetAccount(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.GetAccount(Battlenet.account.GetAccountRequest{ %s }) returned Battlenet.account.GetAccountResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 2:
-      CreateGameAccount(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::CreateGameAccountRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::account::GameAccountHandle*>(response),
-             done);
+    }
+    case 14: {
+      ::Battlenet::account::CreateGameAccountRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.CreateGameAccount server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::account::GameAccountHandle response;
+      uint32 status = HandleCreateGameAccount(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.CreateGameAccount(Battlenet.account.CreateGameAccountRequest{ %s }) returned Battlenet.account.GameAccountHandle{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 3:
-      IsIgrAddress(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::IsIgrAddressRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 15: {
+      ::Battlenet::account::IsIgrAddressRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.IsIgrAddress server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleIsIgrAddress(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.IsIgrAddress(Battlenet.account.IsIgrAddressRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 4:
-      CacheExpire(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::CacheExpireRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 20: {
+      ::Battlenet::account::CacheExpireRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.CacheExpire server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleCacheExpire(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.CacheExpire(Battlenet.account.CacheExpireRequest{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 5:
-      CredentialUpdate(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::CredentialUpdateRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::account::CredentialUpdateResponse*>(response),
-             done);
+    }
+    case 21: {
+      ::Battlenet::account::CredentialUpdateRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.CredentialUpdate server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::account::CredentialUpdateResponse response;
+      uint32 status = HandleCredentialUpdate(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.CredentialUpdate(Battlenet.account.CredentialUpdateRequest{ %s }) returned Battlenet.account.CredentialUpdateResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 6:
-      Subscribe(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::SubscriptionUpdateRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::account::SubscriptionUpdateResponse*>(response),
-             done);
+    }
+    case 25: {
+      ::Battlenet::account::SubscriptionUpdateRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.Subscribe server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::account::SubscriptionUpdateResponse response;
+      uint32 status = HandleSubscribe(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.Subscribe(Battlenet.account.SubscriptionUpdateRequest{ %s }) returned Battlenet.account.SubscriptionUpdateResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 7:
-      Unsubscribe(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::SubscriptionUpdateRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 26: {
+      ::Battlenet::account::SubscriptionUpdateRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.Unsubscribe server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleUnsubscribe(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.Unsubscribe(Battlenet.account.SubscriptionUpdateRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 8:
-      GetAccountState(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GetAccountStateRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::account::GetAccountStateResponse*>(response),
-             done);
+    }
+    case 30: {
+      ::Battlenet::account::GetAccountStateRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.GetAccountState server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::account::GetAccountStateResponse response;
+      uint32 status = HandleGetAccountState(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.GetAccountState(Battlenet.account.GetAccountStateRequest{ %s }) returned Battlenet.account.GetAccountStateResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 9:
-      GetGameAccountState(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GetGameAccountStateRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::account::GetGameAccountStateResponse*>(response),
-             done);
+    }
+    case 31: {
+      ::Battlenet::account::GetGameAccountStateRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.GetGameAccountState server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::account::GetGameAccountStateResponse response;
+      uint32 status = HandleGetGameAccountState(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.GetGameAccountState(Battlenet.account.GetGameAccountStateRequest{ %s }) returned Battlenet.account.GetGameAccountStateResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 10:
-      GetLicenses(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GetLicensesRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::account::GetLicensesResponse*>(response),
-             done);
+    }
+    case 32: {
+      ::Battlenet::account::GetLicensesRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.GetLicenses server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::account::GetLicensesResponse response;
+      uint32 status = HandleGetLicenses(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.GetLicenses(Battlenet.account.GetLicensesRequest{ %s }) returned Battlenet.account.GetLicensesResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 11:
-      GetGameTimeRemainingInfo(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GetGameTimeRemainingInfoRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::account::GetGameTimeRemainingInfoResponse*>(response),
-             done);
+    }
+    case 33: {
+      ::Battlenet::account::GetGameTimeRemainingInfoRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.GetGameTimeRemainingInfo server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::account::GetGameTimeRemainingInfoResponse response;
+      uint32 status = HandleGetGameTimeRemainingInfo(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.GetGameTimeRemainingInfo(Battlenet.account.GetGameTimeRemainingInfoRequest{ %s }) returned Battlenet.account.GetGameTimeRemainingInfoResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 12:
-      GetGameSessionInfo(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GetGameSessionInfoRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::account::GetGameSessionInfoResponse*>(response),
-             done);
+    }
+    case 34: {
+      ::Battlenet::account::GetGameSessionInfoRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.GetGameSessionInfo server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::account::GetGameSessionInfoResponse response;
+      uint32 status = HandleGetGameSessionInfo(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.GetGameSessionInfo(Battlenet.account.GetGameSessionInfoRequest{ %s }) returned Battlenet.account.GetGameSessionInfoResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 13:
-      GetCAISInfo(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GetCAISInfoRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::account::GetCAISInfoResponse*>(response),
-             done);
+    }
+    case 35: {
+      ::Battlenet::account::GetCAISInfoRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.GetCAISInfo server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::account::GetCAISInfoResponse response;
+      uint32 status = HandleGetCAISInfo(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.GetCAISInfo(Battlenet.account.GetCAISInfoRequest{ %s }) returned Battlenet.account.GetCAISInfoResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 14:
-      ForwardCacheExpire(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::ForwardCacheExpireRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 36: {
+      ::Battlenet::account::ForwardCacheExpireRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.ForwardCacheExpire server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleForwardCacheExpire(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.ForwardCacheExpire(Battlenet.account.ForwardCacheExpireRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 15:
-      GetAuthorizedData(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GetAuthorizedDataRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::account::GetAuthorizedDataResponse*>(response),
-             done);
+    }
+    case 37: {
+      ::Battlenet::account::GetAuthorizedDataRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.GetAuthorizedData server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::account::GetAuthorizedDataResponse response;
+      uint32 status = HandleGetAuthorizedData(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.GetAuthorizedData(Battlenet.account.GetAuthorizedDataRequest{ %s }) returned Battlenet.account.GetAuthorizedDataResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 16:
-      AccountFlagUpdate(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::AccountFlagUpdateRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 38: {
+      ::Battlenet::account::AccountFlagUpdateRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.AccountFlagUpdate server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleAccountFlagUpdate(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.AccountFlagUpdate(Battlenet.account.AccountFlagUpdateRequest{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 17:
-      GameAccountFlagUpdate(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GameAccountFlagUpdateRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 39: {
+      ::Battlenet::account::GameAccountFlagUpdateRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountService.GameAccountFlagUpdate server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleGameAccountFlagUpdate(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountService.GameAccountFlagUpdate(Battlenet.account.GameAccountFlagUpdateRequest{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
+    }
     default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      TC_LOG_ERROR("session.rpc", "Bad method id %u.", methodId);
+      _session->SendResponse(token, ERROR_RPC_INVALID_METHOD);
       break;
-  }
+    }
 }
 
-const ::google::protobuf::Message& AccountService::GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::account::GameAccountHandle::default_instance();
-    case 1:
-      return ::Battlenet::account::GetAccountRequest::default_instance();
-    case 2:
-      return ::Battlenet::account::CreateGameAccountRequest::default_instance();
-    case 3:
-      return ::Battlenet::account::IsIgrAddressRequest::default_instance();
-    case 4:
-      return ::Battlenet::account::CacheExpireRequest::default_instance();
-    case 5:
-      return ::Battlenet::account::CredentialUpdateRequest::default_instance();
-    case 6:
-      return ::Battlenet::account::SubscriptionUpdateRequest::default_instance();
-    case 7:
-      return ::Battlenet::account::SubscriptionUpdateRequest::default_instance();
-    case 8:
-      return ::Battlenet::account::GetAccountStateRequest::default_instance();
-    case 9:
-      return ::Battlenet::account::GetGameAccountStateRequest::default_instance();
-    case 10:
-      return ::Battlenet::account::GetLicensesRequest::default_instance();
-    case 11:
-      return ::Battlenet::account::GetGameTimeRemainingInfoRequest::default_instance();
-    case 12:
-      return ::Battlenet::account::GetGameSessionInfoRequest::default_instance();
-    case 13:
-      return ::Battlenet::account::GetCAISInfoRequest::default_instance();
-    case 14:
-      return ::Battlenet::account::ForwardCacheExpireRequest::default_instance();
-    case 15:
-      return ::Battlenet::account::GetAuthorizedDataRequest::default_instance();
-    case 16:
-      return ::Battlenet::account::AccountFlagUpdateRequest::default_instance();
-    case 17:
-      return ::Battlenet::account::GameAccountFlagUpdateRequest::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 AccountService::HandleGetGameAccount(::Battlenet::account::GameAccountHandle const* request, ::Battlenet::account::GameAccountBlob* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.GetGameAccount({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-const ::google::protobuf::Message& AccountService::GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::account::GameAccountBlob::default_instance();
-    case 1:
-      return ::Battlenet::account::GetAccountResponse::default_instance();
-    case 2:
-      return ::Battlenet::account::GameAccountHandle::default_instance();
-    case 3:
-      return ::Battlenet::NoData::default_instance();
-    case 4:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 5:
-      return ::Battlenet::account::CredentialUpdateResponse::default_instance();
-    case 6:
-      return ::Battlenet::account::SubscriptionUpdateResponse::default_instance();
-    case 7:
-      return ::Battlenet::NoData::default_instance();
-    case 8:
-      return ::Battlenet::account::GetAccountStateResponse::default_instance();
-    case 9:
-      return ::Battlenet::account::GetGameAccountStateResponse::default_instance();
-    case 10:
-      return ::Battlenet::account::GetLicensesResponse::default_instance();
-    case 11:
-      return ::Battlenet::account::GetGameTimeRemainingInfoResponse::default_instance();
-    case 12:
-      return ::Battlenet::account::GetGameSessionInfoResponse::default_instance();
-    case 13:
-      return ::Battlenet::account::GetCAISInfoResponse::default_instance();
-    case 14:
-      return ::Battlenet::NoData::default_instance();
-    case 15:
-      return ::Battlenet::account::GetAuthorizedDataResponse::default_instance();
-    case 16:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 17:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 AccountService::HandleGetAccount(::Battlenet::account::GetAccountRequest const* request, ::Battlenet::account::GetAccountResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.GetAccount({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-AccountService_Stub::AccountService_Stub(::google::protobuf::RpcChannel* channel)
-  : channel_(channel), owns_channel_(false) {}
-AccountService_Stub::AccountService_Stub(
-    ::google::protobuf::RpcChannel* channel,
-    ::google::protobuf::Service::ChannelOwnership ownership)
-  : channel_(channel),
-    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
-AccountService_Stub::~AccountService_Stub() {
-  if (owns_channel_) delete channel_;
+uint32 AccountService::HandleCreateGameAccount(::Battlenet::account::CreateGameAccountRequest const* request, ::Battlenet::account::GameAccountHandle* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.CreateGameAccount({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-void AccountService_Stub::GetGameAccount(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GameAccountHandle* request,
-                              ::Battlenet::account::GameAccountBlob* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(0),
-                       controller, request, response, done);
+uint32 AccountService::HandleIsIgrAddress(::Battlenet::account::IsIgrAddressRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.IsIgrAddress({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::GetAccount(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GetAccountRequest* request,
-                              ::Battlenet::account::GetAccountResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(1),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleCacheExpire(::Battlenet::account::CacheExpireRequest const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.CacheExpire({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::CreateGameAccount(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::CreateGameAccountRequest* request,
-                              ::Battlenet::account::GameAccountHandle* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(2),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleCredentialUpdate(::Battlenet::account::CredentialUpdateRequest const* request, ::Battlenet::account::CredentialUpdateResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.CredentialUpdate({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::IsIgrAddress(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::IsIgrAddressRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(3),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleSubscribe(::Battlenet::account::SubscriptionUpdateRequest const* request, ::Battlenet::account::SubscriptionUpdateResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.Subscribe({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::CacheExpire(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::CacheExpireRequest* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(4),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleUnsubscribe(::Battlenet::account::SubscriptionUpdateRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.Unsubscribe({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::CredentialUpdate(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::CredentialUpdateRequest* request,
-                              ::Battlenet::account::CredentialUpdateResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(5),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleGetAccountState(::Battlenet::account::GetAccountStateRequest const* request, ::Battlenet::account::GetAccountStateResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.GetAccountState({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::Subscribe(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::SubscriptionUpdateRequest* request,
-                              ::Battlenet::account::SubscriptionUpdateResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(6),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleGetGameAccountState(::Battlenet::account::GetGameAccountStateRequest const* request, ::Battlenet::account::GetGameAccountStateResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.GetGameAccountState({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::Unsubscribe(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::SubscriptionUpdateRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(7),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleGetLicenses(::Battlenet::account::GetLicensesRequest const* request, ::Battlenet::account::GetLicensesResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.GetLicenses({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::GetAccountState(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GetAccountStateRequest* request,
-                              ::Battlenet::account::GetAccountStateResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(8),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleGetGameTimeRemainingInfo(::Battlenet::account::GetGameTimeRemainingInfoRequest const* request, ::Battlenet::account::GetGameTimeRemainingInfoResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.GetGameTimeRemainingInfo({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::GetGameAccountState(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GetGameAccountStateRequest* request,
-                              ::Battlenet::account::GetGameAccountStateResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(9),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleGetGameSessionInfo(::Battlenet::account::GetGameSessionInfoRequest const* request, ::Battlenet::account::GetGameSessionInfoResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.GetGameSessionInfo({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::GetLicenses(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GetLicensesRequest* request,
-                              ::Battlenet::account::GetLicensesResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(10),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleGetCAISInfo(::Battlenet::account::GetCAISInfoRequest const* request, ::Battlenet::account::GetCAISInfoResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.GetCAISInfo({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::GetGameTimeRemainingInfo(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GetGameTimeRemainingInfoRequest* request,
-                              ::Battlenet::account::GetGameTimeRemainingInfoResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(11),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleForwardCacheExpire(::Battlenet::account::ForwardCacheExpireRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.ForwardCacheExpire({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::GetGameSessionInfo(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GetGameSessionInfoRequest* request,
-                              ::Battlenet::account::GetGameSessionInfoResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(12),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleGetAuthorizedData(::Battlenet::account::GetAuthorizedDataRequest const* request, ::Battlenet::account::GetAuthorizedDataResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.GetAuthorizedData({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::GetCAISInfo(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GetCAISInfoRequest* request,
-                              ::Battlenet::account::GetCAISInfoResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(13),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleAccountFlagUpdate(::Battlenet::account::AccountFlagUpdateRequest const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.AccountFlagUpdate({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::ForwardCacheExpire(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::ForwardCacheExpireRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(14),
-                       controller, request, response, done);
+
+uint32 AccountService::HandleGameAccountFlagUpdate(::Battlenet::account::GameAccountFlagUpdateRequest const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountService.GameAccountFlagUpdate({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountService_Stub::GetAuthorizedData(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GetAuthorizedDataRequest* request,
-                              ::Battlenet::account::GetAuthorizedDataResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(15),
-                       controller, request, response, done);
-}
-void AccountService_Stub::AccountFlagUpdate(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::AccountFlagUpdateRequest* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(16),
-                       controller, request, response, done);
-}
-void AccountService_Stub::GameAccountFlagUpdate(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GameAccountFlagUpdateRequest* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(17),
-                       controller, request, response, done);
-}
+
 // ===================================================================
 
-AccountListener::~AccountListener() {}
-
-const ::google::protobuf::ServiceDescriptor* AccountListener::descriptor() {
+google::protobuf::ServiceDescriptor const* AccountListener::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return AccountListener_descriptor_;
 }
 
-const ::google::protobuf::ServiceDescriptor* AccountListener::GetDescriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return AccountListener_descriptor_;
-}
+void AccountListener::CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) {
+  switch(methodId) {
+    case 1: {
+      ::Battlenet::account::AccountStateNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountListener.OnAccountStateUpdated server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
 
-void AccountListener::OnAccountStateUpdated(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::AccountStateNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnAccountStateUpdated() not implemented.");
-  done->Run();
-}
-
-void AccountListener::OnGameAccountStateUpdated(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GameAccountStateNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnGameAccountStateUpdated() not implemented.");
-  done->Run();
-}
-
-void AccountListener::OnGameAccountsUpdated(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GameAccountNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnGameAccountsUpdated() not implemented.");
-  done->Run();
-}
-
-void AccountListener::OnGameSessionUpdated(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::account::GameAccountSessionNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnGameSessionUpdated() not implemented.");
-  done->Run();
-}
-
-void AccountListener::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                             ::google::protobuf::RpcController* controller,
-                             const ::google::protobuf::Message* request,
-                             ::google::protobuf::Message* response,
-                             ::google::protobuf::Closure* done) {
-  GOOGLE_DCHECK_EQ(method->service(), AccountListener_descriptor_);
-  switch(method->index()) {
-    case 0:
-      OnAccountStateUpdated(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::AccountStateNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+      uint32 status = HandleOnAccountStateUpdated(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountListener.OnAccountStateUpdated(Battlenet.account.AccountStateNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 1:
-      OnGameAccountStateUpdated(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GameAccountStateNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 2: {
+      ::Battlenet::account::GameAccountStateNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountListener.OnGameAccountStateUpdated server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnGameAccountStateUpdated(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountListener.OnGameAccountStateUpdated(Battlenet.account.GameAccountStateNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 2:
-      OnGameAccountsUpdated(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GameAccountNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 3: {
+      ::Battlenet::account::GameAccountNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountListener.OnGameAccountsUpdated server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnGameAccountsUpdated(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountListener.OnGameAccountsUpdated(Battlenet.account.GameAccountNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 3:
-      OnGameSessionUpdated(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::account::GameAccountSessionNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 4: {
+      ::Battlenet::account::GameAccountSessionNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for AccountListener.OnGameSessionUpdated server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnGameSessionUpdated(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method AccountListener.OnGameSessionUpdated(Battlenet.account.GameAccountSessionNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
+    }
     default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      TC_LOG_ERROR("session.rpc", "Bad method id %u.", methodId);
+      _session->SendResponse(token, ERROR_RPC_INVALID_METHOD);
       break;
-  }
+    }
 }
 
-const ::google::protobuf::Message& AccountListener::GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::account::AccountStateNotification::default_instance();
-    case 1:
-      return ::Battlenet::account::GameAccountStateNotification::default_instance();
-    case 2:
-      return ::Battlenet::account::GameAccountNotification::default_instance();
-    case 3:
-      return ::Battlenet::account::GameAccountSessionNotification::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 AccountListener::HandleOnAccountStateUpdated(::Battlenet::account::AccountStateNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountListener.OnAccountStateUpdated({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-const ::google::protobuf::Message& AccountListener::GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 1:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 2:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 3:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 AccountListener::HandleOnGameAccountStateUpdated(::Battlenet::account::GameAccountStateNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountListener.OnGameAccountStateUpdated({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-AccountListener_Stub::AccountListener_Stub(::google::protobuf::RpcChannel* channel)
-  : channel_(channel), owns_channel_(false) {}
-AccountListener_Stub::AccountListener_Stub(
-    ::google::protobuf::RpcChannel* channel,
-    ::google::protobuf::Service::ChannelOwnership ownership)
-  : channel_(channel),
-    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
-AccountListener_Stub::~AccountListener_Stub() {
-  if (owns_channel_) delete channel_;
+uint32 AccountListener::HandleOnGameAccountsUpdated(::Battlenet::account::GameAccountNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountListener.OnGameAccountsUpdated({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-void AccountListener_Stub::OnAccountStateUpdated(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::AccountStateNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(0),
-                       controller, request, response, done);
+uint32 AccountListener::HandleOnGameSessionUpdated(::Battlenet::account::GameAccountSessionNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method AccountListener.OnGameSessionUpdated({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void AccountListener_Stub::OnGameAccountStateUpdated(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GameAccountStateNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(1),
-                       controller, request, response, done);
-}
-void AccountListener_Stub::OnGameAccountsUpdated(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GameAccountNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(2),
-                       controller, request, response, done);
-}
-void AccountListener_Stub::OnGameSessionUpdated(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::account::GameAccountSessionNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(3),
-                       controller, request, response, done);
-}
+
 
 // @@protoc_insertion_point(namespace_scope)
 

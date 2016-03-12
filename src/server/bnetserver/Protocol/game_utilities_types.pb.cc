@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -113,7 +114,7 @@ void protobuf_AddDesc_game_5futilities_5ftypes_2eproto() {
     "ating\030\002 \001(\001\022\'\n\tattribute\030\003 \003(\0132\024.Battlen"
     "et.Attribute\"@\n\nClientInfo\022\026\n\016client_add"
     "ress\030\001 \001(\t\022\032\n\022privileged_network\030\002 \001(\010B\002"
-    "H\002", 282);
+    "H\001", 282);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "game_utilities_types.proto", &protobuf_RegisterTypes);
   PlayerVariables::default_instance_ = new PlayerVariables();
@@ -194,9 +195,241 @@ PlayerVariables* PlayerVariables::New() const {
   return new PlayerVariables;
 }
 
+void PlayerVariables::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_identity()) {
+      if (identity_ != NULL) identity_->::Battlenet::Identity::Clear();
+    }
+    rating_ = 0;
+  }
+  attribute_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool PlayerVariables::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.game_utilities.PlayerVariables)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.Identity identity = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_identity()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(17)) goto parse_rating;
+        break;
+      }
+
+      // optional double rating = 2;
+      case 2: {
+        if (tag == 17) {
+         parse_rating:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &rating_)));
+          set_has_rating();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_attribute;
+        break;
+      }
+
+      // repeated .Battlenet.Attribute attribute = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_attribute:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_attribute()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_attribute;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.game_utilities.PlayerVariables)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.game_utilities.PlayerVariables)
+  return false;
+#undef DO_
+}
+
+void PlayerVariables::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.PlayerVariables)
+  // required .Battlenet.Identity identity = 1;
+  if (has_identity()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->identity(), output);
+  }
+
+  // optional double rating = 2;
+  if (has_rating()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->rating(), output);
+  }
+
+  // repeated .Battlenet.Attribute attribute = 3;
+  for (int i = 0; i < this->attribute_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->attribute(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.game_utilities.PlayerVariables)
+}
+
+::google::protobuf::uint8* PlayerVariables::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.game_utilities.PlayerVariables)
+  // required .Battlenet.Identity identity = 1;
+  if (has_identity()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->identity(), target);
+  }
+
+  // optional double rating = 2;
+  if (has_rating()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->rating(), target);
+  }
+
+  // repeated .Battlenet.Attribute attribute = 3;
+  for (int i = 0; i < this->attribute_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->attribute(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.game_utilities.PlayerVariables)
+  return target;
+}
+
+int PlayerVariables::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.Identity identity = 1;
+    if (has_identity()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->identity());
+    }
+
+    // optional double rating = 2;
+    if (has_rating()) {
+      total_size += 1 + 8;
+    }
+
+  }
+  // repeated .Battlenet.Attribute attribute = 3;
+  total_size += 1 * this->attribute_size();
+  for (int i = 0; i < this->attribute_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->attribute(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void PlayerVariables::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const PlayerVariables* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const PlayerVariables*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void PlayerVariables::MergeFrom(const PlayerVariables& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  attribute_.MergeFrom(from.attribute_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_identity()) {
+      mutable_identity()->::Battlenet::Identity::MergeFrom(from.identity());
+    }
+    if (from.has_rating()) {
+      set_rating(from.rating());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void PlayerVariables::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PlayerVariables::CopyFrom(const PlayerVariables& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PlayerVariables::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_identity()) {
+    if (!this->identity().IsInitialized()) return false;
+  }
+  if (!::google::protobuf::internal::AllAreInitialized(this->attribute())) return false;
+  return true;
+}
+
 void PlayerVariables::Swap(PlayerVariables* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(identity_, other->identity_);
+    std::swap(rating_, other->rating_);
+    attribute_.Swap(&other->attribute_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata PlayerVariables::GetMetadata() const {
@@ -273,9 +506,212 @@ ClientInfo* ClientInfo::New() const {
   return new ClientInfo;
 }
 
+void ClientInfo::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_client_address()) {
+      if (client_address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        client_address_->clear();
+      }
+    }
+    privileged_network_ = false;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ClientInfo::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.game_utilities.ClientInfo)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string client_address = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_client_address()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->client_address().data(), this->client_address().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "client_address");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_privileged_network;
+        break;
+      }
+
+      // optional bool privileged_network = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_privileged_network:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &privileged_network_)));
+          set_has_privileged_network();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.game_utilities.ClientInfo)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.game_utilities.ClientInfo)
+  return false;
+#undef DO_
+}
+
+void ClientInfo::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.ClientInfo)
+  // optional string client_address = 1;
+  if (has_client_address()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->client_address().data(), this->client_address().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "client_address");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->client_address(), output);
+  }
+
+  // optional bool privileged_network = 2;
+  if (has_privileged_network()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->privileged_network(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.game_utilities.ClientInfo)
+}
+
+::google::protobuf::uint8* ClientInfo::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.game_utilities.ClientInfo)
+  // optional string client_address = 1;
+  if (has_client_address()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->client_address().data(), this->client_address().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "client_address");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->client_address(), target);
+  }
+
+  // optional bool privileged_network = 2;
+  if (has_privileged_network()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->privileged_network(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.game_utilities.ClientInfo)
+  return target;
+}
+
+int ClientInfo::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional string client_address = 1;
+    if (has_client_address()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->client_address());
+    }
+
+    // optional bool privileged_network = 2;
+    if (has_privileged_network()) {
+      total_size += 1 + 1;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ClientInfo::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ClientInfo* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ClientInfo*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ClientInfo::MergeFrom(const ClientInfo& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_client_address()) {
+      set_client_address(from.client_address());
+    }
+    if (from.has_privileged_network()) {
+      set_privileged_network(from.privileged_network());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ClientInfo::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ClientInfo::CopyFrom(const ClientInfo& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ClientInfo::IsInitialized() const {
+
+  return true;
+}
+
 void ClientInfo::Swap(ClientInfo* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(client_address_, other->client_address_);
+    std::swap(privileged_network_, other->privileged_network_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ClientInfo::GetMetadata() const {

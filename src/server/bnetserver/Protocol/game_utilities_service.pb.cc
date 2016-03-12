@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -436,7 +437,7 @@ void protobuf_AddDesc_game_5futilities_5fservice_2eproto() {
     "st\032:.Battlenet.game_utilities.GetAllValu"
     "esForAttributeResponse\"\004\200\265\030\n\032-\312>*bnet.pr"
     "otocol.game_utilities.GameUtilitiesB\005H\001\200"
-    "\001\001", 2762);
+    "\001\000", 2762);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "game_utilities_service.proto", &protobuf_RegisterTypes);
   ClientRequest::default_instance_ = new ClientRequest();
@@ -690,25 +691,25 @@ void ClientRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.ClientRequest)
   // repeated .Battlenet.Attribute attribute = 1;
   for (int i = 0; i < this->attribute_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->attribute(i), output);
   }
 
   // optional .Battlenet.ProcessId host = 2;
   if (has_host()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->host(), output);
   }
 
   // optional .Battlenet.EntityId account_id = 3;
   if (has_account_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->account_id(), output);
   }
 
   // optional .Battlenet.EntityId game_account_id = 4;
   if (has_game_account_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, this->game_account_id(), output);
   }
 
@@ -719,7 +720,7 @@ void ClientRequest::SerializeWithCachedSizes(
 
   // optional .Battlenet.game_utilities.ClientInfo client_info = 6;
   if (has_client_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       6, this->client_info(), output);
   }
 
@@ -1038,7 +1039,7 @@ void ClientResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.ClientResponse)
   // repeated .Battlenet.Attribute attribute = 1;
   for (int i = 0; i < this->attribute_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->attribute(i), output);
   }
 
@@ -1298,7 +1299,7 @@ void ServerRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.ServerRequest)
   // repeated .Battlenet.Attribute attribute = 1;
   for (int i = 0; i < this->attribute_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->attribute(i), output);
   }
 
@@ -1309,7 +1310,7 @@ void ServerRequest::SerializeWithCachedSizes(
 
   // optional .Battlenet.ProcessId host = 3;
   if (has_host()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->host(), output);
   }
 
@@ -1569,7 +1570,7 @@ void ServerResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.ServerResponse)
   // repeated .Battlenet.Attribute attribute = 1;
   for (int i = 0; i < this->attribute_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->attribute(i), output);
   }
 
@@ -1854,25 +1855,25 @@ void PresenceChannelCreatedRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.PresenceChannelCreatedRequest)
   // required .Battlenet.EntityId id = 1;
   if (has_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->id(), output);
   }
 
   // optional .Battlenet.EntityId game_account_id = 3;
   if (has_game_account_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->game_account_id(), output);
   }
 
   // optional .Battlenet.EntityId account_id = 4;
   if (has_account_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, this->account_id(), output);
   }
 
   // optional .Battlenet.ProcessId host = 5;
   if (has_host()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       5, this->host(), output);
   }
 
@@ -2183,13 +2184,13 @@ void GetPlayerVariablesRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.GetPlayerVariablesRequest)
   // repeated .Battlenet.game_utilities.PlayerVariables player_variables = 1;
   for (int i = 0; i < this->player_variables_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->player_variables(i), output);
   }
 
   // optional .Battlenet.ProcessId host = 2;
   if (has_host()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->host(), output);
   }
 
@@ -2434,7 +2435,7 @@ void GetPlayerVariablesResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.GetPlayerVariablesResponse)
   // repeated .Battlenet.game_utilities.PlayerVariables player_variables = 1;
   for (int i = 0; i < this->player_variables_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->player_variables(i), output);
   }
 
@@ -2707,13 +2708,13 @@ void GameAccountOnlineNotification::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.GameAccountOnlineNotification)
   // required .Battlenet.EntityId game_account_id = 1;
   if (has_game_account_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->game_account_id(), output);
   }
 
   // optional .Battlenet.ProcessId host = 2;
   if (has_host()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->host(), output);
   }
 
@@ -3047,13 +3048,13 @@ void GameAccountOfflineNotification::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.GameAccountOfflineNotification)
   // required .Battlenet.EntityId game_account_id = 1;
   if (has_game_account_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->game_account_id(), output);
   }
 
   // optional .Battlenet.ProcessId host = 2;
   if (has_host()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->host(), output);
   }
 
@@ -3337,7 +3338,7 @@ void GetAchievementsFileRequest::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.GetAchievementsFileRequest)
   // optional .Battlenet.ProcessId host = 1;
   if (has_host()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->host(), output);
   }
 
@@ -3567,7 +3568,7 @@ void GetAchievementsFileResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.GetAchievementsFileResponse)
   // optional .Battlenet.ContentHandle content_handle = 1;
   if (has_content_handle()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->content_handle(), output);
   }
 
@@ -3855,7 +3856,7 @@ void GetAllValuesForAttributeRequest::SerializeWithCachedSizes(
 
   // optional .Battlenet.EntityId agent_id = 2;
   if (has_agent_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->agent_id(), output);
   }
 
@@ -4123,7 +4124,7 @@ void GetAllValuesForAttributeResponse::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_start:Battlenet.game_utilities.GetAllValuesForAttributeResponse)
   // repeated .Battlenet.Variant attribute_value = 1;
   for (int i = 0; i < this->attribute_value_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->attribute_value(i), output);
   }
 
@@ -4230,262 +4231,206 @@ void GetAllValuesForAttributeResponse::Swap(GetAllValuesForAttributeResponse* ot
 
 // ===================================================================
 
-GameUtilitiesService::~GameUtilitiesService() {}
-
-const ::google::protobuf::ServiceDescriptor* GameUtilitiesService::descriptor() {
+google::protobuf::ServiceDescriptor const* GameUtilitiesService::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return GameUtilitiesService_descriptor_;
 }
 
-const ::google::protobuf::ServiceDescriptor* GameUtilitiesService::GetDescriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return GameUtilitiesService_descriptor_;
-}
+void GameUtilitiesService::CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) {
+  switch(methodId) {
+    case 1: {
+      ::Battlenet::game_utilities::ClientRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for GameUtilitiesService.ProcessClientRequest server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
 
-void GameUtilitiesService::ProcessClientRequest(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::game_utilities::ClientRequest*,
-                         ::Battlenet::game_utilities::ClientResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method ProcessClientRequest() not implemented.");
-  done->Run();
-}
-
-void GameUtilitiesService::PresenceChannelCreated(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::game_utilities::PresenceChannelCreatedRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method PresenceChannelCreated() not implemented.");
-  done->Run();
-}
-
-void GameUtilitiesService::GetPlayerVariables(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::game_utilities::GetPlayerVariablesRequest*,
-                         ::Battlenet::game_utilities::GetPlayerVariablesResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetPlayerVariables() not implemented.");
-  done->Run();
-}
-
-void GameUtilitiesService::ProcessServerRequest(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::game_utilities::ServerRequest*,
-                         ::Battlenet::game_utilities::ServerResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method ProcessServerRequest() not implemented.");
-  done->Run();
-}
-
-void GameUtilitiesService::OnGameAccountOnline(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::game_utilities::GameAccountOnlineNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnGameAccountOnline() not implemented.");
-  done->Run();
-}
-
-void GameUtilitiesService::OnGameAccountOffline(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::game_utilities::GameAccountOfflineNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnGameAccountOffline() not implemented.");
-  done->Run();
-}
-
-void GameUtilitiesService::GetAchievementsFile(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::game_utilities::GetAchievementsFileRequest*,
-                         ::Battlenet::game_utilities::GetAchievementsFileResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetAchievementsFile() not implemented.");
-  done->Run();
-}
-
-void GameUtilitiesService::GetAllValuesForAttribute(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::game_utilities::GetAllValuesForAttributeRequest*,
-                         ::Battlenet::game_utilities::GetAllValuesForAttributeResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method GetAllValuesForAttribute() not implemented.");
-  done->Run();
-}
-
-void GameUtilitiesService::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                             ::google::protobuf::RpcController* controller,
-                             const ::google::protobuf::Message* request,
-                             ::google::protobuf::Message* response,
-                             ::google::protobuf::Closure* done) {
-  GOOGLE_DCHECK_EQ(method->service(), GameUtilitiesService_descriptor_);
-  switch(method->index()) {
-    case 0:
-      ProcessClientRequest(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::game_utilities::ClientRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::game_utilities::ClientResponse*>(response),
-             done);
+      ::Battlenet::game_utilities::ClientResponse response;
+      uint32 status = HandleProcessClientRequest(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method GameUtilitiesService.ProcessClientRequest(Battlenet.game_utilities.ClientRequest{ %s }) returned Battlenet.game_utilities.ClientResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 1:
-      PresenceChannelCreated(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::game_utilities::PresenceChannelCreatedRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 2: {
+      ::Battlenet::game_utilities::PresenceChannelCreatedRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for GameUtilitiesService.PresenceChannelCreated server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandlePresenceChannelCreated(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method GameUtilitiesService.PresenceChannelCreated(Battlenet.game_utilities.PresenceChannelCreatedRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 2:
-      GetPlayerVariables(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::game_utilities::GetPlayerVariablesRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::game_utilities::GetPlayerVariablesResponse*>(response),
-             done);
+    }
+    case 3: {
+      ::Battlenet::game_utilities::GetPlayerVariablesRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for GameUtilitiesService.GetPlayerVariables server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::game_utilities::GetPlayerVariablesResponse response;
+      uint32 status = HandleGetPlayerVariables(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method GameUtilitiesService.GetPlayerVariables(Battlenet.game_utilities.GetPlayerVariablesRequest{ %s }) returned Battlenet.game_utilities.GetPlayerVariablesResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 3:
-      ProcessServerRequest(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::game_utilities::ServerRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::game_utilities::ServerResponse*>(response),
-             done);
+    }
+    case 6: {
+      ::Battlenet::game_utilities::ServerRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for GameUtilitiesService.ProcessServerRequest server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::game_utilities::ServerResponse response;
+      uint32 status = HandleProcessServerRequest(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method GameUtilitiesService.ProcessServerRequest(Battlenet.game_utilities.ServerRequest{ %s }) returned Battlenet.game_utilities.ServerResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 4:
-      OnGameAccountOnline(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::game_utilities::GameAccountOnlineNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 7: {
+      ::Battlenet::game_utilities::GameAccountOnlineNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for GameUtilitiesService.OnGameAccountOnline server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnGameAccountOnline(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method GameUtilitiesService.OnGameAccountOnline(Battlenet.game_utilities.GameAccountOnlineNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 5:
-      OnGameAccountOffline(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::game_utilities::GameAccountOfflineNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 8: {
+      ::Battlenet::game_utilities::GameAccountOfflineNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for GameUtilitiesService.OnGameAccountOffline server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnGameAccountOffline(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method GameUtilitiesService.OnGameAccountOffline(Battlenet.game_utilities.GameAccountOfflineNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 6:
-      GetAchievementsFile(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::game_utilities::GetAchievementsFileRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::game_utilities::GetAchievementsFileResponse*>(response),
-             done);
+    }
+    case 9: {
+      ::Battlenet::game_utilities::GetAchievementsFileRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for GameUtilitiesService.GetAchievementsFile server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::game_utilities::GetAchievementsFileResponse response;
+      uint32 status = HandleGetAchievementsFile(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method GameUtilitiesService.GetAchievementsFile(Battlenet.game_utilities.GetAchievementsFileRequest{ %s }) returned Battlenet.game_utilities.GetAchievementsFileResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 7:
-      GetAllValuesForAttribute(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::game_utilities::GetAllValuesForAttributeRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::game_utilities::GetAllValuesForAttributeResponse*>(response),
-             done);
+    }
+    case 10: {
+      ::Battlenet::game_utilities::GetAllValuesForAttributeRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for GameUtilitiesService.GetAllValuesForAttribute server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::game_utilities::GetAllValuesForAttributeResponse response;
+      uint32 status = HandleGetAllValuesForAttribute(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method GameUtilitiesService.GetAllValuesForAttribute(Battlenet.game_utilities.GetAllValuesForAttributeRequest{ %s }) returned Battlenet.game_utilities.GetAllValuesForAttributeResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
+    }
     default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      TC_LOG_ERROR("session.rpc", "Bad method id %u.", methodId);
+      _session->SendResponse(token, ERROR_RPC_INVALID_METHOD);
       break;
-  }
+    }
 }
 
-const ::google::protobuf::Message& GameUtilitiesService::GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::game_utilities::ClientRequest::default_instance();
-    case 1:
-      return ::Battlenet::game_utilities::PresenceChannelCreatedRequest::default_instance();
-    case 2:
-      return ::Battlenet::game_utilities::GetPlayerVariablesRequest::default_instance();
-    case 3:
-      return ::Battlenet::game_utilities::ServerRequest::default_instance();
-    case 4:
-      return ::Battlenet::game_utilities::GameAccountOnlineNotification::default_instance();
-    case 5:
-      return ::Battlenet::game_utilities::GameAccountOfflineNotification::default_instance();
-    case 6:
-      return ::Battlenet::game_utilities::GetAchievementsFileRequest::default_instance();
-    case 7:
-      return ::Battlenet::game_utilities::GetAllValuesForAttributeRequest::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 GameUtilitiesService::HandleProcessClientRequest(::Battlenet::game_utilities::ClientRequest const* request, ::Battlenet::game_utilities::ClientResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method GameUtilitiesService.ProcessClientRequest({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-const ::google::protobuf::Message& GameUtilitiesService::GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::game_utilities::ClientResponse::default_instance();
-    case 1:
-      return ::Battlenet::NoData::default_instance();
-    case 2:
-      return ::Battlenet::game_utilities::GetPlayerVariablesResponse::default_instance();
-    case 3:
-      return ::Battlenet::game_utilities::ServerResponse::default_instance();
-    case 4:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 5:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 6:
-      return ::Battlenet::game_utilities::GetAchievementsFileResponse::default_instance();
-    case 7:
-      return ::Battlenet::game_utilities::GetAllValuesForAttributeResponse::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 GameUtilitiesService::HandlePresenceChannelCreated(::Battlenet::game_utilities::PresenceChannelCreatedRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method GameUtilitiesService.PresenceChannelCreated({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-GameUtilitiesService_Stub::GameUtilitiesService_Stub(::google::protobuf::RpcChannel* channel)
-  : channel_(channel), owns_channel_(false) {}
-GameUtilitiesService_Stub::GameUtilitiesService_Stub(
-    ::google::protobuf::RpcChannel* channel,
-    ::google::protobuf::Service::ChannelOwnership ownership)
-  : channel_(channel),
-    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
-GameUtilitiesService_Stub::~GameUtilitiesService_Stub() {
-  if (owns_channel_) delete channel_;
+uint32 GameUtilitiesService::HandleGetPlayerVariables(::Battlenet::game_utilities::GetPlayerVariablesRequest const* request, ::Battlenet::game_utilities::GetPlayerVariablesResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method GameUtilitiesService.GetPlayerVariables({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-void GameUtilitiesService_Stub::ProcessClientRequest(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::game_utilities::ClientRequest* request,
-                              ::Battlenet::game_utilities::ClientResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(0),
-                       controller, request, response, done);
+uint32 GameUtilitiesService::HandleProcessServerRequest(::Battlenet::game_utilities::ServerRequest const* request, ::Battlenet::game_utilities::ServerResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method GameUtilitiesService.ProcessServerRequest({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void GameUtilitiesService_Stub::PresenceChannelCreated(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::game_utilities::PresenceChannelCreatedRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(1),
-                       controller, request, response, done);
+
+uint32 GameUtilitiesService::HandleOnGameAccountOnline(::Battlenet::game_utilities::GameAccountOnlineNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method GameUtilitiesService.OnGameAccountOnline({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void GameUtilitiesService_Stub::GetPlayerVariables(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::game_utilities::GetPlayerVariablesRequest* request,
-                              ::Battlenet::game_utilities::GetPlayerVariablesResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(2),
-                       controller, request, response, done);
+
+uint32 GameUtilitiesService::HandleOnGameAccountOffline(::Battlenet::game_utilities::GameAccountOfflineNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method GameUtilitiesService.OnGameAccountOffline({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void GameUtilitiesService_Stub::ProcessServerRequest(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::game_utilities::ServerRequest* request,
-                              ::Battlenet::game_utilities::ServerResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(3),
-                       controller, request, response, done);
+
+uint32 GameUtilitiesService::HandleGetAchievementsFile(::Battlenet::game_utilities::GetAchievementsFileRequest const* request, ::Battlenet::game_utilities::GetAchievementsFileResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method GameUtilitiesService.GetAchievementsFile({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void GameUtilitiesService_Stub::OnGameAccountOnline(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::game_utilities::GameAccountOnlineNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(4),
-                       controller, request, response, done);
+
+uint32 GameUtilitiesService::HandleGetAllValuesForAttribute(::Battlenet::game_utilities::GetAllValuesForAttributeRequest const* request, ::Battlenet::game_utilities::GetAllValuesForAttributeResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method GameUtilitiesService.GetAllValuesForAttribute({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void GameUtilitiesService_Stub::OnGameAccountOffline(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::game_utilities::GameAccountOfflineNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(5),
-                       controller, request, response, done);
-}
-void GameUtilitiesService_Stub::GetAchievementsFile(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::game_utilities::GetAchievementsFileRequest* request,
-                              ::Battlenet::game_utilities::GetAchievementsFileResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(6),
-                       controller, request, response, done);
-}
-void GameUtilitiesService_Stub::GetAllValuesForAttribute(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::game_utilities::GetAllValuesForAttributeRequest* request,
-                              ::Battlenet::game_utilities::GetAllValuesForAttributeResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(7),
-                       controller, request, response, done);
-}
+
 
 // @@protoc_insertion_point(namespace_scope)
 

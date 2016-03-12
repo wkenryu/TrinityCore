@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -62,7 +63,7 @@ void protobuf_AddDesc_service_5foptions_2eproto() {
     "_fully_qualified_descriptor_name\022\037.googl"
     "e.protobuf.ServiceOptions\030\351\007 \001(\t:5\n\nserv"
     "ice_id\022\037.google.protobuf.ServiceOptions\030"
-    "\320\206\003 \001(\rB\002H\002", 211);
+    "\320\206\003 \001(\rB\002H\001", 211);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "service_options.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::ExtensionSet::RegisterExtension(

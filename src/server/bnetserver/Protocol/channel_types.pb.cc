@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -312,7 +313,7 @@ void protobuf_AddDesc_channel_5ftypes_2eproto() {
     "ountInfo\022$\n\021DEPRECATED_hidden\030\005 \001(\010:\005fal"
     "seB\002\030\001*\005\010d\020\220N\"^\n\006Member\022%\n\010identity\030\001 \002("
     "\0132\023.Battlenet.Identity\022-\n\005state\030\002 \002(\0132\036."
-    "Battlenet.channel.MemberStateB\002H\002", 1673);
+    "Battlenet.channel.MemberStateB\002H\001", 1673);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "channel_types.proto", &protobuf_RegisterTypes);
   ChannelId::default_instance_ = new ChannelId();
@@ -408,9 +409,251 @@ ChannelId* ChannelId::New() const {
   return new ChannelId;
 }
 
+void ChannelId::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<ChannelId*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 7) {
+    ZR_(type_, id_);
+    if (has_host()) {
+      if (host_ != NULL) host_->::Battlenet::ProcessId::Clear();
+    }
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChannelId::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.channel.ChannelId)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 type = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &type_)));
+          set_has_type();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_host;
+        break;
+      }
+
+      // optional .Battlenet.ProcessId host = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_host:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_host()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(29)) goto parse_id;
+        break;
+      }
+
+      // optional fixed32 id = 3;
+      case 3: {
+        if (tag == 29) {
+         parse_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &id_)));
+          set_has_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.channel.ChannelId)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.channel.ChannelId)
+  return false;
+#undef DO_
+}
+
+void ChannelId::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.channel.ChannelId)
+  // optional uint32 type = 1;
+  if (has_type()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->type(), output);
+  }
+
+  // optional .Battlenet.ProcessId host = 2;
+  if (has_host()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->host(), output);
+  }
+
+  // optional fixed32 id = 3;
+  if (has_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(3, this->id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.channel.ChannelId)
+}
+
+::google::protobuf::uint8* ChannelId::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.channel.ChannelId)
+  // optional uint32 type = 1;
+  if (has_type()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->type(), target);
+  }
+
+  // optional .Battlenet.ProcessId host = 2;
+  if (has_host()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->host(), target);
+  }
+
+  // optional fixed32 id = 3;
+  if (has_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(3, this->id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.channel.ChannelId)
+  return target;
+}
+
+int ChannelId::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 type = 1;
+    if (has_type()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->type());
+    }
+
+    // optional .Battlenet.ProcessId host = 2;
+    if (has_host()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->host());
+    }
+
+    // optional fixed32 id = 3;
+    if (has_id()) {
+      total_size += 1 + 4;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChannelId::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChannelId* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChannelId*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChannelId::MergeFrom(const ChannelId& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_type()) {
+      set_type(from.type());
+    }
+    if (from.has_host()) {
+      mutable_host()->::Battlenet::ProcessId::MergeFrom(from.host());
+    }
+    if (from.has_id()) {
+      set_id(from.id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChannelId::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChannelId::CopyFrom(const ChannelId& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChannelId::IsInitialized() const {
+
+  if (has_host()) {
+    if (!this->host().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void ChannelId::Swap(ChannelId* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(type_, other->type_);
+    std::swap(host_, other->host_);
+    std::swap(id_, other->id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ChannelId::GetMetadata() const {
@@ -482,9 +725,217 @@ Message* Message::New() const {
   return new Message;
 }
 
+void Message::Clear() {
+  _extensions_.Clear();
+  role_ = 0u;
+  attribute_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool Message::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.channel.Message)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .Battlenet.Attribute attribute = 1;
+      case 1: {
+        if (tag == 10) {
+         parse_attribute:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_attribute()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_attribute;
+        if (input->ExpectTag(16)) goto parse_role;
+        break;
+      }
+
+      // optional uint32 role = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_role:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &role_)));
+          set_has_role();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        if ((800u <= tag && tag < 80000u)) {
+          DO_(_extensions_.ParseField(tag, input, default_instance_,
+                                      mutable_unknown_fields()));
+          continue;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.channel.Message)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.channel.Message)
+  return false;
+#undef DO_
+}
+
+void Message::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.channel.Message)
+  // repeated .Battlenet.Attribute attribute = 1;
+  for (int i = 0; i < this->attribute_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->attribute(i), output);
+  }
+
+  // optional uint32 role = 2;
+  if (has_role()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->role(), output);
+  }
+
+  // Extension range [100, 10000)
+  _extensions_.SerializeWithCachedSizes(
+      100, 10000, output);
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.channel.Message)
+}
+
+::google::protobuf::uint8* Message::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.channel.Message)
+  // repeated .Battlenet.Attribute attribute = 1;
+  for (int i = 0; i < this->attribute_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->attribute(i), target);
+  }
+
+  // optional uint32 role = 2;
+  if (has_role()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->role(), target);
+  }
+
+  // Extension range [100, 10000)
+  target = _extensions_.SerializeWithCachedSizesToArray(
+      100, 10000, target);
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.channel.Message)
+  return target;
+}
+
+int Message::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[1 / 32] & (0xffu << (1 % 32))) {
+    // optional uint32 role = 2;
+    if (has_role()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->role());
+    }
+
+  }
+  // repeated .Battlenet.Attribute attribute = 1;
+  total_size += 1 * this->attribute_size();
+  for (int i = 0; i < this->attribute_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->attribute(i));
+  }
+
+  total_size += _extensions_.ByteSize();
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Message::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const Message* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Message*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Message::MergeFrom(const Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  attribute_.MergeFrom(from.attribute_);
+  if (from._has_bits_[1 / 32] & (0xffu << (1 % 32))) {
+    if (from.has_role()) {
+      set_role(from.role());
+    }
+  }
+  _extensions_.MergeFrom(from._extensions_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void Message::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Message::CopyFrom(const Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Message::IsInitialized() const {
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->attribute())) return false;
+
+  if (!_extensions_.IsInitialized()) return false;  return true;
+}
+
 void Message::Swap(Message* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    attribute_.Swap(&other->attribute_);
+    std::swap(role_, other->role_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+    _extensions_.Swap(&other->_extensions_);
+  }
 }
 
 ::google::protobuf::Metadata Message::GetMetadata() const {
@@ -578,9 +1029,488 @@ ListChannelsOptions* ListChannelsOptions::New() const {
   return new ListChannelsOptions;
 }
 
+void ListChannelsOptions::Clear() {
+  _extensions_.Clear();
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<ListChannelsOptions*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 255) {
+    ZR_(program_, locale_);
+    start_index_ = 0u;
+    max_results_ = 16u;
+    if (has_name()) {
+      if (name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        name_->clear();
+      }
+    }
+    capacity_full_ = 0u;
+    if (has_attribute_filter()) {
+      if (attribute_filter_ != NULL) attribute_filter_->::Battlenet::AttributeFilter::Clear();
+    }
+    if (has_channel_type()) {
+      if (channel_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        channel_type_->clear();
+      }
+    }
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ListChannelsOptions::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.channel.ListChannelsOptions)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 start_index = 1 [default = 0];
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &start_index_)));
+          set_has_start_index();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_max_results;
+        break;
+      }
+
+      // optional uint32 max_results = 2 [default = 16];
+      case 2: {
+        if (tag == 16) {
+         parse_max_results:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &max_results_)));
+          set_has_max_results();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_name;
+        break;
+      }
+
+      // optional string name = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->name().data(), this->name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "name");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(37)) goto parse_program;
+        break;
+      }
+
+      // optional fixed32 program = 4;
+      case 4: {
+        if (tag == 37) {
+         parse_program:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &program_)));
+          set_has_program();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(45)) goto parse_locale;
+        break;
+      }
+
+      // optional fixed32 locale = 5;
+      case 5: {
+        if (tag == 45) {
+         parse_locale:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &locale_)));
+          set_has_locale();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(48)) goto parse_capacity_full;
+        break;
+      }
+
+      // optional uint32 capacity_full = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_capacity_full:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &capacity_full_)));
+          set_has_capacity_full();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(58)) goto parse_attribute_filter;
+        break;
+      }
+
+      // required .Battlenet.AttributeFilter attribute_filter = 7;
+      case 7: {
+        if (tag == 58) {
+         parse_attribute_filter:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_attribute_filter()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(66)) goto parse_channel_type;
+        break;
+      }
+
+      // optional string channel_type = 8;
+      case 8: {
+        if (tag == 66) {
+         parse_channel_type:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_channel_type()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->channel_type().data(), this->channel_type().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "channel_type");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        if ((800u <= tag && tag < 80000u)) {
+          DO_(_extensions_.ParseField(tag, input, default_instance_,
+                                      mutable_unknown_fields()));
+          continue;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.channel.ListChannelsOptions)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.channel.ListChannelsOptions)
+  return false;
+#undef DO_
+}
+
+void ListChannelsOptions::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.channel.ListChannelsOptions)
+  // optional uint32 start_index = 1 [default = 0];
+  if (has_start_index()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->start_index(), output);
+  }
+
+  // optional uint32 max_results = 2 [default = 16];
+  if (has_max_results()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->max_results(), output);
+  }
+
+  // optional string name = 3;
+  if (has_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->name(), output);
+  }
+
+  // optional fixed32 program = 4;
+  if (has_program()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(4, this->program(), output);
+  }
+
+  // optional fixed32 locale = 5;
+  if (has_locale()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(5, this->locale(), output);
+  }
+
+  // optional uint32 capacity_full = 6;
+  if (has_capacity_full()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->capacity_full(), output);
+  }
+
+  // required .Battlenet.AttributeFilter attribute_filter = 7;
+  if (has_attribute_filter()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      7, this->attribute_filter(), output);
+  }
+
+  // optional string channel_type = 8;
+  if (has_channel_type()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->channel_type().data(), this->channel_type().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "channel_type");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      8, this->channel_type(), output);
+  }
+
+  // Extension range [100, 10000)
+  _extensions_.SerializeWithCachedSizes(
+      100, 10000, output);
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.channel.ListChannelsOptions)
+}
+
+::google::protobuf::uint8* ListChannelsOptions::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.channel.ListChannelsOptions)
+  // optional uint32 start_index = 1 [default = 0];
+  if (has_start_index()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->start_index(), target);
+  }
+
+  // optional uint32 max_results = 2 [default = 16];
+  if (has_max_results()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->max_results(), target);
+  }
+
+  // optional string name = 3;
+  if (has_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->name(), target);
+  }
+
+  // optional fixed32 program = 4;
+  if (has_program()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(4, this->program(), target);
+  }
+
+  // optional fixed32 locale = 5;
+  if (has_locale()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(5, this->locale(), target);
+  }
+
+  // optional uint32 capacity_full = 6;
+  if (has_capacity_full()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->capacity_full(), target);
+  }
+
+  // required .Battlenet.AttributeFilter attribute_filter = 7;
+  if (has_attribute_filter()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        7, this->attribute_filter(), target);
+  }
+
+  // optional string channel_type = 8;
+  if (has_channel_type()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->channel_type().data(), this->channel_type().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "channel_type");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        8, this->channel_type(), target);
+  }
+
+  // Extension range [100, 10000)
+  target = _extensions_.SerializeWithCachedSizesToArray(
+      100, 10000, target);
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.channel.ListChannelsOptions)
+  return target;
+}
+
+int ListChannelsOptions::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 start_index = 1 [default = 0];
+    if (has_start_index()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->start_index());
+    }
+
+    // optional uint32 max_results = 2 [default = 16];
+    if (has_max_results()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->max_results());
+    }
+
+    // optional string name = 3;
+    if (has_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->name());
+    }
+
+    // optional fixed32 program = 4;
+    if (has_program()) {
+      total_size += 1 + 4;
+    }
+
+    // optional fixed32 locale = 5;
+    if (has_locale()) {
+      total_size += 1 + 4;
+    }
+
+    // optional uint32 capacity_full = 6;
+    if (has_capacity_full()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->capacity_full());
+    }
+
+    // required .Battlenet.AttributeFilter attribute_filter = 7;
+    if (has_attribute_filter()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->attribute_filter());
+    }
+
+    // optional string channel_type = 8;
+    if (has_channel_type()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->channel_type());
+    }
+
+  }
+  total_size += _extensions_.ByteSize();
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ListChannelsOptions::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ListChannelsOptions* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ListChannelsOptions*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ListChannelsOptions::MergeFrom(const ListChannelsOptions& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_start_index()) {
+      set_start_index(from.start_index());
+    }
+    if (from.has_max_results()) {
+      set_max_results(from.max_results());
+    }
+    if (from.has_name()) {
+      set_name(from.name());
+    }
+    if (from.has_program()) {
+      set_program(from.program());
+    }
+    if (from.has_locale()) {
+      set_locale(from.locale());
+    }
+    if (from.has_capacity_full()) {
+      set_capacity_full(from.capacity_full());
+    }
+    if (from.has_attribute_filter()) {
+      mutable_attribute_filter()->::Battlenet::AttributeFilter::MergeFrom(from.attribute_filter());
+    }
+    if (from.has_channel_type()) {
+      set_channel_type(from.channel_type());
+    }
+  }
+  _extensions_.MergeFrom(from._extensions_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ListChannelsOptions::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ListChannelsOptions::CopyFrom(const ListChannelsOptions& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ListChannelsOptions::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000040) != 0x00000040) return false;
+
+  if (has_attribute_filter()) {
+    if (!this->attribute_filter().IsInitialized()) return false;
+  }
+
+  if (!_extensions_.IsInitialized()) return false;  return true;
+}
+
 void ListChannelsOptions::Swap(ListChannelsOptions* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(start_index_, other->start_index_);
+    std::swap(max_results_, other->max_results_);
+    std::swap(name_, other->name_);
+    std::swap(program_, other->program_);
+    std::swap(locale_, other->locale_);
+    std::swap(capacity_full_, other->capacity_full_);
+    std::swap(attribute_filter_, other->attribute_filter_);
+    std::swap(channel_type_, other->channel_type_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+    _extensions_.Swap(&other->_extensions_);
+  }
 }
 
 ::google::protobuf::Metadata ListChannelsOptions::GetMetadata() const {
@@ -659,9 +1589,247 @@ ChannelDescription* ChannelDescription::New() const {
   return new ChannelDescription;
 }
 
+void ChannelDescription::Clear() {
+  if (_has_bits_[0 / 32] & 7) {
+    if (has_channel_id()) {
+      if (channel_id_ != NULL) channel_id_->::Battlenet::EntityId::Clear();
+    }
+    current_members_ = 0u;
+    if (has_state()) {
+      if (state_ != NULL) state_->::Battlenet::channel::ChannelState::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChannelDescription::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.channel.ChannelDescription)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.EntityId channel_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_channel_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_current_members;
+        break;
+      }
+
+      // optional uint32 current_members = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_current_members:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &current_members_)));
+          set_has_current_members();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_state;
+        break;
+      }
+
+      // optional .Battlenet.channel.ChannelState state = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_state:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_state()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.channel.ChannelDescription)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.channel.ChannelDescription)
+  return false;
+#undef DO_
+}
+
+void ChannelDescription::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.channel.ChannelDescription)
+  // required .Battlenet.EntityId channel_id = 1;
+  if (has_channel_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->channel_id(), output);
+  }
+
+  // optional uint32 current_members = 2;
+  if (has_current_members()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->current_members(), output);
+  }
+
+  // optional .Battlenet.channel.ChannelState state = 3;
+  if (has_state()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->state(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.channel.ChannelDescription)
+}
+
+::google::protobuf::uint8* ChannelDescription::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.channel.ChannelDescription)
+  // required .Battlenet.EntityId channel_id = 1;
+  if (has_channel_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->channel_id(), target);
+  }
+
+  // optional uint32 current_members = 2;
+  if (has_current_members()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->current_members(), target);
+  }
+
+  // optional .Battlenet.channel.ChannelState state = 3;
+  if (has_state()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->state(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.channel.ChannelDescription)
+  return target;
+}
+
+int ChannelDescription::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.EntityId channel_id = 1;
+    if (has_channel_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->channel_id());
+    }
+
+    // optional uint32 current_members = 2;
+    if (has_current_members()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->current_members());
+    }
+
+    // optional .Battlenet.channel.ChannelState state = 3;
+    if (has_state()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->state());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChannelDescription::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChannelDescription* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChannelDescription*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChannelDescription::MergeFrom(const ChannelDescription& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_channel_id()) {
+      mutable_channel_id()->::Battlenet::EntityId::MergeFrom(from.channel_id());
+    }
+    if (from.has_current_members()) {
+      set_current_members(from.current_members());
+    }
+    if (from.has_state()) {
+      mutable_state()->::Battlenet::channel::ChannelState::MergeFrom(from.state());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChannelDescription::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChannelDescription::CopyFrom(const ChannelDescription& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChannelDescription::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_channel_id()) {
+    if (!this->channel_id().IsInitialized()) return false;
+  }
+  if (has_state()) {
+    if (!this->state().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void ChannelDescription::Swap(ChannelDescription* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(channel_id_, other->channel_id_);
+    std::swap(current_members_, other->current_members_);
+    std::swap(state_, other->state_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ChannelDescription::GetMetadata() const {
@@ -735,9 +1903,223 @@ ChannelInfo* ChannelInfo::New() const {
   return new ChannelInfo;
 }
 
+void ChannelInfo::Clear() {
+  _extensions_.Clear();
+  if (has_description()) {
+    if (description_ != NULL) description_->::Battlenet::channel::ChannelDescription::Clear();
+  }
+  member_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChannelInfo::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.channel.ChannelInfo)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.channel.ChannelDescription description = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_description()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_member;
+        break;
+      }
+
+      // repeated .Battlenet.channel.Member member = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_member:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_member()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_member;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        if ((800u <= tag && tag < 80000u)) {
+          DO_(_extensions_.ParseField(tag, input, default_instance_,
+                                      mutable_unknown_fields()));
+          continue;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.channel.ChannelInfo)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.channel.ChannelInfo)
+  return false;
+#undef DO_
+}
+
+void ChannelInfo::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.channel.ChannelInfo)
+  // required .Battlenet.channel.ChannelDescription description = 1;
+  if (has_description()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->description(), output);
+  }
+
+  // repeated .Battlenet.channel.Member member = 2;
+  for (int i = 0; i < this->member_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->member(i), output);
+  }
+
+  // Extension range [100, 10000)
+  _extensions_.SerializeWithCachedSizes(
+      100, 10000, output);
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.channel.ChannelInfo)
+}
+
+::google::protobuf::uint8* ChannelInfo::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.channel.ChannelInfo)
+  // required .Battlenet.channel.ChannelDescription description = 1;
+  if (has_description()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->description(), target);
+  }
+
+  // repeated .Battlenet.channel.Member member = 2;
+  for (int i = 0; i < this->member_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->member(i), target);
+  }
+
+  // Extension range [100, 10000)
+  target = _extensions_.SerializeWithCachedSizesToArray(
+      100, 10000, target);
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.channel.ChannelInfo)
+  return target;
+}
+
+int ChannelInfo::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.channel.ChannelDescription description = 1;
+    if (has_description()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->description());
+    }
+
+  }
+  // repeated .Battlenet.channel.Member member = 2;
+  total_size += 1 * this->member_size();
+  for (int i = 0; i < this->member_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->member(i));
+  }
+
+  total_size += _extensions_.ByteSize();
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChannelInfo::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChannelInfo* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChannelInfo*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChannelInfo::MergeFrom(const ChannelInfo& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  member_.MergeFrom(from.member_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_description()) {
+      mutable_description()->::Battlenet::channel::ChannelDescription::MergeFrom(from.description());
+    }
+  }
+  _extensions_.MergeFrom(from._extensions_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChannelInfo::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChannelInfo::CopyFrom(const ChannelInfo& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChannelInfo::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_description()) {
+    if (!this->description().IsInitialized()) return false;
+  }
+  if (!::google::protobuf::internal::AllAreInitialized(this->member())) return false;
+
+  if (!_extensions_.IsInitialized()) return false;  return true;
+}
+
 void ChannelInfo::Swap(ChannelInfo* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(description_, other->description_);
+    member_.Swap(&other->member_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+    _extensions_.Swap(&other->_extensions_);
+  }
 }
 
 ::google::protobuf::Metadata ChannelInfo::GetMetadata() const {
@@ -868,9 +2250,731 @@ ChannelState* ChannelState::New() const {
   return new ChannelState;
 }
 
+void ChannelState::Clear() {
+  _extensions_.Clear();
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<ChannelState*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 243) {
+    ZR_(max_members_, min_members_);
+    ZR_(max_invitations_, reason_);
+    privacy_level_ = 1;
+    if (has_name()) {
+      if (name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        name_->clear();
+      }
+    }
+  }
+  if (_has_bits_[8 / 32] & 16128) {
+    if (has_delegate_name()) {
+      if (delegate_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        delegate_name_->clear();
+      }
+    }
+    if (has_channel_type()) {
+      if (channel_type_ != _default_channel_type_) {
+        channel_type_->assign(*_default_channel_type_);
+      }
+    }
+    program_ = 0u;
+    allow_offline_members_ = false;
+    subscribe_to_presence_ = true;
+    destroy_on_founder_leave_ = false;
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  attribute_.Clear();
+  invitation_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChannelState::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.channel.ChannelState)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 max_members = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &max_members_)));
+          set_has_max_members();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_min_members;
+        break;
+      }
+
+      // optional uint32 min_members = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_min_members:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &min_members_)));
+          set_has_min_members();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_attribute;
+        break;
+      }
+
+      // repeated .Battlenet.Attribute attribute = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_attribute:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_attribute()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_attribute;
+        if (input->ExpectTag(34)) goto parse_invitation;
+        break;
+      }
+
+      // repeated .Battlenet.Invitation invitation = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_invitation:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_invitation()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_invitation;
+        if (input->ExpectTag(40)) goto parse_max_invitations;
+        break;
+      }
+
+      // optional uint32 max_invitations = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_max_invitations:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &max_invitations_)));
+          set_has_max_invitations();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(48)) goto parse_reason;
+        break;
+      }
+
+      // optional uint32 reason = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_reason:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &reason_)));
+          set_has_reason();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(56)) goto parse_privacy_level;
+        break;
+      }
+
+      // optional .Battlenet.channel.ChannelState.PrivacyLevel privacy_level = 7 [default = PRIVACY_LEVEL_OPEN];
+      case 7: {
+        if (tag == 56) {
+         parse_privacy_level:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::Battlenet::channel::ChannelState_PrivacyLevel_IsValid(value)) {
+            set_privacy_level(static_cast< ::Battlenet::channel::ChannelState_PrivacyLevel >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(7, value);
+          }
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(66)) goto parse_name;
+        break;
+      }
+
+      // optional string name = 8;
+      case 8: {
+        if (tag == 66) {
+         parse_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->name().data(), this->name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "name");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(74)) goto parse_delegate_name;
+        break;
+      }
+
+      // optional string delegate_name = 9;
+      case 9: {
+        if (tag == 74) {
+         parse_delegate_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_delegate_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->delegate_name().data(), this->delegate_name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "delegate_name");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(82)) goto parse_channel_type;
+        break;
+      }
+
+      // optional string channel_type = 10 [default = "default"];
+      case 10: {
+        if (tag == 82) {
+         parse_channel_type:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_channel_type()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->channel_type().data(), this->channel_type().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "channel_type");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(93)) goto parse_program;
+        break;
+      }
+
+      // optional fixed32 program = 11 [default = 0];
+      case 11: {
+        if (tag == 93) {
+         parse_program:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &program_)));
+          set_has_program();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(96)) goto parse_allow_offline_members;
+        break;
+      }
+
+      // optional bool allow_offline_members = 12 [default = false];
+      case 12: {
+        if (tag == 96) {
+         parse_allow_offline_members:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &allow_offline_members_)));
+          set_has_allow_offline_members();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(104)) goto parse_subscribe_to_presence;
+        break;
+      }
+
+      // optional bool subscribe_to_presence = 13 [default = true];
+      case 13: {
+        if (tag == 104) {
+         parse_subscribe_to_presence:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &subscribe_to_presence_)));
+          set_has_subscribe_to_presence();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(112)) goto parse_destroy_on_founder_leave;
+        break;
+      }
+
+      // optional bool destroy_on_founder_leave = 14 [default = false];
+      case 14: {
+        if (tag == 112) {
+         parse_destroy_on_founder_leave:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &destroy_on_founder_leave_)));
+          set_has_destroy_on_founder_leave();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        if ((800u <= tag && tag < 80000u)) {
+          DO_(_extensions_.ParseField(tag, input, default_instance_,
+                                      mutable_unknown_fields()));
+          continue;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.channel.ChannelState)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.channel.ChannelState)
+  return false;
+#undef DO_
+}
+
+void ChannelState::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.channel.ChannelState)
+  // optional uint32 max_members = 1;
+  if (has_max_members()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->max_members(), output);
+  }
+
+  // optional uint32 min_members = 2;
+  if (has_min_members()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->min_members(), output);
+  }
+
+  // repeated .Battlenet.Attribute attribute = 3;
+  for (int i = 0; i < this->attribute_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->attribute(i), output);
+  }
+
+  // repeated .Battlenet.Invitation invitation = 4;
+  for (int i = 0; i < this->invitation_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->invitation(i), output);
+  }
+
+  // optional uint32 max_invitations = 5;
+  if (has_max_invitations()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(5, this->max_invitations(), output);
+  }
+
+  // optional uint32 reason = 6;
+  if (has_reason()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->reason(), output);
+  }
+
+  // optional .Battlenet.channel.ChannelState.PrivacyLevel privacy_level = 7 [default = PRIVACY_LEVEL_OPEN];
+  if (has_privacy_level()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      7, this->privacy_level(), output);
+  }
+
+  // optional string name = 8;
+  if (has_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      8, this->name(), output);
+  }
+
+  // optional string delegate_name = 9;
+  if (has_delegate_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->delegate_name().data(), this->delegate_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "delegate_name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      9, this->delegate_name(), output);
+  }
+
+  // optional string channel_type = 10 [default = "default"];
+  if (has_channel_type()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->channel_type().data(), this->channel_type().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "channel_type");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      10, this->channel_type(), output);
+  }
+
+  // optional fixed32 program = 11 [default = 0];
+  if (has_program()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(11, this->program(), output);
+  }
+
+  // optional bool allow_offline_members = 12 [default = false];
+  if (has_allow_offline_members()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(12, this->allow_offline_members(), output);
+  }
+
+  // optional bool subscribe_to_presence = 13 [default = true];
+  if (has_subscribe_to_presence()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(13, this->subscribe_to_presence(), output);
+  }
+
+  // optional bool destroy_on_founder_leave = 14 [default = false];
+  if (has_destroy_on_founder_leave()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(14, this->destroy_on_founder_leave(), output);
+  }
+
+  // Extension range [100, 10000)
+  _extensions_.SerializeWithCachedSizes(
+      100, 10000, output);
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.channel.ChannelState)
+}
+
+::google::protobuf::uint8* ChannelState::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.channel.ChannelState)
+  // optional uint32 max_members = 1;
+  if (has_max_members()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->max_members(), target);
+  }
+
+  // optional uint32 min_members = 2;
+  if (has_min_members()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->min_members(), target);
+  }
+
+  // repeated .Battlenet.Attribute attribute = 3;
+  for (int i = 0; i < this->attribute_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->attribute(i), target);
+  }
+
+  // repeated .Battlenet.Invitation invitation = 4;
+  for (int i = 0; i < this->invitation_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->invitation(i), target);
+  }
+
+  // optional uint32 max_invitations = 5;
+  if (has_max_invitations()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(5, this->max_invitations(), target);
+  }
+
+  // optional uint32 reason = 6;
+  if (has_reason()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->reason(), target);
+  }
+
+  // optional .Battlenet.channel.ChannelState.PrivacyLevel privacy_level = 7 [default = PRIVACY_LEVEL_OPEN];
+  if (has_privacy_level()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      7, this->privacy_level(), target);
+  }
+
+  // optional string name = 8;
+  if (has_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        8, this->name(), target);
+  }
+
+  // optional string delegate_name = 9;
+  if (has_delegate_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->delegate_name().data(), this->delegate_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "delegate_name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        9, this->delegate_name(), target);
+  }
+
+  // optional string channel_type = 10 [default = "default"];
+  if (has_channel_type()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->channel_type().data(), this->channel_type().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "channel_type");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        10, this->channel_type(), target);
+  }
+
+  // optional fixed32 program = 11 [default = 0];
+  if (has_program()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(11, this->program(), target);
+  }
+
+  // optional bool allow_offline_members = 12 [default = false];
+  if (has_allow_offline_members()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(12, this->allow_offline_members(), target);
+  }
+
+  // optional bool subscribe_to_presence = 13 [default = true];
+  if (has_subscribe_to_presence()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(13, this->subscribe_to_presence(), target);
+  }
+
+  // optional bool destroy_on_founder_leave = 14 [default = false];
+  if (has_destroy_on_founder_leave()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(14, this->destroy_on_founder_leave(), target);
+  }
+
+  // Extension range [100, 10000)
+  target = _extensions_.SerializeWithCachedSizesToArray(
+      100, 10000, target);
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.channel.ChannelState)
+  return target;
+}
+
+int ChannelState::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 max_members = 1;
+    if (has_max_members()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->max_members());
+    }
+
+    // optional uint32 min_members = 2;
+    if (has_min_members()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->min_members());
+    }
+
+    // optional uint32 max_invitations = 5;
+    if (has_max_invitations()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->max_invitations());
+    }
+
+    // optional uint32 reason = 6;
+    if (has_reason()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->reason());
+    }
+
+    // optional .Battlenet.channel.ChannelState.PrivacyLevel privacy_level = 7 [default = PRIVACY_LEVEL_OPEN];
+    if (has_privacy_level()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->privacy_level());
+    }
+
+    // optional string name = 8;
+    if (has_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->name());
+    }
+
+  }
+  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    // optional string delegate_name = 9;
+    if (has_delegate_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->delegate_name());
+    }
+
+    // optional string channel_type = 10 [default = "default"];
+    if (has_channel_type()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->channel_type());
+    }
+
+    // optional fixed32 program = 11 [default = 0];
+    if (has_program()) {
+      total_size += 1 + 4;
+    }
+
+    // optional bool allow_offline_members = 12 [default = false];
+    if (has_allow_offline_members()) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool subscribe_to_presence = 13 [default = true];
+    if (has_subscribe_to_presence()) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool destroy_on_founder_leave = 14 [default = false];
+    if (has_destroy_on_founder_leave()) {
+      total_size += 1 + 1;
+    }
+
+  }
+  // repeated .Battlenet.Attribute attribute = 3;
+  total_size += 1 * this->attribute_size();
+  for (int i = 0; i < this->attribute_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->attribute(i));
+  }
+
+  // repeated .Battlenet.Invitation invitation = 4;
+  total_size += 1 * this->invitation_size();
+  for (int i = 0; i < this->invitation_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->invitation(i));
+  }
+
+  total_size += _extensions_.ByteSize();
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChannelState::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChannelState* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChannelState*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChannelState::MergeFrom(const ChannelState& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  attribute_.MergeFrom(from.attribute_);
+  invitation_.MergeFrom(from.invitation_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_max_members()) {
+      set_max_members(from.max_members());
+    }
+    if (from.has_min_members()) {
+      set_min_members(from.min_members());
+    }
+    if (from.has_max_invitations()) {
+      set_max_invitations(from.max_invitations());
+    }
+    if (from.has_reason()) {
+      set_reason(from.reason());
+    }
+    if (from.has_privacy_level()) {
+      set_privacy_level(from.privacy_level());
+    }
+    if (from.has_name()) {
+      set_name(from.name());
+    }
+  }
+  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    if (from.has_delegate_name()) {
+      set_delegate_name(from.delegate_name());
+    }
+    if (from.has_channel_type()) {
+      set_channel_type(from.channel_type());
+    }
+    if (from.has_program()) {
+      set_program(from.program());
+    }
+    if (from.has_allow_offline_members()) {
+      set_allow_offline_members(from.allow_offline_members());
+    }
+    if (from.has_subscribe_to_presence()) {
+      set_subscribe_to_presence(from.subscribe_to_presence());
+    }
+    if (from.has_destroy_on_founder_leave()) {
+      set_destroy_on_founder_leave(from.destroy_on_founder_leave());
+    }
+  }
+  _extensions_.MergeFrom(from._extensions_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChannelState::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChannelState::CopyFrom(const ChannelState& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChannelState::IsInitialized() const {
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->attribute())) return false;
+  if (!::google::protobuf::internal::AllAreInitialized(this->invitation())) return false;
+
+  if (!_extensions_.IsInitialized()) return false;  return true;
+}
+
 void ChannelState::Swap(ChannelState* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(max_members_, other->max_members_);
+    std::swap(min_members_, other->min_members_);
+    attribute_.Swap(&other->attribute_);
+    invitation_.Swap(&other->invitation_);
+    std::swap(max_invitations_, other->max_invitations_);
+    std::swap(reason_, other->reason_);
+    std::swap(privacy_level_, other->privacy_level_);
+    std::swap(name_, other->name_);
+    std::swap(delegate_name_, other->delegate_name_);
+    std::swap(channel_type_, other->channel_type_);
+    std::swap(program_, other->program_);
+    std::swap(allow_offline_members_, other->allow_offline_members_);
+    std::swap(subscribe_to_presence_, other->subscribe_to_presence_);
+    std::swap(destroy_on_founder_leave_, other->destroy_on_founder_leave_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+    _extensions_.Swap(&other->_extensions_);
+  }
 }
 
 ::google::protobuf::Metadata ChannelState::GetMetadata() const {
@@ -949,9 +3053,359 @@ MemberState* MemberState::New() const {
   return new MemberState;
 }
 
+void MemberState::Clear() {
+  _extensions_.Clear();
+  if (_has_bits_[0 / 32] & 28) {
+    privileges_ = GOOGLE_ULONGLONG(0);
+    if (has_info()) {
+      if (info_ != NULL) info_->::Battlenet::AccountInfo::Clear();
+    }
+    deprecated_hidden_ = false;
+  }
+  attribute_.Clear();
+  role_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool MemberState::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.channel.MemberState)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .Battlenet.Attribute attribute = 1;
+      case 1: {
+        if (tag == 10) {
+         parse_attribute:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_attribute()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_attribute;
+        if (input->ExpectTag(18)) goto parse_role;
+        break;
+      }
+
+      // repeated uint32 role = 2 [packed = true];
+      case 2: {
+        if (tag == 18) {
+         parse_role:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_role())));
+        } else if (tag == 16) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 18, input, this->mutable_role())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_privileges;
+        break;
+      }
+
+      // optional uint64 privileges = 3 [default = 0];
+      case 3: {
+        if (tag == 24) {
+         parse_privileges:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &privileges_)));
+          set_has_privileges();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_info;
+        break;
+      }
+
+      // optional .Battlenet.AccountInfo info = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_info:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_info()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(40)) goto parse_DEPRECATED_hidden;
+        break;
+      }
+
+      // optional bool DEPRECATED_hidden = 5 [default = false, deprecated = true];
+      case 5: {
+        if (tag == 40) {
+         parse_DEPRECATED_hidden:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &deprecated_hidden_)));
+          set_has_deprecated_hidden();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        if ((800u <= tag && tag < 80000u)) {
+          DO_(_extensions_.ParseField(tag, input, default_instance_,
+                                      mutable_unknown_fields()));
+          continue;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.channel.MemberState)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.channel.MemberState)
+  return false;
+#undef DO_
+}
+
+void MemberState::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.channel.MemberState)
+  // repeated .Battlenet.Attribute attribute = 1;
+  for (int i = 0; i < this->attribute_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->attribute(i), output);
+  }
+
+  // repeated uint32 role = 2 [packed = true];
+  if (this->role_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(2, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_role_cached_byte_size_);
+  }
+  for (int i = 0; i < this->role_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32NoTag(
+      this->role(i), output);
+  }
+
+  // optional uint64 privileges = 3 [default = 0];
+  if (has_privileges()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(3, this->privileges(), output);
+  }
+
+  // optional .Battlenet.AccountInfo info = 4;
+  if (has_info()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->info(), output);
+  }
+
+  // optional bool DEPRECATED_hidden = 5 [default = false, deprecated = true];
+  if (has_deprecated_hidden()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(5, this->deprecated_hidden(), output);
+  }
+
+  // Extension range [100, 10000)
+  _extensions_.SerializeWithCachedSizes(
+      100, 10000, output);
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.channel.MemberState)
+}
+
+::google::protobuf::uint8* MemberState::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.channel.MemberState)
+  // repeated .Battlenet.Attribute attribute = 1;
+  for (int i = 0; i < this->attribute_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->attribute(i), target);
+  }
+
+  // repeated uint32 role = 2 [packed = true];
+  if (this->role_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      2,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _role_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->role_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteUInt32NoTagToArray(this->role(i), target);
+  }
+
+  // optional uint64 privileges = 3 [default = 0];
+  if (has_privileges()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(3, this->privileges(), target);
+  }
+
+  // optional .Battlenet.AccountInfo info = 4;
+  if (has_info()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->info(), target);
+  }
+
+  // optional bool DEPRECATED_hidden = 5 [default = false, deprecated = true];
+  if (has_deprecated_hidden()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(5, this->deprecated_hidden(), target);
+  }
+
+  // Extension range [100, 10000)
+  target = _extensions_.SerializeWithCachedSizesToArray(
+      100, 10000, target);
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.channel.MemberState)
+  return target;
+}
+
+int MemberState::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[2 / 32] & (0xffu << (2 % 32))) {
+    // optional uint64 privileges = 3 [default = 0];
+    if (has_privileges()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->privileges());
+    }
+
+    // optional .Battlenet.AccountInfo info = 4;
+    if (has_info()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->info());
+    }
+
+    // optional bool DEPRECATED_hidden = 5 [default = false, deprecated = true];
+    if (has_deprecated_hidden()) {
+      total_size += 1 + 1;
+    }
+
+  }
+  // repeated .Battlenet.Attribute attribute = 1;
+  total_size += 1 * this->attribute_size();
+  for (int i = 0; i < this->attribute_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->attribute(i));
+  }
+
+  // repeated uint32 role = 2 [packed = true];
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->role_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        UInt32Size(this->role(i));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _role_cached_byte_size_ = data_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  total_size += _extensions_.ByteSize();
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void MemberState::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const MemberState* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const MemberState*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void MemberState::MergeFrom(const MemberState& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  attribute_.MergeFrom(from.attribute_);
+  role_.MergeFrom(from.role_);
+  if (from._has_bits_[2 / 32] & (0xffu << (2 % 32))) {
+    if (from.has_privileges()) {
+      set_privileges(from.privileges());
+    }
+    if (from.has_info()) {
+      mutable_info()->::Battlenet::AccountInfo::MergeFrom(from.info());
+    }
+    if (from.has_deprecated_hidden()) {
+      set_deprecated_hidden(from.deprecated_hidden());
+    }
+  }
+  _extensions_.MergeFrom(from._extensions_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void MemberState::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void MemberState::CopyFrom(const MemberState& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool MemberState::IsInitialized() const {
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->attribute())) return false;
+  if (has_info()) {
+    if (!this->info().IsInitialized()) return false;
+  }
+
+  if (!_extensions_.IsInitialized()) return false;  return true;
+}
+
 void MemberState::Swap(MemberState* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    attribute_.Swap(&other->attribute_);
+    role_.Swap(&other->role_);
+    std::swap(privileges_, other->privileges_);
+    std::swap(info_, other->info_);
+    std::swap(deprecated_hidden_, other->deprecated_hidden_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+    _extensions_.Swap(&other->_extensions_);
+  }
 }
 
 ::google::protobuf::Metadata MemberState::GetMetadata() const {
@@ -1028,9 +3482,210 @@ Member* Member::New() const {
   return new Member;
 }
 
+void Member::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_identity()) {
+      if (identity_ != NULL) identity_->::Battlenet::Identity::Clear();
+    }
+    if (has_state()) {
+      if (state_ != NULL) state_->::Battlenet::channel::MemberState::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool Member::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.channel.Member)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.Identity identity = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_identity()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_state;
+        break;
+      }
+
+      // required .Battlenet.channel.MemberState state = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_state:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_state()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.channel.Member)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.channel.Member)
+  return false;
+#undef DO_
+}
+
+void Member::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.channel.Member)
+  // required .Battlenet.Identity identity = 1;
+  if (has_identity()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->identity(), output);
+  }
+
+  // required .Battlenet.channel.MemberState state = 2;
+  if (has_state()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->state(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.channel.Member)
+}
+
+::google::protobuf::uint8* Member::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.channel.Member)
+  // required .Battlenet.Identity identity = 1;
+  if (has_identity()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->identity(), target);
+  }
+
+  // required .Battlenet.channel.MemberState state = 2;
+  if (has_state()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->state(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.channel.Member)
+  return target;
+}
+
+int Member::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.Identity identity = 1;
+    if (has_identity()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->identity());
+    }
+
+    // required .Battlenet.channel.MemberState state = 2;
+    if (has_state()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->state());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Member::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const Member* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Member*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Member::MergeFrom(const Member& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_identity()) {
+      mutable_identity()->::Battlenet::Identity::MergeFrom(from.identity());
+    }
+    if (from.has_state()) {
+      mutable_state()->::Battlenet::channel::MemberState::MergeFrom(from.state());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void Member::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Member::CopyFrom(const Member& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Member::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+
+  if (has_identity()) {
+    if (!this->identity().IsInitialized()) return false;
+  }
+  if (has_state()) {
+    if (!this->state().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void Member::Swap(Member* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(identity_, other->identity_);
+    std::swap(state_, other->state_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata Member::GetMetadata() const {

@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -450,7 +451,7 @@ void protobuf_AddDesc_friends_5fservice_2eproto() {
     "e\0220.Battlenet.friends.UpdateFriendStateN"
     "otification\032\026.Battlenet.NO_RESPONSE\"\004\200\265\030"
     "\007\032&\312>#bnet.protocol.friends.FriendsNotif"
-    "yB\005H\002\200\001\001", 3728);
+    "yB\005H\001\200\001\000", 3728);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "friends_service.proto", &protobuf_RegisterTypes);
   SubscribeRequest::default_instance_ = new SubscribeRequest();
@@ -550,9 +551,204 @@ SubscribeRequest* SubscribeRequest::New() const {
   return new SubscribeRequest;
 }
 
+void SubscribeRequest::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    object_id_ = GOOGLE_ULONGLONG(0);
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SubscribeRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.friends.SubscribeRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_object_id;
+        break;
+      }
+
+      // required uint64 object_id = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_object_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &object_id_)));
+          set_has_object_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.friends.SubscribeRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.friends.SubscribeRequest)
+  return false;
+#undef DO_
+}
+
+void SubscribeRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.friends.SubscribeRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // required uint64 object_id = 2;
+  if (has_object_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(2, this->object_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.friends.SubscribeRequest)
+}
+
+::google::protobuf::uint8* SubscribeRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.friends.SubscribeRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // required uint64 object_id = 2;
+  if (has_object_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(2, this->object_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.friends.SubscribeRequest)
+  return target;
+}
+
+int SubscribeRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // required uint64 object_id = 2;
+    if (has_object_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->object_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SubscribeRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SubscribeRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SubscribeRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SubscribeRequest::MergeFrom(const SubscribeRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_object_id()) {
+      set_object_id(from.object_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SubscribeRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SubscribeRequest::CopyFrom(const SubscribeRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SubscribeRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void SubscribeRequest::Swap(SubscribeRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(object_id_, other->object_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata SubscribeRequest::GetMetadata() const {
@@ -631,9 +827,403 @@ SubscribeResponse* SubscribeResponse::New() const {
   return new SubscribeResponse;
 }
 
+void SubscribeResponse::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<SubscribeResponse*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 7) {
+    ZR_(max_friends_, max_received_invitations_);
+    max_sent_invitations_ = 0u;
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  role_.Clear();
+  friends_.Clear();
+  sent_invitations_.Clear();
+  received_invitations_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SubscribeResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.friends.SubscribeResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 max_friends = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &max_friends_)));
+          set_has_max_friends();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_max_received_invitations;
+        break;
+      }
+
+      // optional uint32 max_received_invitations = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_max_received_invitations:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &max_received_invitations_)));
+          set_has_max_received_invitations();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_max_sent_invitations;
+        break;
+      }
+
+      // optional uint32 max_sent_invitations = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_max_sent_invitations:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &max_sent_invitations_)));
+          set_has_max_sent_invitations();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_role;
+        break;
+      }
+
+      // repeated .Battlenet.Role role = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_role:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_role()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_role;
+        if (input->ExpectTag(42)) goto parse_friends;
+        break;
+      }
+
+      // repeated .Battlenet.friends.Friend friends = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_friends:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_friends()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_friends;
+        if (input->ExpectTag(50)) goto parse_sent_invitations;
+        break;
+      }
+
+      // repeated .Battlenet.Invitation sent_invitations = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_sent_invitations:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_sent_invitations()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_sent_invitations;
+        if (input->ExpectTag(58)) goto parse_received_invitations;
+        break;
+      }
+
+      // repeated .Battlenet.Invitation received_invitations = 7;
+      case 7: {
+        if (tag == 58) {
+         parse_received_invitations:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_received_invitations()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(58)) goto parse_received_invitations;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.friends.SubscribeResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.friends.SubscribeResponse)
+  return false;
+#undef DO_
+}
+
+void SubscribeResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.friends.SubscribeResponse)
+  // optional uint32 max_friends = 1;
+  if (has_max_friends()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->max_friends(), output);
+  }
+
+  // optional uint32 max_received_invitations = 2;
+  if (has_max_received_invitations()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->max_received_invitations(), output);
+  }
+
+  // optional uint32 max_sent_invitations = 3;
+  if (has_max_sent_invitations()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->max_sent_invitations(), output);
+  }
+
+  // repeated .Battlenet.Role role = 4;
+  for (int i = 0; i < this->role_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->role(i), output);
+  }
+
+  // repeated .Battlenet.friends.Friend friends = 5;
+  for (int i = 0; i < this->friends_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->friends(i), output);
+  }
+
+  // repeated .Battlenet.Invitation sent_invitations = 6;
+  for (int i = 0; i < this->sent_invitations_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      6, this->sent_invitations(i), output);
+  }
+
+  // repeated .Battlenet.Invitation received_invitations = 7;
+  for (int i = 0; i < this->received_invitations_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      7, this->received_invitations(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.friends.SubscribeResponse)
+}
+
+::google::protobuf::uint8* SubscribeResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.friends.SubscribeResponse)
+  // optional uint32 max_friends = 1;
+  if (has_max_friends()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->max_friends(), target);
+  }
+
+  // optional uint32 max_received_invitations = 2;
+  if (has_max_received_invitations()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->max_received_invitations(), target);
+  }
+
+  // optional uint32 max_sent_invitations = 3;
+  if (has_max_sent_invitations()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->max_sent_invitations(), target);
+  }
+
+  // repeated .Battlenet.Role role = 4;
+  for (int i = 0; i < this->role_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->role(i), target);
+  }
+
+  // repeated .Battlenet.friends.Friend friends = 5;
+  for (int i = 0; i < this->friends_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->friends(i), target);
+  }
+
+  // repeated .Battlenet.Invitation sent_invitations = 6;
+  for (int i = 0; i < this->sent_invitations_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        6, this->sent_invitations(i), target);
+  }
+
+  // repeated .Battlenet.Invitation received_invitations = 7;
+  for (int i = 0; i < this->received_invitations_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        7, this->received_invitations(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.friends.SubscribeResponse)
+  return target;
+}
+
+int SubscribeResponse::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 max_friends = 1;
+    if (has_max_friends()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->max_friends());
+    }
+
+    // optional uint32 max_received_invitations = 2;
+    if (has_max_received_invitations()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->max_received_invitations());
+    }
+
+    // optional uint32 max_sent_invitations = 3;
+    if (has_max_sent_invitations()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->max_sent_invitations());
+    }
+
+  }
+  // repeated .Battlenet.Role role = 4;
+  total_size += 1 * this->role_size();
+  for (int i = 0; i < this->role_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->role(i));
+  }
+
+  // repeated .Battlenet.friends.Friend friends = 5;
+  total_size += 1 * this->friends_size();
+  for (int i = 0; i < this->friends_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->friends(i));
+  }
+
+  // repeated .Battlenet.Invitation sent_invitations = 6;
+  total_size += 1 * this->sent_invitations_size();
+  for (int i = 0; i < this->sent_invitations_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->sent_invitations(i));
+  }
+
+  // repeated .Battlenet.Invitation received_invitations = 7;
+  total_size += 1 * this->received_invitations_size();
+  for (int i = 0; i < this->received_invitations_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->received_invitations(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SubscribeResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SubscribeResponse* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SubscribeResponse*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SubscribeResponse::MergeFrom(const SubscribeResponse& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  role_.MergeFrom(from.role_);
+  friends_.MergeFrom(from.friends_);
+  sent_invitations_.MergeFrom(from.sent_invitations_);
+  received_invitations_.MergeFrom(from.received_invitations_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_max_friends()) {
+      set_max_friends(from.max_friends());
+    }
+    if (from.has_max_received_invitations()) {
+      set_max_received_invitations(from.max_received_invitations());
+    }
+    if (from.has_max_sent_invitations()) {
+      set_max_sent_invitations(from.max_sent_invitations());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SubscribeResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SubscribeResponse::CopyFrom(const SubscribeResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SubscribeResponse::IsInitialized() const {
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->role())) return false;
+  if (!::google::protobuf::internal::AllAreInitialized(this->friends())) return false;
+  if (!::google::protobuf::internal::AllAreInitialized(this->sent_invitations())) return false;
+  if (!::google::protobuf::internal::AllAreInitialized(this->received_invitations())) return false;
+  return true;
+}
+
 void SubscribeResponse::Swap(SubscribeResponse* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(max_friends_, other->max_friends_);
+    std::swap(max_received_invitations_, other->max_received_invitations_);
+    std::swap(max_sent_invitations_, other->max_sent_invitations_);
+    role_.Swap(&other->role_);
+    friends_.Swap(&other->friends_);
+    sent_invitations_.Swap(&other->sent_invitations_);
+    received_invitations_.Swap(&other->received_invitations_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata SubscribeResponse::GetMetadata() const {
@@ -708,9 +1298,203 @@ UnsubscribeRequest* UnsubscribeRequest::New() const {
   return new UnsubscribeRequest;
 }
 
+void UnsubscribeRequest::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    object_id_ = GOOGLE_ULONGLONG(0);
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool UnsubscribeRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.friends.UnsubscribeRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_object_id;
+        break;
+      }
+
+      // optional uint64 object_id = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_object_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &object_id_)));
+          set_has_object_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.friends.UnsubscribeRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.friends.UnsubscribeRequest)
+  return false;
+#undef DO_
+}
+
+void UnsubscribeRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.friends.UnsubscribeRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // optional uint64 object_id = 2;
+  if (has_object_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(2, this->object_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.friends.UnsubscribeRequest)
+}
+
+::google::protobuf::uint8* UnsubscribeRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.friends.UnsubscribeRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // optional uint64 object_id = 2;
+  if (has_object_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(2, this->object_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.friends.UnsubscribeRequest)
+  return target;
+}
+
+int UnsubscribeRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // optional uint64 object_id = 2;
+    if (has_object_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->object_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void UnsubscribeRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const UnsubscribeRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const UnsubscribeRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void UnsubscribeRequest::MergeFrom(const UnsubscribeRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_object_id()) {
+      set_object_id(from.object_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void UnsubscribeRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UnsubscribeRequest::CopyFrom(const UnsubscribeRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UnsubscribeRequest::IsInitialized() const {
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void UnsubscribeRequest::Swap(UnsubscribeRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(object_id_, other->object_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata UnsubscribeRequest::GetMetadata() const {
@@ -787,9 +1571,210 @@ GenericFriendRequest* GenericFriendRequest::New() const {
   return new GenericFriendRequest;
 }
 
+void GenericFriendRequest::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_target_id()) {
+      if (target_id_ != NULL) target_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool GenericFriendRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.friends.GenericFriendRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_target_id;
+        break;
+      }
+
+      // required .Battlenet.EntityId target_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_target_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_target_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.friends.GenericFriendRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.friends.GenericFriendRequest)
+  return false;
+#undef DO_
+}
+
+void GenericFriendRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.friends.GenericFriendRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // required .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->target_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.friends.GenericFriendRequest)
+}
+
+::google::protobuf::uint8* GenericFriendRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.friends.GenericFriendRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // required .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->target_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.friends.GenericFriendRequest)
+  return target;
+}
+
+int GenericFriendRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // required .Battlenet.EntityId target_id = 2;
+    if (has_target_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->target_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void GenericFriendRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const GenericFriendRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const GenericFriendRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void GenericFriendRequest::MergeFrom(const GenericFriendRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_target_id()) {
+      mutable_target_id()->::Battlenet::EntityId::MergeFrom(from.target_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void GenericFriendRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void GenericFriendRequest::CopyFrom(const GenericFriendRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GenericFriendRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  if (has_target_id()) {
+    if (!this->target_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void GenericFriendRequest::Swap(GenericFriendRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(target_id_, other->target_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata GenericFriendRequest::GetMetadata() const {
@@ -862,9 +1847,164 @@ GenericFriendResponse* GenericFriendResponse::New() const {
   return new GenericFriendResponse;
 }
 
+void GenericFriendResponse::Clear() {
+  if (has_target_friend()) {
+    if (target_friend_ != NULL) target_friend_->::Battlenet::friends::Friend::Clear();
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool GenericFriendResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.friends.GenericFriendResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.friends.Friend target_friend = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_target_friend()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.friends.GenericFriendResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.friends.GenericFriendResponse)
+  return false;
+#undef DO_
+}
+
+void GenericFriendResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.friends.GenericFriendResponse)
+  // optional .Battlenet.friends.Friend target_friend = 1;
+  if (has_target_friend()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->target_friend(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.friends.GenericFriendResponse)
+}
+
+::google::protobuf::uint8* GenericFriendResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.friends.GenericFriendResponse)
+  // optional .Battlenet.friends.Friend target_friend = 1;
+  if (has_target_friend()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->target_friend(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.friends.GenericFriendResponse)
+  return target;
+}
+
+int GenericFriendResponse::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.friends.Friend target_friend = 1;
+    if (has_target_friend()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->target_friend());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void GenericFriendResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const GenericFriendResponse* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const GenericFriendResponse*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void GenericFriendResponse::MergeFrom(const GenericFriendResponse& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_target_friend()) {
+      mutable_target_friend()->::Battlenet::friends::Friend::MergeFrom(from.target_friend());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void GenericFriendResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void GenericFriendResponse::CopyFrom(const GenericFriendResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GenericFriendResponse::IsInitialized() const {
+
+  if (has_target_friend()) {
+    if (!this->target_friend().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void GenericFriendResponse::Swap(GenericFriendResponse* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(target_friend_, other->target_friend_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata GenericFriendResponse::GetMetadata() const {
@@ -942,9 +2082,254 @@ AssignRoleRequest* AssignRoleRequest::New() const {
   return new AssignRoleRequest;
 }
 
+void AssignRoleRequest::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_target_id()) {
+      if (target_id_ != NULL) target_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  role_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool AssignRoleRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.friends.AssignRoleRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_target_id;
+        break;
+      }
+
+      // required .Battlenet.EntityId target_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_target_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_target_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_role;
+        break;
+      }
+
+      // repeated int32 role = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_role:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 1, 24, input, this->mutable_role())));
+        } else if (tag == 26) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, this->mutable_role())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_role;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.friends.AssignRoleRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.friends.AssignRoleRequest)
+  return false;
+#undef DO_
+}
+
+void AssignRoleRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.friends.AssignRoleRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // required .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->target_id(), output);
+  }
+
+  // repeated int32 role = 3;
+  for (int i = 0; i < this->role_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(
+      3, this->role(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.friends.AssignRoleRequest)
+}
+
+::google::protobuf::uint8* AssignRoleRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.friends.AssignRoleRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // required .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->target_id(), target);
+  }
+
+  // repeated int32 role = 3;
+  for (int i = 0; i < this->role_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt32ToArray(3, this->role(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.friends.AssignRoleRequest)
+  return target;
+}
+
+int AssignRoleRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // required .Battlenet.EntityId target_id = 2;
+    if (has_target_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->target_id());
+    }
+
+  }
+  // repeated int32 role = 3;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->role_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int32Size(this->role(i));
+    }
+    total_size += 1 * this->role_size() + data_size;
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void AssignRoleRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const AssignRoleRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const AssignRoleRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void AssignRoleRequest::MergeFrom(const AssignRoleRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  role_.MergeFrom(from.role_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_target_id()) {
+      mutable_target_id()->::Battlenet::EntityId::MergeFrom(from.target_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void AssignRoleRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void AssignRoleRequest::CopyFrom(const AssignRoleRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AssignRoleRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  if (has_target_id()) {
+    if (!this->target_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void AssignRoleRequest::Swap(AssignRoleRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(target_id_, other->target_id_);
+    role_.Swap(&other->role_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata AssignRoleRequest::GetMetadata() const {
@@ -1022,9 +2407,272 @@ ViewFriendsRequest* ViewFriendsRequest::New() const {
   return new ViewFriendsRequest;
 }
 
+void ViewFriendsRequest::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_target_id()) {
+      if (target_id_ != NULL) target_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  role_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ViewFriendsRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.friends.ViewFriendsRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_target_id;
+        break;
+      }
+
+      // required .Battlenet.EntityId target_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_target_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_target_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_role;
+        break;
+      }
+
+      // repeated uint32 role = 3 [packed = true];
+      case 3: {
+        if (tag == 26) {
+         parse_role:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_role())));
+        } else if (tag == 24) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 26, input, this->mutable_role())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.friends.ViewFriendsRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.friends.ViewFriendsRequest)
+  return false;
+#undef DO_
+}
+
+void ViewFriendsRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.friends.ViewFriendsRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // required .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->target_id(), output);
+  }
+
+  // repeated uint32 role = 3 [packed = true];
+  if (this->role_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(3, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_role_cached_byte_size_);
+  }
+  for (int i = 0; i < this->role_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32NoTag(
+      this->role(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.friends.ViewFriendsRequest)
+}
+
+::google::protobuf::uint8* ViewFriendsRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.friends.ViewFriendsRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // required .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->target_id(), target);
+  }
+
+  // repeated uint32 role = 3 [packed = true];
+  if (this->role_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      3,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _role_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->role_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteUInt32NoTagToArray(this->role(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.friends.ViewFriendsRequest)
+  return target;
+}
+
+int ViewFriendsRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // required .Battlenet.EntityId target_id = 2;
+    if (has_target_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->target_id());
+    }
+
+  }
+  // repeated uint32 role = 3 [packed = true];
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->role_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        UInt32Size(this->role(i));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _role_cached_byte_size_ = data_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ViewFriendsRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ViewFriendsRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ViewFriendsRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ViewFriendsRequest::MergeFrom(const ViewFriendsRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  role_.MergeFrom(from.role_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_target_id()) {
+      mutable_target_id()->::Battlenet::EntityId::MergeFrom(from.target_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ViewFriendsRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ViewFriendsRequest::CopyFrom(const ViewFriendsRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ViewFriendsRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  if (has_target_id()) {
+    if (!this->target_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void ViewFriendsRequest::Swap(ViewFriendsRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(target_id_, other->target_id_);
+    role_.Swap(&other->role_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ViewFriendsRequest::GetMetadata() const {
@@ -1094,9 +2742,157 @@ ViewFriendsResponse* ViewFriendsResponse::New() const {
   return new ViewFriendsResponse;
 }
 
+void ViewFriendsResponse::Clear() {
+  friends_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ViewFriendsResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.friends.ViewFriendsResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .Battlenet.friends.Friend friends = 1;
+      case 1: {
+        if (tag == 10) {
+         parse_friends:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_friends()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_friends;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.friends.ViewFriendsResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.friends.ViewFriendsResponse)
+  return false;
+#undef DO_
+}
+
+void ViewFriendsResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.friends.ViewFriendsResponse)
+  // repeated .Battlenet.friends.Friend friends = 1;
+  for (int i = 0; i < this->friends_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->friends(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.friends.ViewFriendsResponse)
+}
+
+::google::protobuf::uint8* ViewFriendsResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.friends.ViewFriendsResponse)
+  // repeated .Battlenet.friends.Friend friends = 1;
+  for (int i = 0; i < this->friends_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->friends(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.friends.ViewFriendsResponse)
+  return target;
+}
+
+int ViewFriendsResponse::ByteSize() const {
+  int total_size = 0;
+
+  // repeated .Battlenet.friends.Friend friends = 1;
+  total_size += 1 * this->friends_size();
+  for (int i = 0; i < this->friends_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->friends(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ViewFriendsResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ViewFriendsResponse* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ViewFriendsResponse*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ViewFriendsResponse::MergeFrom(const ViewFriendsResponse& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  friends_.MergeFrom(from.friends_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ViewFriendsResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ViewFriendsResponse::CopyFrom(const ViewFriendsResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ViewFriendsResponse::IsInitialized() const {
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->friends())) return false;
+  return true;
+}
+
 void ViewFriendsResponse::Swap(ViewFriendsResponse* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    friends_.Swap(&other->friends_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ViewFriendsResponse::GetMetadata() const {
@@ -1176,9 +2972,286 @@ UpdateFriendStateRequest* UpdateFriendStateRequest::New() const {
   return new UpdateFriendStateRequest;
 }
 
+void UpdateFriendStateRequest::Clear() {
+  if (_has_bits_[0 / 32] & 11) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_target_id()) {
+      if (target_id_ != NULL) target_id_->::Battlenet::EntityId::Clear();
+    }
+    attributes_epoch_ = GOOGLE_ULONGLONG(0);
+  }
+  attribute_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool UpdateFriendStateRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.friends.UpdateFriendStateRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_target_id;
+        break;
+      }
+
+      // required .Battlenet.EntityId target_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_target_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_target_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_attribute;
+        break;
+      }
+
+      // repeated .Battlenet.Attribute attribute = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_attribute:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_attribute()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_attribute;
+        if (input->ExpectTag(32)) goto parse_attributes_epoch;
+        break;
+      }
+
+      // optional uint64 attributes_epoch = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_attributes_epoch:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &attributes_epoch_)));
+          set_has_attributes_epoch();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.friends.UpdateFriendStateRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.friends.UpdateFriendStateRequest)
+  return false;
+#undef DO_
+}
+
+void UpdateFriendStateRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.friends.UpdateFriendStateRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // required .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->target_id(), output);
+  }
+
+  // repeated .Battlenet.Attribute attribute = 3;
+  for (int i = 0; i < this->attribute_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->attribute(i), output);
+  }
+
+  // optional uint64 attributes_epoch = 4;
+  if (has_attributes_epoch()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(4, this->attributes_epoch(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.friends.UpdateFriendStateRequest)
+}
+
+::google::protobuf::uint8* UpdateFriendStateRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.friends.UpdateFriendStateRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // required .Battlenet.EntityId target_id = 2;
+  if (has_target_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->target_id(), target);
+  }
+
+  // repeated .Battlenet.Attribute attribute = 3;
+  for (int i = 0; i < this->attribute_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->attribute(i), target);
+  }
+
+  // optional uint64 attributes_epoch = 4;
+  if (has_attributes_epoch()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(4, this->attributes_epoch(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.friends.UpdateFriendStateRequest)
+  return target;
+}
+
+int UpdateFriendStateRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // required .Battlenet.EntityId target_id = 2;
+    if (has_target_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->target_id());
+    }
+
+    // optional uint64 attributes_epoch = 4;
+    if (has_attributes_epoch()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->attributes_epoch());
+    }
+
+  }
+  // repeated .Battlenet.Attribute attribute = 3;
+  total_size += 1 * this->attribute_size();
+  for (int i = 0; i < this->attribute_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->attribute(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void UpdateFriendStateRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const UpdateFriendStateRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const UpdateFriendStateRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void UpdateFriendStateRequest::MergeFrom(const UpdateFriendStateRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  attribute_.MergeFrom(from.attribute_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_target_id()) {
+      mutable_target_id()->::Battlenet::EntityId::MergeFrom(from.target_id());
+    }
+    if (from.has_attributes_epoch()) {
+      set_attributes_epoch(from.attributes_epoch());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void UpdateFriendStateRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UpdateFriendStateRequest::CopyFrom(const UpdateFriendStateRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdateFriendStateRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  if (has_target_id()) {
+    if (!this->target_id().IsInitialized()) return false;
+  }
+  if (!::google::protobuf::internal::AllAreInitialized(this->attribute())) return false;
+  return true;
+}
+
 void UpdateFriendStateRequest::Swap(UpdateFriendStateRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(target_id_, other->target_id_);
+    attribute_.Swap(&other->attribute_);
+    std::swap(attributes_epoch_, other->attributes_epoch_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata UpdateFriendStateRequest::GetMetadata() const {
@@ -1263,9 +3336,296 @@ FriendNotification* FriendNotification::New() const {
   return new FriendNotification;
 }
 
+void FriendNotification::Clear() {
+  if (_has_bits_[0 / 32] & 15) {
+    if (has_target()) {
+      if (target_ != NULL) target_->::Battlenet::friends::Friend::Clear();
+    }
+    if (has_game_account_id()) {
+      if (game_account_id_ != NULL) game_account_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_peer()) {
+      if (peer_ != NULL) peer_->::Battlenet::ProcessId::Clear();
+    }
+    if (has_account_id()) {
+      if (account_id_ != NULL) account_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool FriendNotification::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.friends.FriendNotification)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.friends.Friend target = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_target()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_game_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId game_account_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_game_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_game_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_peer;
+        break;
+      }
+
+      // optional .Battlenet.ProcessId peer = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_peer:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_peer()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId account_id = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.friends.FriendNotification)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.friends.FriendNotification)
+  return false;
+#undef DO_
+}
+
+void FriendNotification::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.friends.FriendNotification)
+  // required .Battlenet.friends.Friend target = 1;
+  if (has_target()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->target(), output);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->game_account_id(), output);
+  }
+
+  // optional .Battlenet.ProcessId peer = 4;
+  if (has_peer()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->peer(), output);
+  }
+
+  // optional .Battlenet.EntityId account_id = 5;
+  if (has_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->account_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.friends.FriendNotification)
+}
+
+::google::protobuf::uint8* FriendNotification::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.friends.FriendNotification)
+  // required .Battlenet.friends.Friend target = 1;
+  if (has_target()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->target(), target);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->game_account_id(), target);
+  }
+
+  // optional .Battlenet.ProcessId peer = 4;
+  if (has_peer()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->peer(), target);
+  }
+
+  // optional .Battlenet.EntityId account_id = 5;
+  if (has_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->account_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.friends.FriendNotification)
+  return target;
+}
+
+int FriendNotification::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.friends.Friend target = 1;
+    if (has_target()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->target());
+    }
+
+    // optional .Battlenet.EntityId game_account_id = 2;
+    if (has_game_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->game_account_id());
+    }
+
+    // optional .Battlenet.ProcessId peer = 4;
+    if (has_peer()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->peer());
+    }
+
+    // optional .Battlenet.EntityId account_id = 5;
+    if (has_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->account_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void FriendNotification::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const FriendNotification* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const FriendNotification*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void FriendNotification::MergeFrom(const FriendNotification& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_target()) {
+      mutable_target()->::Battlenet::friends::Friend::MergeFrom(from.target());
+    }
+    if (from.has_game_account_id()) {
+      mutable_game_account_id()->::Battlenet::EntityId::MergeFrom(from.game_account_id());
+    }
+    if (from.has_peer()) {
+      mutable_peer()->::Battlenet::ProcessId::MergeFrom(from.peer());
+    }
+    if (from.has_account_id()) {
+      mutable_account_id()->::Battlenet::EntityId::MergeFrom(from.account_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void FriendNotification::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void FriendNotification::CopyFrom(const FriendNotification& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FriendNotification::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_target()) {
+    if (!this->target().IsInitialized()) return false;
+  }
+  if (has_game_account_id()) {
+    if (!this->game_account_id().IsInitialized()) return false;
+  }
+  if (has_peer()) {
+    if (!this->peer().IsInitialized()) return false;
+  }
+  if (has_account_id()) {
+    if (!this->account_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void FriendNotification::Swap(FriendNotification* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(target_, other->target_);
+    std::swap(game_account_id_, other->game_account_id_);
+    std::swap(peer_, other->peer_);
+    std::swap(account_id_, other->account_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata FriendNotification::GetMetadata() const {
@@ -1350,9 +3710,296 @@ UpdateFriendStateNotification* UpdateFriendStateNotification::New() const {
   return new UpdateFriendStateNotification;
 }
 
+void UpdateFriendStateNotification::Clear() {
+  if (_has_bits_[0 / 32] & 15) {
+    if (has_changed_friend()) {
+      if (changed_friend_ != NULL) changed_friend_->::Battlenet::friends::Friend::Clear();
+    }
+    if (has_game_account_id()) {
+      if (game_account_id_ != NULL) game_account_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_peer()) {
+      if (peer_ != NULL) peer_->::Battlenet::ProcessId::Clear();
+    }
+    if (has_account_id()) {
+      if (account_id_ != NULL) account_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool UpdateFriendStateNotification::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.friends.UpdateFriendStateNotification)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.friends.Friend changed_friend = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_changed_friend()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_game_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId game_account_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_game_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_game_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_peer;
+        break;
+      }
+
+      // optional .Battlenet.ProcessId peer = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_peer:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_peer()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId account_id = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.friends.UpdateFriendStateNotification)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.friends.UpdateFriendStateNotification)
+  return false;
+#undef DO_
+}
+
+void UpdateFriendStateNotification::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.friends.UpdateFriendStateNotification)
+  // required .Battlenet.friends.Friend changed_friend = 1;
+  if (has_changed_friend()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->changed_friend(), output);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->game_account_id(), output);
+  }
+
+  // optional .Battlenet.ProcessId peer = 4;
+  if (has_peer()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->peer(), output);
+  }
+
+  // optional .Battlenet.EntityId account_id = 5;
+  if (has_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->account_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.friends.UpdateFriendStateNotification)
+}
+
+::google::protobuf::uint8* UpdateFriendStateNotification::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.friends.UpdateFriendStateNotification)
+  // required .Battlenet.friends.Friend changed_friend = 1;
+  if (has_changed_friend()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->changed_friend(), target);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->game_account_id(), target);
+  }
+
+  // optional .Battlenet.ProcessId peer = 4;
+  if (has_peer()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->peer(), target);
+  }
+
+  // optional .Battlenet.EntityId account_id = 5;
+  if (has_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->account_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.friends.UpdateFriendStateNotification)
+  return target;
+}
+
+int UpdateFriendStateNotification::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.friends.Friend changed_friend = 1;
+    if (has_changed_friend()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->changed_friend());
+    }
+
+    // optional .Battlenet.EntityId game_account_id = 2;
+    if (has_game_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->game_account_id());
+    }
+
+    // optional .Battlenet.ProcessId peer = 4;
+    if (has_peer()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->peer());
+    }
+
+    // optional .Battlenet.EntityId account_id = 5;
+    if (has_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->account_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void UpdateFriendStateNotification::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const UpdateFriendStateNotification* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const UpdateFriendStateNotification*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void UpdateFriendStateNotification::MergeFrom(const UpdateFriendStateNotification& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_changed_friend()) {
+      mutable_changed_friend()->::Battlenet::friends::Friend::MergeFrom(from.changed_friend());
+    }
+    if (from.has_game_account_id()) {
+      mutable_game_account_id()->::Battlenet::EntityId::MergeFrom(from.game_account_id());
+    }
+    if (from.has_peer()) {
+      mutable_peer()->::Battlenet::ProcessId::MergeFrom(from.peer());
+    }
+    if (from.has_account_id()) {
+      mutable_account_id()->::Battlenet::EntityId::MergeFrom(from.account_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void UpdateFriendStateNotification::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UpdateFriendStateNotification::CopyFrom(const UpdateFriendStateNotification& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdateFriendStateNotification::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_changed_friend()) {
+    if (!this->changed_friend().IsInitialized()) return false;
+  }
+  if (has_game_account_id()) {
+    if (!this->game_account_id().IsInitialized()) return false;
+  }
+  if (has_peer()) {
+    if (!this->peer().IsInitialized()) return false;
+  }
+  if (has_account_id()) {
+    if (!this->account_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void UpdateFriendStateNotification::Swap(UpdateFriendStateNotification* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(changed_friend_, other->changed_friend_);
+    std::swap(game_account_id_, other->game_account_id_);
+    std::swap(peer_, other->peer_);
+    std::swap(account_id_, other->account_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata UpdateFriendStateNotification::GetMetadata() const {
@@ -1439,9 +4086,333 @@ InvitationNotification* InvitationNotification::New() const {
   return new InvitationNotification;
 }
 
+void InvitationNotification::Clear() {
+  if (_has_bits_[0 / 32] & 31) {
+    if (has_invitation()) {
+      if (invitation_ != NULL) invitation_->::Battlenet::Invitation::Clear();
+    }
+    if (has_game_account_id()) {
+      if (game_account_id_ != NULL) game_account_id_->::Battlenet::EntityId::Clear();
+    }
+    reason_ = 0u;
+    if (has_peer()) {
+      if (peer_ != NULL) peer_->::Battlenet::ProcessId::Clear();
+    }
+    if (has_account_id()) {
+      if (account_id_ != NULL) account_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool InvitationNotification::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.friends.InvitationNotification)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.Invitation invitation = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_invitation()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_game_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId game_account_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_game_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_game_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_reason;
+        break;
+      }
+
+      // optional uint32 reason = 3 [default = 0];
+      case 3: {
+        if (tag == 24) {
+         parse_reason:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &reason_)));
+          set_has_reason();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_peer;
+        break;
+      }
+
+      // optional .Battlenet.ProcessId peer = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_peer:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_peer()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId account_id = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.friends.InvitationNotification)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.friends.InvitationNotification)
+  return false;
+#undef DO_
+}
+
+void InvitationNotification::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.friends.InvitationNotification)
+  // required .Battlenet.Invitation invitation = 1;
+  if (has_invitation()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->invitation(), output);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->game_account_id(), output);
+  }
+
+  // optional uint32 reason = 3 [default = 0];
+  if (has_reason()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->reason(), output);
+  }
+
+  // optional .Battlenet.ProcessId peer = 4;
+  if (has_peer()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->peer(), output);
+  }
+
+  // optional .Battlenet.EntityId account_id = 5;
+  if (has_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->account_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.friends.InvitationNotification)
+}
+
+::google::protobuf::uint8* InvitationNotification::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.friends.InvitationNotification)
+  // required .Battlenet.Invitation invitation = 1;
+  if (has_invitation()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->invitation(), target);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->game_account_id(), target);
+  }
+
+  // optional uint32 reason = 3 [default = 0];
+  if (has_reason()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->reason(), target);
+  }
+
+  // optional .Battlenet.ProcessId peer = 4;
+  if (has_peer()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->peer(), target);
+  }
+
+  // optional .Battlenet.EntityId account_id = 5;
+  if (has_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->account_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.friends.InvitationNotification)
+  return target;
+}
+
+int InvitationNotification::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.Invitation invitation = 1;
+    if (has_invitation()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->invitation());
+    }
+
+    // optional .Battlenet.EntityId game_account_id = 2;
+    if (has_game_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->game_account_id());
+    }
+
+    // optional uint32 reason = 3 [default = 0];
+    if (has_reason()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->reason());
+    }
+
+    // optional .Battlenet.ProcessId peer = 4;
+    if (has_peer()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->peer());
+    }
+
+    // optional .Battlenet.EntityId account_id = 5;
+    if (has_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->account_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void InvitationNotification::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const InvitationNotification* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const InvitationNotification*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void InvitationNotification::MergeFrom(const InvitationNotification& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_invitation()) {
+      mutable_invitation()->::Battlenet::Invitation::MergeFrom(from.invitation());
+    }
+    if (from.has_game_account_id()) {
+      mutable_game_account_id()->::Battlenet::EntityId::MergeFrom(from.game_account_id());
+    }
+    if (from.has_reason()) {
+      set_reason(from.reason());
+    }
+    if (from.has_peer()) {
+      mutable_peer()->::Battlenet::ProcessId::MergeFrom(from.peer());
+    }
+    if (from.has_account_id()) {
+      mutable_account_id()->::Battlenet::EntityId::MergeFrom(from.account_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void InvitationNotification::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void InvitationNotification::CopyFrom(const InvitationNotification& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool InvitationNotification::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_invitation()) {
+    if (!this->invitation().IsInitialized()) return false;
+  }
+  if (has_game_account_id()) {
+    if (!this->game_account_id().IsInitialized()) return false;
+  }
+  if (has_peer()) {
+    if (!this->peer().IsInitialized()) return false;
+  }
+  if (has_account_id()) {
+    if (!this->account_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void InvitationNotification::Swap(InvitationNotification* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(invitation_, other->invitation_);
+    std::swap(game_account_id_, other->game_account_id_);
+    std::swap(reason_, other->reason_);
+    std::swap(peer_, other->peer_);
+    std::swap(account_id_, other->account_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata InvitationNotification::GetMetadata() const {
@@ -1455,595 +4426,471 @@ void InvitationNotification::Swap(InvitationNotification* other) {
 
 // ===================================================================
 
-FriendsService::~FriendsService() {}
-
-const ::google::protobuf::ServiceDescriptor* FriendsService::descriptor() {
+google::protobuf::ServiceDescriptor const* FriendsService::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return FriendsService_descriptor_;
 }
 
-const ::google::protobuf::ServiceDescriptor* FriendsService::GetDescriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return FriendsService_descriptor_;
-}
+void FriendsService::CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) {
+  switch(methodId) {
+    case 1: {
+      ::Battlenet::friends::SubscribeRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsService.Subscribe server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
 
-void FriendsService::Subscribe(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::SubscribeRequest*,
-                         ::Battlenet::friends::SubscribeResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Subscribe() not implemented.");
-  done->Run();
-}
-
-void FriendsService::SendInvitation(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::SendInvitationRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method SendInvitation() not implemented.");
-  done->Run();
-}
-
-void FriendsService::AcceptInvitation(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::GenericInvitationRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method AcceptInvitation() not implemented.");
-  done->Run();
-}
-
-void FriendsService::RevokeInvitation(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::GenericInvitationRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method RevokeInvitation() not implemented.");
-  done->Run();
-}
-
-void FriendsService::DeclineInvitation(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::GenericInvitationRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method DeclineInvitation() not implemented.");
-  done->Run();
-}
-
-void FriendsService::IgnoreInvitation(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::GenericInvitationRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method IgnoreInvitation() not implemented.");
-  done->Run();
-}
-
-void FriendsService::AssignRole(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::AssignRoleRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method AssignRole() not implemented.");
-  done->Run();
-}
-
-void FriendsService::RemoveFriend(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::GenericFriendRequest*,
-                         ::Battlenet::friends::GenericFriendResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method RemoveFriend() not implemented.");
-  done->Run();
-}
-
-void FriendsService::ViewFriends(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::ViewFriendsRequest*,
-                         ::Battlenet::friends::ViewFriendsResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method ViewFriends() not implemented.");
-  done->Run();
-}
-
-void FriendsService::UpdateFriendState(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::UpdateFriendStateRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method UpdateFriendState() not implemented.");
-  done->Run();
-}
-
-void FriendsService::Unsubscribe(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::UnsubscribeRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Unsubscribe() not implemented.");
-  done->Run();
-}
-
-void FriendsService::RevokeAllInvitations(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::GenericFriendRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method RevokeAllInvitations() not implemented.");
-  done->Run();
-}
-
-void FriendsService::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                             ::google::protobuf::RpcController* controller,
-                             const ::google::protobuf::Message* request,
-                             ::google::protobuf::Message* response,
-                             ::google::protobuf::Closure* done) {
-  GOOGLE_DCHECK_EQ(method->service(), FriendsService_descriptor_);
-  switch(method->index()) {
-    case 0:
-      Subscribe(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::SubscribeRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::friends::SubscribeResponse*>(response),
-             done);
+      ::Battlenet::friends::SubscribeResponse response;
+      uint32 status = HandleSubscribe(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsService.Subscribe(Battlenet.friends.SubscribeRequest{ %s }) returned Battlenet.friends.SubscribeResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 1:
-      SendInvitation(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::SendInvitationRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 2: {
+      ::Battlenet::SendInvitationRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsService.SendInvitation server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleSendInvitation(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsService.SendInvitation(Battlenet.SendInvitationRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 2:
-      AcceptInvitation(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::GenericInvitationRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 3: {
+      ::Battlenet::GenericInvitationRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsService.AcceptInvitation server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleAcceptInvitation(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsService.AcceptInvitation(Battlenet.GenericInvitationRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 3:
-      RevokeInvitation(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::GenericInvitationRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 4: {
+      ::Battlenet::GenericInvitationRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsService.RevokeInvitation server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleRevokeInvitation(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsService.RevokeInvitation(Battlenet.GenericInvitationRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 4:
-      DeclineInvitation(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::GenericInvitationRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 5: {
+      ::Battlenet::GenericInvitationRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsService.DeclineInvitation server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleDeclineInvitation(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsService.DeclineInvitation(Battlenet.GenericInvitationRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 5:
-      IgnoreInvitation(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::GenericInvitationRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 6: {
+      ::Battlenet::GenericInvitationRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsService.IgnoreInvitation server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleIgnoreInvitation(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsService.IgnoreInvitation(Battlenet.GenericInvitationRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 6:
-      AssignRole(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::AssignRoleRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 7: {
+      ::Battlenet::friends::AssignRoleRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsService.AssignRole server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleAssignRole(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsService.AssignRole(Battlenet.friends.AssignRoleRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 7:
-      RemoveFriend(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::GenericFriendRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::friends::GenericFriendResponse*>(response),
-             done);
+    }
+    case 8: {
+      ::Battlenet::friends::GenericFriendRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsService.RemoveFriend server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::friends::GenericFriendResponse response;
+      uint32 status = HandleRemoveFriend(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsService.RemoveFriend(Battlenet.friends.GenericFriendRequest{ %s }) returned Battlenet.friends.GenericFriendResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 8:
-      ViewFriends(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::ViewFriendsRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::friends::ViewFriendsResponse*>(response),
-             done);
+    }
+    case 9: {
+      ::Battlenet::friends::ViewFriendsRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsService.ViewFriends server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::friends::ViewFriendsResponse response;
+      uint32 status = HandleViewFriends(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsService.ViewFriends(Battlenet.friends.ViewFriendsRequest{ %s }) returned Battlenet.friends.ViewFriendsResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 9:
-      UpdateFriendState(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::UpdateFriendStateRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 10: {
+      ::Battlenet::friends::UpdateFriendStateRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsService.UpdateFriendState server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleUpdateFriendState(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsService.UpdateFriendState(Battlenet.friends.UpdateFriendStateRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 10:
-      Unsubscribe(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::UnsubscribeRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 11: {
+      ::Battlenet::friends::UnsubscribeRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsService.Unsubscribe server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleUnsubscribe(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsService.Unsubscribe(Battlenet.friends.UnsubscribeRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 11:
-      RevokeAllInvitations(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::GenericFriendRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 12: {
+      ::Battlenet::friends::GenericFriendRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsService.RevokeAllInvitations server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleRevokeAllInvitations(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsService.RevokeAllInvitations(Battlenet.friends.GenericFriendRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
+    }
     default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      TC_LOG_ERROR("session.rpc", "Bad method id %u.", methodId);
+      _session->SendResponse(token, ERROR_RPC_INVALID_METHOD);
       break;
-  }
+    }
 }
 
-const ::google::protobuf::Message& FriendsService::GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::friends::SubscribeRequest::default_instance();
-    case 1:
-      return ::Battlenet::SendInvitationRequest::default_instance();
-    case 2:
-      return ::Battlenet::GenericInvitationRequest::default_instance();
-    case 3:
-      return ::Battlenet::GenericInvitationRequest::default_instance();
-    case 4:
-      return ::Battlenet::GenericInvitationRequest::default_instance();
-    case 5:
-      return ::Battlenet::GenericInvitationRequest::default_instance();
-    case 6:
-      return ::Battlenet::friends::AssignRoleRequest::default_instance();
-    case 7:
-      return ::Battlenet::friends::GenericFriendRequest::default_instance();
-    case 8:
-      return ::Battlenet::friends::ViewFriendsRequest::default_instance();
-    case 9:
-      return ::Battlenet::friends::UpdateFriendStateRequest::default_instance();
-    case 10:
-      return ::Battlenet::friends::UnsubscribeRequest::default_instance();
-    case 11:
-      return ::Battlenet::friends::GenericFriendRequest::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 FriendsService::HandleSubscribe(::Battlenet::friends::SubscribeRequest const* request, ::Battlenet::friends::SubscribeResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsService.Subscribe({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-const ::google::protobuf::Message& FriendsService::GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::friends::SubscribeResponse::default_instance();
-    case 1:
-      return ::Battlenet::NoData::default_instance();
-    case 2:
-      return ::Battlenet::NoData::default_instance();
-    case 3:
-      return ::Battlenet::NoData::default_instance();
-    case 4:
-      return ::Battlenet::NoData::default_instance();
-    case 5:
-      return ::Battlenet::NoData::default_instance();
-    case 6:
-      return ::Battlenet::NoData::default_instance();
-    case 7:
-      return ::Battlenet::friends::GenericFriendResponse::default_instance();
-    case 8:
-      return ::Battlenet::friends::ViewFriendsResponse::default_instance();
-    case 9:
-      return ::Battlenet::NoData::default_instance();
-    case 10:
-      return ::Battlenet::NoData::default_instance();
-    case 11:
-      return ::Battlenet::NoData::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 FriendsService::HandleSendInvitation(::Battlenet::SendInvitationRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsService.SendInvitation({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-FriendsService_Stub::FriendsService_Stub(::google::protobuf::RpcChannel* channel)
-  : channel_(channel), owns_channel_(false) {}
-FriendsService_Stub::FriendsService_Stub(
-    ::google::protobuf::RpcChannel* channel,
-    ::google::protobuf::Service::ChannelOwnership ownership)
-  : channel_(channel),
-    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
-FriendsService_Stub::~FriendsService_Stub() {
-  if (owns_channel_) delete channel_;
+uint32 FriendsService::HandleAcceptInvitation(::Battlenet::GenericInvitationRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsService.AcceptInvitation({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-void FriendsService_Stub::Subscribe(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::SubscribeRequest* request,
-                              ::Battlenet::friends::SubscribeResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(0),
-                       controller, request, response, done);
+uint32 FriendsService::HandleRevokeInvitation(::Battlenet::GenericInvitationRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsService.RevokeInvitation({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsService_Stub::SendInvitation(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::SendInvitationRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(1),
-                       controller, request, response, done);
+
+uint32 FriendsService::HandleDeclineInvitation(::Battlenet::GenericInvitationRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsService.DeclineInvitation({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsService_Stub::AcceptInvitation(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::GenericInvitationRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(2),
-                       controller, request, response, done);
+
+uint32 FriendsService::HandleIgnoreInvitation(::Battlenet::GenericInvitationRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsService.IgnoreInvitation({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsService_Stub::RevokeInvitation(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::GenericInvitationRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(3),
-                       controller, request, response, done);
+
+uint32 FriendsService::HandleAssignRole(::Battlenet::friends::AssignRoleRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsService.AssignRole({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsService_Stub::DeclineInvitation(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::GenericInvitationRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(4),
-                       controller, request, response, done);
+
+uint32 FriendsService::HandleRemoveFriend(::Battlenet::friends::GenericFriendRequest const* request, ::Battlenet::friends::GenericFriendResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsService.RemoveFriend({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsService_Stub::IgnoreInvitation(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::GenericInvitationRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(5),
-                       controller, request, response, done);
+
+uint32 FriendsService::HandleViewFriends(::Battlenet::friends::ViewFriendsRequest const* request, ::Battlenet::friends::ViewFriendsResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsService.ViewFriends({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsService_Stub::AssignRole(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::AssignRoleRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(6),
-                       controller, request, response, done);
+
+uint32 FriendsService::HandleUpdateFriendState(::Battlenet::friends::UpdateFriendStateRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsService.UpdateFriendState({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsService_Stub::RemoveFriend(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::GenericFriendRequest* request,
-                              ::Battlenet::friends::GenericFriendResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(7),
-                       controller, request, response, done);
+
+uint32 FriendsService::HandleUnsubscribe(::Battlenet::friends::UnsubscribeRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsService.Unsubscribe({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsService_Stub::ViewFriends(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::ViewFriendsRequest* request,
-                              ::Battlenet::friends::ViewFriendsResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(8),
-                       controller, request, response, done);
+
+uint32 FriendsService::HandleRevokeAllInvitations(::Battlenet::friends::GenericFriendRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsService.RevokeAllInvitations({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsService_Stub::UpdateFriendState(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::UpdateFriendStateRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(9),
-                       controller, request, response, done);
-}
-void FriendsService_Stub::Unsubscribe(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::UnsubscribeRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(10),
-                       controller, request, response, done);
-}
-void FriendsService_Stub::RevokeAllInvitations(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::GenericFriendRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(11),
-                       controller, request, response, done);
-}
+
 // ===================================================================
 
-FriendsListener::~FriendsListener() {}
-
-const ::google::protobuf::ServiceDescriptor* FriendsListener::descriptor() {
+google::protobuf::ServiceDescriptor const* FriendsListener::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return FriendsListener_descriptor_;
 }
 
-const ::google::protobuf::ServiceDescriptor* FriendsListener::GetDescriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return FriendsListener_descriptor_;
-}
+void FriendsListener::CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) {
+  switch(methodId) {
+    case 1: {
+      ::Battlenet::friends::FriendNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsListener.OnFriendAdded server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
 
-void FriendsListener::OnFriendAdded(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::FriendNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnFriendAdded() not implemented.");
-  done->Run();
-}
-
-void FriendsListener::OnFriendRemoved(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::FriendNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnFriendRemoved() not implemented.");
-  done->Run();
-}
-
-void FriendsListener::OnReceivedInvitationAdded(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::InvitationNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnReceivedInvitationAdded() not implemented.");
-  done->Run();
-}
-
-void FriendsListener::OnReceivedInvitationRemoved(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::InvitationNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnReceivedInvitationRemoved() not implemented.");
-  done->Run();
-}
-
-void FriendsListener::OnSentInvitationAdded(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::InvitationNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnSentInvitationAdded() not implemented.");
-  done->Run();
-}
-
-void FriendsListener::OnSentInvitationRemoved(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::InvitationNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnSentInvitationRemoved() not implemented.");
-  done->Run();
-}
-
-void FriendsListener::OnUpdateFriendState(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::friends::UpdateFriendStateNotification*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnUpdateFriendState() not implemented.");
-  done->Run();
-}
-
-void FriendsListener::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                             ::google::protobuf::RpcController* controller,
-                             const ::google::protobuf::Message* request,
-                             ::google::protobuf::Message* response,
-                             ::google::protobuf::Closure* done) {
-  GOOGLE_DCHECK_EQ(method->service(), FriendsListener_descriptor_);
-  switch(method->index()) {
-    case 0:
-      OnFriendAdded(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::FriendNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+      uint32 status = HandleOnFriendAdded(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsListener.OnFriendAdded(Battlenet.friends.FriendNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 1:
-      OnFriendRemoved(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::FriendNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 2: {
+      ::Battlenet::friends::FriendNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsListener.OnFriendRemoved server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnFriendRemoved(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsListener.OnFriendRemoved(Battlenet.friends.FriendNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 2:
-      OnReceivedInvitationAdded(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::InvitationNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 3: {
+      ::Battlenet::friends::InvitationNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsListener.OnReceivedInvitationAdded server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnReceivedInvitationAdded(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsListener.OnReceivedInvitationAdded(Battlenet.friends.InvitationNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 3:
-      OnReceivedInvitationRemoved(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::InvitationNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 4: {
+      ::Battlenet::friends::InvitationNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsListener.OnReceivedInvitationRemoved server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnReceivedInvitationRemoved(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsListener.OnReceivedInvitationRemoved(Battlenet.friends.InvitationNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 4:
-      OnSentInvitationAdded(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::InvitationNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 5: {
+      ::Battlenet::friends::InvitationNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsListener.OnSentInvitationAdded server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnSentInvitationAdded(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsListener.OnSentInvitationAdded(Battlenet.friends.InvitationNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 5:
-      OnSentInvitationRemoved(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::InvitationNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 6: {
+      ::Battlenet::friends::InvitationNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsListener.OnSentInvitationRemoved server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnSentInvitationRemoved(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsListener.OnSentInvitationRemoved(Battlenet.friends.InvitationNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 6:
-      OnUpdateFriendState(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::friends::UpdateFriendStateNotification*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 7: {
+      ::Battlenet::friends::UpdateFriendStateNotification request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for FriendsListener.OnUpdateFriendState server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnUpdateFriendState(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method FriendsListener.OnUpdateFriendState(Battlenet.friends.UpdateFriendStateNotification{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
+    }
     default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      TC_LOG_ERROR("session.rpc", "Bad method id %u.", methodId);
+      _session->SendResponse(token, ERROR_RPC_INVALID_METHOD);
       break;
-  }
+    }
 }
 
-const ::google::protobuf::Message& FriendsListener::GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::friends::FriendNotification::default_instance();
-    case 1:
-      return ::Battlenet::friends::FriendNotification::default_instance();
-    case 2:
-      return ::Battlenet::friends::InvitationNotification::default_instance();
-    case 3:
-      return ::Battlenet::friends::InvitationNotification::default_instance();
-    case 4:
-      return ::Battlenet::friends::InvitationNotification::default_instance();
-    case 5:
-      return ::Battlenet::friends::InvitationNotification::default_instance();
-    case 6:
-      return ::Battlenet::friends::UpdateFriendStateNotification::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 FriendsListener::HandleOnFriendAdded(::Battlenet::friends::FriendNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsListener.OnFriendAdded({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-const ::google::protobuf::Message& FriendsListener::GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 1:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 2:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 3:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 4:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 5:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 6:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 FriendsListener::HandleOnFriendRemoved(::Battlenet::friends::FriendNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsListener.OnFriendRemoved({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-FriendsListener_Stub::FriendsListener_Stub(::google::protobuf::RpcChannel* channel)
-  : channel_(channel), owns_channel_(false) {}
-FriendsListener_Stub::FriendsListener_Stub(
-    ::google::protobuf::RpcChannel* channel,
-    ::google::protobuf::Service::ChannelOwnership ownership)
-  : channel_(channel),
-    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
-FriendsListener_Stub::~FriendsListener_Stub() {
-  if (owns_channel_) delete channel_;
+uint32 FriendsListener::HandleOnReceivedInvitationAdded(::Battlenet::friends::InvitationNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsListener.OnReceivedInvitationAdded({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-void FriendsListener_Stub::OnFriendAdded(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::FriendNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(0),
-                       controller, request, response, done);
+uint32 FriendsListener::HandleOnReceivedInvitationRemoved(::Battlenet::friends::InvitationNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsListener.OnReceivedInvitationRemoved({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsListener_Stub::OnFriendRemoved(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::FriendNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(1),
-                       controller, request, response, done);
+
+uint32 FriendsListener::HandleOnSentInvitationAdded(::Battlenet::friends::InvitationNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsListener.OnSentInvitationAdded({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsListener_Stub::OnReceivedInvitationAdded(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::InvitationNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(2),
-                       controller, request, response, done);
+
+uint32 FriendsListener::HandleOnSentInvitationRemoved(::Battlenet::friends::InvitationNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsListener.OnSentInvitationRemoved({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsListener_Stub::OnReceivedInvitationRemoved(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::InvitationNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(3),
-                       controller, request, response, done);
+
+uint32 FriendsListener::HandleOnUpdateFriendState(::Battlenet::friends::UpdateFriendStateNotification const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method FriendsListener.OnUpdateFriendState({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void FriendsListener_Stub::OnSentInvitationAdded(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::InvitationNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(4),
-                       controller, request, response, done);
-}
-void FriendsListener_Stub::OnSentInvitationRemoved(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::InvitationNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(5),
-                       controller, request, response, done);
-}
-void FriendsListener_Stub::OnUpdateFriendState(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::friends::UpdateFriendStateNotification* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(6),
-                       controller, request, response, done);
-}
+
 
 // @@protoc_insertion_point(namespace_scope)
 

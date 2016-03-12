@@ -18,11 +18,11 @@
 #include "AccountService.h"
 #include "Session.h"
 
-Battlenet::Service::Account::Account(Session* session) : AccountServiceBase(session)
+Battlenet::Service::Account::Account(Session* session) : account::AccountService(session)
 {
 }
 
-void Battlenet::Service::Account::GetGameAccountState(pb::RpcController* /*controller*/, account::GetGameAccountStateRequest const* request, account::GetGameAccountStateResponse* response, pb::Closure* /*done*/)
+uint32 Battlenet::Service::Account::HandleGetGameAccountState(account::GetGameAccountStateRequest const* request, account::GetGameAccountStateResponse* response)
 {
-    _session->HandleGetGameAccountState(request, response);
+    return _session->HandleGetGameAccountState(request, response);
 }

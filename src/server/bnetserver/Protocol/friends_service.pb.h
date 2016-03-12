@@ -23,7 +23,6 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "attribute_types.pb.h"
 #include "entity_types.pb.h"
@@ -31,6 +30,10 @@
 #include "invitation_types.pb.h"
 #include "role_types.pb.h"
 #include "rpc_types.pb.h"
+#include "ServiceBase.h"
+#include "Session.h"
+#include "MessageBuffer.h"
+#include <type_traits>
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -84,6 +87,19 @@ class SubscribeRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SubscribeRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SubscribeRequest& from);
+  void MergeFrom(const SubscribeRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -162,6 +178,19 @@ class SubscribeResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SubscribeResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SubscribeResponse& from);
+  void MergeFrom(const SubscribeResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -300,6 +329,19 @@ class UnsubscribeRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UnsubscribeRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UnsubscribeRequest& from);
+  void MergeFrom(const UnsubscribeRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -378,6 +420,19 @@ class GenericFriendRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   GenericFriendRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const GenericFriendRequest& from);
+  void MergeFrom(const GenericFriendRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -458,6 +513,19 @@ class GenericFriendResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   GenericFriendResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const GenericFriendResponse& from);
+  void MergeFrom(const GenericFriendResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -526,6 +594,19 @@ class AssignRoleRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   AssignRoleRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const AssignRoleRequest& from);
+  void MergeFrom(const AssignRoleRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -619,6 +700,19 @@ class ViewFriendsRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ViewFriendsRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ViewFriendsRequest& from);
+  void MergeFrom(const ViewFriendsRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -675,6 +769,7 @@ class ViewFriendsRequest : public ::google::protobuf::Message {
   ::Battlenet::EntityId* agent_id_;
   ::Battlenet::EntityId* target_id_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > role_;
+  mutable int _role_cached_byte_size_;
   friend void  protobuf_AddDesc_friends_5fservice_2eproto();
   friend void protobuf_AssignDesc_friends_5fservice_2eproto();
   friend void protobuf_ShutdownFile_friends_5fservice_2eproto();
@@ -712,6 +807,19 @@ class ViewFriendsResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ViewFriendsResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ViewFriendsResponse& from);
+  void MergeFrom(const ViewFriendsResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -781,6 +889,19 @@ class UpdateFriendStateRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UpdateFriendStateRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UpdateFriendStateRequest& from);
+  void MergeFrom(const UpdateFriendStateRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -884,6 +1005,19 @@ class FriendNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   FriendNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FriendNotification& from);
+  void MergeFrom(const FriendNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -988,6 +1122,19 @@ class UpdateFriendStateNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UpdateFriendStateNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UpdateFriendStateNotification& from);
+  void MergeFrom(const UpdateFriendStateNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1092,6 +1239,19 @@ class InvitationNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   InvitationNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const InvitationNotification& from);
+  void MergeFrom(const InvitationNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1178,257 +1338,200 @@ class InvitationNotification : public ::google::protobuf::Message {
 };
 // ===================================================================
 
-class FriendsService_Stub;
-
-class FriendsService : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline FriendsService() {};
+class FriendsService : public ServiceBase
+{
  public:
-  virtual ~FriendsService();
+  explicit FriendsService(Battlenet::Session* session) : _session(session) { }
+  ~FriendsService() { }
 
-  typedef FriendsService_Stub Stub;
+  typedef std::integral_constant<uint32, 0xA3DDB1BDu> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void Subscribe(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::SubscribeRequest* request,
-                       ::Battlenet::friends::SubscribeResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void SendInvitation(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::SendInvitationRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void AcceptInvitation(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::GenericInvitationRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void RevokeInvitation(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::GenericInvitationRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void DeclineInvitation(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::GenericInvitationRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void IgnoreInvitation(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::GenericInvitationRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void AssignRole(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::AssignRoleRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void RemoveFriend(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::GenericFriendRequest* request,
-                       ::Battlenet::friends::GenericFriendResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void ViewFriends(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::ViewFriendsRequest* request,
-                       ::Battlenet::friends::ViewFriendsResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void UpdateFriendState(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::UpdateFriendStateRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void Unsubscribe(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::UnsubscribeRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void RevokeAllInvitations(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::GenericFriendRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  template<void(Battlenet::Session::*Handler)(::Battlenet::friends::SubscribeResponse const*)>
+  inline void Subscribe(::Battlenet::friends::SubscribeRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsService.Subscribe(Battlenet.friends.SubscribeRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::friends::SubscribeResponse, Handler>(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void SendInvitation(::Battlenet::SendInvitationRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsService.SendInvitation(Battlenet.SendInvitationRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 2, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void AcceptInvitation(::Battlenet::GenericInvitationRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsService.AcceptInvitation(Battlenet.GenericInvitationRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 3, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void RevokeInvitation(::Battlenet::GenericInvitationRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsService.RevokeInvitation(Battlenet.GenericInvitationRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 4, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void DeclineInvitation(::Battlenet::GenericInvitationRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsService.DeclineInvitation(Battlenet.GenericInvitationRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 5, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void IgnoreInvitation(::Battlenet::GenericInvitationRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsService.IgnoreInvitation(Battlenet.GenericInvitationRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 6, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void AssignRole(::Battlenet::friends::AssignRoleRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsService.AssignRole(Battlenet.friends.AssignRoleRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 7, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::friends::GenericFriendResponse const*)>
+  inline void RemoveFriend(::Battlenet::friends::GenericFriendRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsService.RemoveFriend(Battlenet.friends.GenericFriendRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::friends::GenericFriendResponse, Handler>(Hash::value, 8, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::friends::ViewFriendsResponse const*)>
+  inline void ViewFriends(::Battlenet::friends::ViewFriendsRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsService.ViewFriends(Battlenet.friends.ViewFriendsRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::friends::ViewFriendsResponse, Handler>(Hash::value, 9, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void UpdateFriendState(::Battlenet::friends::UpdateFriendStateRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsService.UpdateFriendState(Battlenet.friends.UpdateFriendStateRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 10, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void Unsubscribe(::Battlenet::friends::UnsubscribeRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsService.Unsubscribe(Battlenet.friends.UnsubscribeRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 11, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void RevokeAllInvitations(::Battlenet::friends::GenericFriendRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsService.RevokeAllInvitations(Battlenet.friends.GenericFriendRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 12, request);
+  }
+
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleSubscribe(::Battlenet::friends::SubscribeRequest const* request, ::Battlenet::friends::SubscribeResponse* response);
+  virtual uint32 HandleSendInvitation(::Battlenet::SendInvitationRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleAcceptInvitation(::Battlenet::GenericInvitationRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleRevokeInvitation(::Battlenet::GenericInvitationRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleDeclineInvitation(::Battlenet::GenericInvitationRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleIgnoreInvitation(::Battlenet::GenericInvitationRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleAssignRole(::Battlenet::friends::AssignRoleRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleRemoveFriend(::Battlenet::friends::GenericFriendRequest const* request, ::Battlenet::friends::GenericFriendResponse* response);
+  virtual uint32 HandleViewFriends(::Battlenet::friends::ViewFriendsRequest const* request, ::Battlenet::friends::ViewFriendsResponse* response);
+  virtual uint32 HandleUpdateFriendState(::Battlenet::friends::UpdateFriendStateRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleUnsubscribe(::Battlenet::friends::UnsubscribeRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleRevokeAllInvitations(::Battlenet::friends::GenericFriendRequest const* request, ::Battlenet::NoData* response);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(FriendsService);
 };
 
-class FriendsService_Stub : public FriendsService {
- public:
-  FriendsService_Stub(::google::protobuf::RpcChannel* channel);
-  FriendsService_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~FriendsService_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements FriendsService ------------------------------------------
-
-  void Subscribe(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::SubscribeRequest* request,
-                       ::Battlenet::friends::SubscribeResponse* response,
-                       ::google::protobuf::Closure* done);
-  void SendInvitation(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::SendInvitationRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void AcceptInvitation(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::GenericInvitationRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void RevokeInvitation(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::GenericInvitationRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void DeclineInvitation(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::GenericInvitationRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void IgnoreInvitation(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::GenericInvitationRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void AssignRole(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::AssignRoleRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void RemoveFriend(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::GenericFriendRequest* request,
-                       ::Battlenet::friends::GenericFriendResponse* response,
-                       ::google::protobuf::Closure* done);
-  void ViewFriends(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::ViewFriendsRequest* request,
-                       ::Battlenet::friends::ViewFriendsResponse* response,
-                       ::google::protobuf::Closure* done);
-  void UpdateFriendState(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::UpdateFriendStateRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void Unsubscribe(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::UnsubscribeRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void RevokeAllInvitations(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::GenericFriendRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(FriendsService_Stub);
-};
-
-
 // -------------------------------------------------------------------
 
-class FriendsListener_Stub;
-
-class FriendsListener : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline FriendsListener() {};
+class FriendsListener : public ServiceBase
+{
  public:
-  virtual ~FriendsListener();
+  explicit FriendsListener(Battlenet::Session* session) : _session(session) { }
+  ~FriendsListener() { }
 
-  typedef FriendsListener_Stub Stub;
+  typedef std::integral_constant<uint32, 0x6F259A13u> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void OnFriendAdded(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::FriendNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnFriendRemoved(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::FriendNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnReceivedInvitationAdded(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::InvitationNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnReceivedInvitationRemoved(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::InvitationNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnSentInvitationAdded(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::InvitationNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnSentInvitationRemoved(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::InvitationNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnUpdateFriendState(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::UpdateFriendStateNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  inline void OnFriendAdded(::Battlenet::friends::FriendNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsListener.OnFriendAdded(Battlenet.friends.FriendNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  inline void OnFriendRemoved(::Battlenet::friends::FriendNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsListener.OnFriendRemoved(Battlenet.friends.FriendNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 2, request);
+  }
+
+  inline void OnReceivedInvitationAdded(::Battlenet::friends::InvitationNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsListener.OnReceivedInvitationAdded(Battlenet.friends.InvitationNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 3, request);
+  }
+
+  inline void OnReceivedInvitationRemoved(::Battlenet::friends::InvitationNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsListener.OnReceivedInvitationRemoved(Battlenet.friends.InvitationNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 4, request);
+  }
+
+  inline void OnSentInvitationAdded(::Battlenet::friends::InvitationNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsListener.OnSentInvitationAdded(Battlenet.friends.InvitationNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 5, request);
+  }
+
+  inline void OnSentInvitationRemoved(::Battlenet::friends::InvitationNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsListener.OnSentInvitationRemoved(Battlenet.friends.InvitationNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 6, request);
+  }
+
+  inline void OnUpdateFriendState(::Battlenet::friends::UpdateFriendStateNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method FriendsListener.OnUpdateFriendState(Battlenet.friends.UpdateFriendStateNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 7, request);
+  }
+
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleOnFriendAdded(::Battlenet::friends::FriendNotification const* request);
+  virtual uint32 HandleOnFriendRemoved(::Battlenet::friends::FriendNotification const* request);
+  virtual uint32 HandleOnReceivedInvitationAdded(::Battlenet::friends::InvitationNotification const* request);
+  virtual uint32 HandleOnReceivedInvitationRemoved(::Battlenet::friends::InvitationNotification const* request);
+  virtual uint32 HandleOnSentInvitationAdded(::Battlenet::friends::InvitationNotification const* request);
+  virtual uint32 HandleOnSentInvitationRemoved(::Battlenet::friends::InvitationNotification const* request);
+  virtual uint32 HandleOnUpdateFriendState(::Battlenet::friends::UpdateFriendStateNotification const* request);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(FriendsListener);
 };
-
-class FriendsListener_Stub : public FriendsListener {
- public:
-  FriendsListener_Stub(::google::protobuf::RpcChannel* channel);
-  FriendsListener_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~FriendsListener_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements FriendsListener ------------------------------------------
-
-  void OnFriendAdded(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::FriendNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnFriendRemoved(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::FriendNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnReceivedInvitationAdded(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::InvitationNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnReceivedInvitationRemoved(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::InvitationNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnSentInvitationAdded(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::InvitationNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnSentInvitationRemoved(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::InvitationNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnUpdateFriendState(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::friends::UpdateFriendStateNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(FriendsListener_Stub);
-};
-
 
 // ===================================================================
 

@@ -58,6 +58,9 @@ inline bool LogOption_Parse(
 
 // ===================================================================
 
+
+// ===================================================================
+
 static const int kLogFieldNumber = 50000;
 extern ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
     ::google::protobuf::internal::EnumTypeTraits< ::Battlenet::LogOption, ::Battlenet::LogOption_IsValid>, 14, false >

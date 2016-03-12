@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -414,7 +415,7 @@ void protobuf_AddDesc_challenge_5fservice_2eproto() {
     "t\022,.Battlenet.challenge.ChallengeExterna"
     "lResult\032\026.Battlenet.NO_RESPONSE\"\004\200\265\030\004\032*\312"
     ">\'bnet.protocol.challenge.ChallengeNotif"
-    "yB\005H\002\200\001\001", 2368);
+    "yB\005H\001\200\001\000", 2368);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "challenge_service.proto", &protobuf_RegisterTypes);
   Challenge::default_instance_ = new Challenge();
@@ -523,9 +524,317 @@ Challenge* Challenge::New() const {
   return new Challenge;
 }
 
+void Challenge::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<Challenge*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 15) {
+    ZR_(type_, retries_);
+    if (has_info()) {
+      if (info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        info_->clear();
+      }
+    }
+    if (has_answer()) {
+      if (answer_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        answer_->clear();
+      }
+    }
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool Challenge::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.challenge.Challenge)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required fixed32 type = 1;
+      case 1: {
+        if (tag == 13) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &type_)));
+          set_has_type();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_info;
+        break;
+      }
+
+      // optional string info = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_info:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_info()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->info().data(), this->info().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "info");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_answer;
+        break;
+      }
+
+      // optional string answer = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_answer:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_answer()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->answer().data(), this->answer().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "answer");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_retries;
+        break;
+      }
+
+      // optional uint32 retries = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_retries:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &retries_)));
+          set_has_retries();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.challenge.Challenge)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.challenge.Challenge)
+  return false;
+#undef DO_
+}
+
+void Challenge::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.challenge.Challenge)
+  // required fixed32 type = 1;
+  if (has_type()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(1, this->type(), output);
+  }
+
+  // optional string info = 2;
+  if (has_info()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->info().data(), this->info().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "info");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->info(), output);
+  }
+
+  // optional string answer = 3;
+  if (has_answer()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->answer().data(), this->answer().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "answer");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->answer(), output);
+  }
+
+  // optional uint32 retries = 4;
+  if (has_retries()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->retries(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.challenge.Challenge)
+}
+
+::google::protobuf::uint8* Challenge::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.challenge.Challenge)
+  // required fixed32 type = 1;
+  if (has_type()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(1, this->type(), target);
+  }
+
+  // optional string info = 2;
+  if (has_info()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->info().data(), this->info().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "info");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->info(), target);
+  }
+
+  // optional string answer = 3;
+  if (has_answer()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->answer().data(), this->answer().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "answer");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->answer(), target);
+  }
+
+  // optional uint32 retries = 4;
+  if (has_retries()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->retries(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.challenge.Challenge)
+  return target;
+}
+
+int Challenge::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required fixed32 type = 1;
+    if (has_type()) {
+      total_size += 1 + 4;
+    }
+
+    // optional string info = 2;
+    if (has_info()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->info());
+    }
+
+    // optional string answer = 3;
+    if (has_answer()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->answer());
+    }
+
+    // optional uint32 retries = 4;
+    if (has_retries()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->retries());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Challenge::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const Challenge* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Challenge*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Challenge::MergeFrom(const Challenge& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_type()) {
+      set_type(from.type());
+    }
+    if (from.has_info()) {
+      set_info(from.info());
+    }
+    if (from.has_answer()) {
+      set_answer(from.answer());
+    }
+    if (from.has_retries()) {
+      set_retries(from.retries());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void Challenge::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Challenge::CopyFrom(const Challenge& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Challenge::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  return true;
+}
+
 void Challenge::Swap(Challenge* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(type_, other->type_);
+    std::swap(info_, other->info_);
+    std::swap(answer_, other->answer_);
+    std::swap(retries_, other->retries_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata Challenge::GetMetadata() const {
@@ -600,9 +909,241 @@ ChallengePickedRequest* ChallengePickedRequest::New() const {
   return new ChallengePickedRequest;
 }
 
+void ChallengePickedRequest::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<ChallengePickedRequest*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  ZR_(challenge_, new_challenge_protocol_);
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChallengePickedRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.challenge.ChallengePickedRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required fixed32 challenge = 1;
+      case 1: {
+        if (tag == 13) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &challenge_)));
+          set_has_challenge();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_id;
+        break;
+      }
+
+      // optional uint32 id = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &id_)));
+          set_has_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_new_challenge_protocol;
+        break;
+      }
+
+      // optional bool new_challenge_protocol = 3 [default = false];
+      case 3: {
+        if (tag == 24) {
+         parse_new_challenge_protocol:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &new_challenge_protocol_)));
+          set_has_new_challenge_protocol();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.challenge.ChallengePickedRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.challenge.ChallengePickedRequest)
+  return false;
+#undef DO_
+}
+
+void ChallengePickedRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.challenge.ChallengePickedRequest)
+  // required fixed32 challenge = 1;
+  if (has_challenge()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(1, this->challenge(), output);
+  }
+
+  // optional uint32 id = 2;
+  if (has_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->id(), output);
+  }
+
+  // optional bool new_challenge_protocol = 3 [default = false];
+  if (has_new_challenge_protocol()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->new_challenge_protocol(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.challenge.ChallengePickedRequest)
+}
+
+::google::protobuf::uint8* ChallengePickedRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.challenge.ChallengePickedRequest)
+  // required fixed32 challenge = 1;
+  if (has_challenge()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(1, this->challenge(), target);
+  }
+
+  // optional uint32 id = 2;
+  if (has_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->id(), target);
+  }
+
+  // optional bool new_challenge_protocol = 3 [default = false];
+  if (has_new_challenge_protocol()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->new_challenge_protocol(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.challenge.ChallengePickedRequest)
+  return target;
+}
+
+int ChallengePickedRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required fixed32 challenge = 1;
+    if (has_challenge()) {
+      total_size += 1 + 4;
+    }
+
+    // optional uint32 id = 2;
+    if (has_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->id());
+    }
+
+    // optional bool new_challenge_protocol = 3 [default = false];
+    if (has_new_challenge_protocol()) {
+      total_size += 1 + 1;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChallengePickedRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChallengePickedRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChallengePickedRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChallengePickedRequest::MergeFrom(const ChallengePickedRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_challenge()) {
+      set_challenge(from.challenge());
+    }
+    if (from.has_id()) {
+      set_id(from.id());
+    }
+    if (from.has_new_challenge_protocol()) {
+      set_new_challenge_protocol(from.new_challenge_protocol());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChallengePickedRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChallengePickedRequest::CopyFrom(const ChallengePickedRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChallengePickedRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  return true;
+}
+
 void ChallengePickedRequest::Swap(ChallengePickedRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(challenge_, other->challenge_);
+    std::swap(id_, other->id_);
+    std::swap(new_challenge_protocol_, other->new_challenge_protocol_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ChallengePickedRequest::GetMetadata() const {
@@ -677,9 +1218,163 @@ ChallengePickedResponse* ChallengePickedResponse::New() const {
   return new ChallengePickedResponse;
 }
 
+void ChallengePickedResponse::Clear() {
+  if (has_data()) {
+    if (data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+      data_->clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChallengePickedResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.challenge.ChallengePickedResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional bytes data = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_data()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.challenge.ChallengePickedResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.challenge.ChallengePickedResponse)
+  return false;
+#undef DO_
+}
+
+void ChallengePickedResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.challenge.ChallengePickedResponse)
+  // optional bytes data = 1;
+  if (has_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      1, this->data(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.challenge.ChallengePickedResponse)
+}
+
+::google::protobuf::uint8* ChallengePickedResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.challenge.ChallengePickedResponse)
+  // optional bytes data = 1;
+  if (has_data()) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        1, this->data(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.challenge.ChallengePickedResponse)
+  return target;
+}
+
+int ChallengePickedResponse::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional bytes data = 1;
+    if (has_data()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->data());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChallengePickedResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChallengePickedResponse* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChallengePickedResponse*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChallengePickedResponse::MergeFrom(const ChallengePickedResponse& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_data()) {
+      set_data(from.data());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChallengePickedResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChallengePickedResponse::CopyFrom(const ChallengePickedResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChallengePickedResponse::IsInitialized() const {
+
+  return true;
+}
+
 void ChallengePickedResponse::Swap(ChallengePickedResponse* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(data_, other->data_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ChallengePickedResponse::GetMetadata() const {
@@ -761,9 +1456,257 @@ ChallengeAnsweredRequest* ChallengeAnsweredRequest::New() const {
   return new ChallengeAnsweredRequest;
 }
 
+void ChallengeAnsweredRequest::Clear() {
+  if (_has_bits_[0 / 32] & 7) {
+    if (has_answer()) {
+      if (answer_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        answer_->clear();
+      }
+    }
+    if (has_data()) {
+      if (data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        data_->clear();
+      }
+    }
+    id_ = 0u;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChallengeAnsweredRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.challenge.ChallengeAnsweredRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required string answer = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_answer()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->answer().data(), this->answer().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "answer");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_data;
+        break;
+      }
+
+      // optional bytes data = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_data:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_data()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_id;
+        break;
+      }
+
+      // optional uint32 id = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &id_)));
+          set_has_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.challenge.ChallengeAnsweredRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.challenge.ChallengeAnsweredRequest)
+  return false;
+#undef DO_
+}
+
+void ChallengeAnsweredRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.challenge.ChallengeAnsweredRequest)
+  // required string answer = 1;
+  if (has_answer()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->answer().data(), this->answer().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "answer");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->answer(), output);
+  }
+
+  // optional bytes data = 2;
+  if (has_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      2, this->data(), output);
+  }
+
+  // optional uint32 id = 3;
+  if (has_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.challenge.ChallengeAnsweredRequest)
+}
+
+::google::protobuf::uint8* ChallengeAnsweredRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.challenge.ChallengeAnsweredRequest)
+  // required string answer = 1;
+  if (has_answer()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->answer().data(), this->answer().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "answer");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->answer(), target);
+  }
+
+  // optional bytes data = 2;
+  if (has_data()) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        2, this->data(), target);
+  }
+
+  // optional uint32 id = 3;
+  if (has_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.challenge.ChallengeAnsweredRequest)
+  return target;
+}
+
+int ChallengeAnsweredRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required string answer = 1;
+    if (has_answer()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->answer());
+    }
+
+    // optional bytes data = 2;
+    if (has_data()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->data());
+    }
+
+    // optional uint32 id = 3;
+    if (has_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChallengeAnsweredRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChallengeAnsweredRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChallengeAnsweredRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChallengeAnsweredRequest::MergeFrom(const ChallengeAnsweredRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_answer()) {
+      set_answer(from.answer());
+    }
+    if (from.has_data()) {
+      set_data(from.data());
+    }
+    if (from.has_id()) {
+      set_id(from.id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChallengeAnsweredRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChallengeAnsweredRequest::CopyFrom(const ChallengeAnsweredRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChallengeAnsweredRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  return true;
+}
+
 void ChallengeAnsweredRequest::Swap(ChallengeAnsweredRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(answer_, other->answer_);
+    std::swap(data_, other->data_);
+    std::swap(id_, other->id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ChallengeAnsweredRequest::GetMetadata() const {
@@ -842,9 +1785,248 @@ ChallengeAnsweredResponse* ChallengeAnsweredResponse::New() const {
   return new ChallengeAnsweredResponse;
 }
 
+void ChallengeAnsweredResponse::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<ChallengeAnsweredResponse*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 7) {
+    ZR_(do_retry_, record_not_found_);
+    if (has_data()) {
+      if (data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        data_->clear();
+      }
+    }
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChallengeAnsweredResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.challenge.ChallengeAnsweredResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional bytes data = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_data()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_do_retry;
+        break;
+      }
+
+      // optional bool do_retry = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_do_retry:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &do_retry_)));
+          set_has_do_retry();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_record_not_found;
+        break;
+      }
+
+      // optional bool record_not_found = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_record_not_found:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &record_not_found_)));
+          set_has_record_not_found();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.challenge.ChallengeAnsweredResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.challenge.ChallengeAnsweredResponse)
+  return false;
+#undef DO_
+}
+
+void ChallengeAnsweredResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.challenge.ChallengeAnsweredResponse)
+  // optional bytes data = 1;
+  if (has_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      1, this->data(), output);
+  }
+
+  // optional bool do_retry = 2;
+  if (has_do_retry()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->do_retry(), output);
+  }
+
+  // optional bool record_not_found = 3;
+  if (has_record_not_found()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->record_not_found(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.challenge.ChallengeAnsweredResponse)
+}
+
+::google::protobuf::uint8* ChallengeAnsweredResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.challenge.ChallengeAnsweredResponse)
+  // optional bytes data = 1;
+  if (has_data()) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        1, this->data(), target);
+  }
+
+  // optional bool do_retry = 2;
+  if (has_do_retry()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->do_retry(), target);
+  }
+
+  // optional bool record_not_found = 3;
+  if (has_record_not_found()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->record_not_found(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.challenge.ChallengeAnsweredResponse)
+  return target;
+}
+
+int ChallengeAnsweredResponse::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional bytes data = 1;
+    if (has_data()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->data());
+    }
+
+    // optional bool do_retry = 2;
+    if (has_do_retry()) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool record_not_found = 3;
+    if (has_record_not_found()) {
+      total_size += 1 + 1;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChallengeAnsweredResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChallengeAnsweredResponse* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChallengeAnsweredResponse*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChallengeAnsweredResponse::MergeFrom(const ChallengeAnsweredResponse& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_data()) {
+      set_data(from.data());
+    }
+    if (from.has_do_retry()) {
+      set_do_retry(from.do_retry());
+    }
+    if (from.has_record_not_found()) {
+      set_record_not_found(from.record_not_found());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChallengeAnsweredResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChallengeAnsweredResponse::CopyFrom(const ChallengeAnsweredResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChallengeAnsweredResponse::IsInitialized() const {
+
+  return true;
+}
+
 void ChallengeAnsweredResponse::Swap(ChallengeAnsweredResponse* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(data_, other->data_);
+    std::swap(do_retry_, other->do_retry_);
+    std::swap(record_not_found_, other->record_not_found_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ChallengeAnsweredResponse::GetMetadata() const {
@@ -915,9 +2097,158 @@ ChallengeCancelledRequest* ChallengeCancelledRequest::New() const {
   return new ChallengeCancelledRequest;
 }
 
+void ChallengeCancelledRequest::Clear() {
+  id_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChallengeCancelledRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.challenge.ChallengeCancelledRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 id = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &id_)));
+          set_has_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.challenge.ChallengeCancelledRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.challenge.ChallengeCancelledRequest)
+  return false;
+#undef DO_
+}
+
+void ChallengeCancelledRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.challenge.ChallengeCancelledRequest)
+  // optional uint32 id = 1;
+  if (has_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.challenge.ChallengeCancelledRequest)
+}
+
+::google::protobuf::uint8* ChallengeCancelledRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.challenge.ChallengeCancelledRequest)
+  // optional uint32 id = 1;
+  if (has_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.challenge.ChallengeCancelledRequest)
+  return target;
+}
+
+int ChallengeCancelledRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 id = 1;
+    if (has_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChallengeCancelledRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChallengeCancelledRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChallengeCancelledRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChallengeCancelledRequest::MergeFrom(const ChallengeCancelledRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_id()) {
+      set_id(from.id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChallengeCancelledRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChallengeCancelledRequest::CopyFrom(const ChallengeCancelledRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChallengeCancelledRequest::IsInitialized() const {
+
+  return true;
+}
+
 void ChallengeCancelledRequest::Swap(ChallengeCancelledRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(id_, other->id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ChallengeCancelledRequest::GetMetadata() const {
@@ -1008,9 +2339,446 @@ SendChallengeToUserRequest* SendChallengeToUserRequest::New() const {
   return new SendChallengeToUserRequest;
 }
 
+void SendChallengeToUserRequest::Clear() {
+  if (_has_bits_[0 / 32] & 219) {
+    if (has_peer_id()) {
+      if (peer_id_ != NULL) peer_id_->::Battlenet::ProcessId::Clear();
+    }
+    if (has_game_account_id()) {
+      if (game_account_id_ != NULL) game_account_id_->::Battlenet::EntityId::Clear();
+    }
+    context_ = 0u;
+    timeout_ = GOOGLE_ULONGLONG(0);
+    if (has_host()) {
+      if (host_ != NULL) host_->::Battlenet::ProcessId::Clear();
+    }
+    if (has_account_id()) {
+      if (account_id_ != NULL) account_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  challenges_.Clear();
+  attributes_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SendChallengeToUserRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.challenge.SendChallengeToUserRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.ProcessId peer_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_peer_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_game_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId game_account_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_game_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_game_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_challenges;
+        break;
+      }
+
+      // repeated .Battlenet.challenge.Challenge challenges = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_challenges:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_challenges()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_challenges;
+        if (input->ExpectTag(37)) goto parse_context;
+        break;
+      }
+
+      // required fixed32 context = 4;
+      case 4: {
+        if (tag == 37) {
+         parse_context:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &context_)));
+          set_has_context();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(40)) goto parse_timeout;
+        break;
+      }
+
+      // optional uint64 timeout = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_timeout:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &timeout_)));
+          set_has_timeout();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_attributes;
+        break;
+      }
+
+      // repeated .Battlenet.Attribute attributes = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_attributes:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_attributes()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_attributes;
+        if (input->ExpectTag(58)) goto parse_host;
+        break;
+      }
+
+      // optional .Battlenet.ProcessId host = 7;
+      case 7: {
+        if (tag == 58) {
+         parse_host:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_host()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(66)) goto parse_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId account_id = 8;
+      case 8: {
+        if (tag == 66) {
+         parse_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.challenge.SendChallengeToUserRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.challenge.SendChallengeToUserRequest)
+  return false;
+#undef DO_
+}
+
+void SendChallengeToUserRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.challenge.SendChallengeToUserRequest)
+  // optional .Battlenet.ProcessId peer_id = 1;
+  if (has_peer_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->peer_id(), output);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->game_account_id(), output);
+  }
+
+  // repeated .Battlenet.challenge.Challenge challenges = 3;
+  for (int i = 0; i < this->challenges_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->challenges(i), output);
+  }
+
+  // required fixed32 context = 4;
+  if (has_context()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(4, this->context(), output);
+  }
+
+  // optional uint64 timeout = 5;
+  if (has_timeout()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(5, this->timeout(), output);
+  }
+
+  // repeated .Battlenet.Attribute attributes = 6;
+  for (int i = 0; i < this->attributes_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      6, this->attributes(i), output);
+  }
+
+  // optional .Battlenet.ProcessId host = 7;
+  if (has_host()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      7, this->host(), output);
+  }
+
+  // optional .Battlenet.EntityId account_id = 8;
+  if (has_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      8, this->account_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.challenge.SendChallengeToUserRequest)
+}
+
+::google::protobuf::uint8* SendChallengeToUserRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.challenge.SendChallengeToUserRequest)
+  // optional .Battlenet.ProcessId peer_id = 1;
+  if (has_peer_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->peer_id(), target);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->game_account_id(), target);
+  }
+
+  // repeated .Battlenet.challenge.Challenge challenges = 3;
+  for (int i = 0; i < this->challenges_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->challenges(i), target);
+  }
+
+  // required fixed32 context = 4;
+  if (has_context()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(4, this->context(), target);
+  }
+
+  // optional uint64 timeout = 5;
+  if (has_timeout()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(5, this->timeout(), target);
+  }
+
+  // repeated .Battlenet.Attribute attributes = 6;
+  for (int i = 0; i < this->attributes_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        6, this->attributes(i), target);
+  }
+
+  // optional .Battlenet.ProcessId host = 7;
+  if (has_host()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        7, this->host(), target);
+  }
+
+  // optional .Battlenet.EntityId account_id = 8;
+  if (has_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        8, this->account_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.challenge.SendChallengeToUserRequest)
+  return target;
+}
+
+int SendChallengeToUserRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.ProcessId peer_id = 1;
+    if (has_peer_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->peer_id());
+    }
+
+    // optional .Battlenet.EntityId game_account_id = 2;
+    if (has_game_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->game_account_id());
+    }
+
+    // required fixed32 context = 4;
+    if (has_context()) {
+      total_size += 1 + 4;
+    }
+
+    // optional uint64 timeout = 5;
+    if (has_timeout()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->timeout());
+    }
+
+    // optional .Battlenet.ProcessId host = 7;
+    if (has_host()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->host());
+    }
+
+    // optional .Battlenet.EntityId account_id = 8;
+    if (has_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->account_id());
+    }
+
+  }
+  // repeated .Battlenet.challenge.Challenge challenges = 3;
+  total_size += 1 * this->challenges_size();
+  for (int i = 0; i < this->challenges_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->challenges(i));
+  }
+
+  // repeated .Battlenet.Attribute attributes = 6;
+  total_size += 1 * this->attributes_size();
+  for (int i = 0; i < this->attributes_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->attributes(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SendChallengeToUserRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SendChallengeToUserRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SendChallengeToUserRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SendChallengeToUserRequest::MergeFrom(const SendChallengeToUserRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  challenges_.MergeFrom(from.challenges_);
+  attributes_.MergeFrom(from.attributes_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_peer_id()) {
+      mutable_peer_id()->::Battlenet::ProcessId::MergeFrom(from.peer_id());
+    }
+    if (from.has_game_account_id()) {
+      mutable_game_account_id()->::Battlenet::EntityId::MergeFrom(from.game_account_id());
+    }
+    if (from.has_context()) {
+      set_context(from.context());
+    }
+    if (from.has_timeout()) {
+      set_timeout(from.timeout());
+    }
+    if (from.has_host()) {
+      mutable_host()->::Battlenet::ProcessId::MergeFrom(from.host());
+    }
+    if (from.has_account_id()) {
+      mutable_account_id()->::Battlenet::EntityId::MergeFrom(from.account_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SendChallengeToUserRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SendChallengeToUserRequest::CopyFrom(const SendChallengeToUserRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SendChallengeToUserRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000008) != 0x00000008) return false;
+
+  if (has_peer_id()) {
+    if (!this->peer_id().IsInitialized()) return false;
+  }
+  if (has_game_account_id()) {
+    if (!this->game_account_id().IsInitialized()) return false;
+  }
+  if (!::google::protobuf::internal::AllAreInitialized(this->challenges())) return false;
+  if (!::google::protobuf::internal::AllAreInitialized(this->attributes())) return false;
+  if (has_host()) {
+    if (!this->host().IsInitialized()) return false;
+  }
+  if (has_account_id()) {
+    if (!this->account_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void SendChallengeToUserRequest::Swap(SendChallengeToUserRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(peer_id_, other->peer_id_);
+    std::swap(game_account_id_, other->game_account_id_);
+    challenges_.Swap(&other->challenges_);
+    std::swap(context_, other->context_);
+    std::swap(timeout_, other->timeout_);
+    attributes_.Swap(&other->attributes_);
+    std::swap(host_, other->host_);
+    std::swap(account_id_, other->account_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata SendChallengeToUserRequest::GetMetadata() const {
@@ -1081,9 +2849,158 @@ SendChallengeToUserResponse* SendChallengeToUserResponse::New() const {
   return new SendChallengeToUserResponse;
 }
 
+void SendChallengeToUserResponse::Clear() {
+  id_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SendChallengeToUserResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.challenge.SendChallengeToUserResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 id = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &id_)));
+          set_has_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.challenge.SendChallengeToUserResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.challenge.SendChallengeToUserResponse)
+  return false;
+#undef DO_
+}
+
+void SendChallengeToUserResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.challenge.SendChallengeToUserResponse)
+  // optional uint32 id = 1;
+  if (has_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.challenge.SendChallengeToUserResponse)
+}
+
+::google::protobuf::uint8* SendChallengeToUserResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.challenge.SendChallengeToUserResponse)
+  // optional uint32 id = 1;
+  if (has_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.challenge.SendChallengeToUserResponse)
+  return target;
+}
+
+int SendChallengeToUserResponse::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 id = 1;
+    if (has_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SendChallengeToUserResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SendChallengeToUserResponse* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SendChallengeToUserResponse*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SendChallengeToUserResponse::MergeFrom(const SendChallengeToUserResponse& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_id()) {
+      set_id(from.id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SendChallengeToUserResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SendChallengeToUserResponse::CopyFrom(const SendChallengeToUserResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SendChallengeToUserResponse::IsInitialized() const {
+
+  return true;
+}
+
 void SendChallengeToUserResponse::Swap(SendChallengeToUserResponse* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(id_, other->id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata SendChallengeToUserResponse::GetMetadata() const {
@@ -1164,9 +3081,367 @@ ChallengeUserRequest* ChallengeUserRequest::New() const {
   return new ChallengeUserRequest;
 }
 
+void ChallengeUserRequest::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<ChallengeUserRequest*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 46) {
+    ZR_(context_, deadline_);
+    if (has_game_account_id()) {
+      if (game_account_id_ != NULL) game_account_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  challenges_.Clear();
+  attributes_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChallengeUserRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.challenge.ChallengeUserRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .Battlenet.challenge.Challenge challenges = 1;
+      case 1: {
+        if (tag == 10) {
+         parse_challenges:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_challenges()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_challenges;
+        if (input->ExpectTag(21)) goto parse_context;
+        break;
+      }
+
+      // required fixed32 context = 2;
+      case 2: {
+        if (tag == 21) {
+         parse_context:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &context_)));
+          set_has_context();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_id;
+        break;
+      }
+
+      // optional uint32 id = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &id_)));
+          set_has_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_deadline;
+        break;
+      }
+
+      // optional uint64 deadline = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_deadline:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &deadline_)));
+          set_has_deadline();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_attributes;
+        break;
+      }
+
+      // repeated .Battlenet.Attribute attributes = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_attributes:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_attributes()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_attributes;
+        if (input->ExpectTag(50)) goto parse_game_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId game_account_id = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_game_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_game_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.challenge.ChallengeUserRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.challenge.ChallengeUserRequest)
+  return false;
+#undef DO_
+}
+
+void ChallengeUserRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.challenge.ChallengeUserRequest)
+  // repeated .Battlenet.challenge.Challenge challenges = 1;
+  for (int i = 0; i < this->challenges_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->challenges(i), output);
+  }
+
+  // required fixed32 context = 2;
+  if (has_context()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(2, this->context(), output);
+  }
+
+  // optional uint32 id = 3;
+  if (has_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->id(), output);
+  }
+
+  // optional uint64 deadline = 4;
+  if (has_deadline()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(4, this->deadline(), output);
+  }
+
+  // repeated .Battlenet.Attribute attributes = 5;
+  for (int i = 0; i < this->attributes_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->attributes(i), output);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 6;
+  if (has_game_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      6, this->game_account_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.challenge.ChallengeUserRequest)
+}
+
+::google::protobuf::uint8* ChallengeUserRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.challenge.ChallengeUserRequest)
+  // repeated .Battlenet.challenge.Challenge challenges = 1;
+  for (int i = 0; i < this->challenges_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->challenges(i), target);
+  }
+
+  // required fixed32 context = 2;
+  if (has_context()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(2, this->context(), target);
+  }
+
+  // optional uint32 id = 3;
+  if (has_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->id(), target);
+  }
+
+  // optional uint64 deadline = 4;
+  if (has_deadline()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(4, this->deadline(), target);
+  }
+
+  // repeated .Battlenet.Attribute attributes = 5;
+  for (int i = 0; i < this->attributes_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->attributes(i), target);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 6;
+  if (has_game_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        6, this->game_account_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.challenge.ChallengeUserRequest)
+  return target;
+}
+
+int ChallengeUserRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[1 / 32] & (0xffu << (1 % 32))) {
+    // required fixed32 context = 2;
+    if (has_context()) {
+      total_size += 1 + 4;
+    }
+
+    // optional uint32 id = 3;
+    if (has_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->id());
+    }
+
+    // optional uint64 deadline = 4;
+    if (has_deadline()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->deadline());
+    }
+
+    // optional .Battlenet.EntityId game_account_id = 6;
+    if (has_game_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->game_account_id());
+    }
+
+  }
+  // repeated .Battlenet.challenge.Challenge challenges = 1;
+  total_size += 1 * this->challenges_size();
+  for (int i = 0; i < this->challenges_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->challenges(i));
+  }
+
+  // repeated .Battlenet.Attribute attributes = 5;
+  total_size += 1 * this->attributes_size();
+  for (int i = 0; i < this->attributes_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->attributes(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChallengeUserRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChallengeUserRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChallengeUserRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChallengeUserRequest::MergeFrom(const ChallengeUserRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  challenges_.MergeFrom(from.challenges_);
+  attributes_.MergeFrom(from.attributes_);
+  if (from._has_bits_[1 / 32] & (0xffu << (1 % 32))) {
+    if (from.has_context()) {
+      set_context(from.context());
+    }
+    if (from.has_id()) {
+      set_id(from.id());
+    }
+    if (from.has_deadline()) {
+      set_deadline(from.deadline());
+    }
+    if (from.has_game_account_id()) {
+      mutable_game_account_id()->::Battlenet::EntityId::MergeFrom(from.game_account_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChallengeUserRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChallengeUserRequest::CopyFrom(const ChallengeUserRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChallengeUserRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->challenges())) return false;
+  if (!::google::protobuf::internal::AllAreInitialized(this->attributes())) return false;
+  if (has_game_account_id()) {
+    if (!this->game_account_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void ChallengeUserRequest::Swap(ChallengeUserRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    challenges_.Swap(&other->challenges_);
+    std::swap(context_, other->context_);
+    std::swap(id_, other->id_);
+    std::swap(deadline_, other->deadline_);
+    attributes_.Swap(&other->attributes_);
+    std::swap(game_account_id_, other->game_account_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ChallengeUserRequest::GetMetadata() const {
@@ -1247,9 +3522,287 @@ ChallengeResultRequest* ChallengeResultRequest::New() const {
   return new ChallengeResultRequest;
 }
 
+void ChallengeResultRequest::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<ChallengeResultRequest*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 15) {
+    ZR_(id_, type_);
+    error_id_ = 0u;
+    if (has_answer()) {
+      if (answer_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        answer_->clear();
+      }
+    }
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChallengeResultRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.challenge.ChallengeResultRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 id = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &id_)));
+          set_has_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(21)) goto parse_type;
+        break;
+      }
+
+      // optional fixed32 type = 2;
+      case 2: {
+        if (tag == 21) {
+         parse_type:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &type_)));
+          set_has_type();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_error_id;
+        break;
+      }
+
+      // optional uint32 error_id = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_error_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &error_id_)));
+          set_has_error_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_answer;
+        break;
+      }
+
+      // optional bytes answer = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_answer:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_answer()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.challenge.ChallengeResultRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.challenge.ChallengeResultRequest)
+  return false;
+#undef DO_
+}
+
+void ChallengeResultRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.challenge.ChallengeResultRequest)
+  // optional uint32 id = 1;
+  if (has_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->id(), output);
+  }
+
+  // optional fixed32 type = 2;
+  if (has_type()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(2, this->type(), output);
+  }
+
+  // optional uint32 error_id = 3;
+  if (has_error_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->error_id(), output);
+  }
+
+  // optional bytes answer = 4;
+  if (has_answer()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      4, this->answer(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.challenge.ChallengeResultRequest)
+}
+
+::google::protobuf::uint8* ChallengeResultRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.challenge.ChallengeResultRequest)
+  // optional uint32 id = 1;
+  if (has_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->id(), target);
+  }
+
+  // optional fixed32 type = 2;
+  if (has_type()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(2, this->type(), target);
+  }
+
+  // optional uint32 error_id = 3;
+  if (has_error_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->error_id(), target);
+  }
+
+  // optional bytes answer = 4;
+  if (has_answer()) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        4, this->answer(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.challenge.ChallengeResultRequest)
+  return target;
+}
+
+int ChallengeResultRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 id = 1;
+    if (has_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->id());
+    }
+
+    // optional fixed32 type = 2;
+    if (has_type()) {
+      total_size += 1 + 4;
+    }
+
+    // optional uint32 error_id = 3;
+    if (has_error_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->error_id());
+    }
+
+    // optional bytes answer = 4;
+    if (has_answer()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->answer());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChallengeResultRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChallengeResultRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChallengeResultRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChallengeResultRequest::MergeFrom(const ChallengeResultRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_id()) {
+      set_id(from.id());
+    }
+    if (from.has_type()) {
+      set_type(from.type());
+    }
+    if (from.has_error_id()) {
+      set_error_id(from.error_id());
+    }
+    if (from.has_answer()) {
+      set_answer(from.answer());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChallengeResultRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChallengeResultRequest::CopyFrom(const ChallengeResultRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChallengeResultRequest::IsInitialized() const {
+
+  return true;
+}
+
 void ChallengeResultRequest::Swap(ChallengeResultRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(id_, other->id_);
+    std::swap(type_, other->type_);
+    std::swap(error_id_, other->error_id_);
+    std::swap(answer_, other->answer_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ChallengeResultRequest::GetMetadata() const {
@@ -1334,9 +3887,273 @@ ChallengeExternalRequest* ChallengeExternalRequest::New() const {
   return new ChallengeExternalRequest;
 }
 
+void ChallengeExternalRequest::Clear() {
+  if (_has_bits_[0 / 32] & 7) {
+    if (has_request_token()) {
+      if (request_token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        request_token_->clear();
+      }
+    }
+    if (has_payload_type()) {
+      if (payload_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        payload_type_->clear();
+      }
+    }
+    if (has_payload()) {
+      if (payload_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        payload_->clear();
+      }
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChallengeExternalRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.challenge.ChallengeExternalRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string request_token = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_request_token()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->request_token().data(), this->request_token().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "request_token");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_payload_type;
+        break;
+      }
+
+      // optional string payload_type = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_payload_type:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_payload_type()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->payload_type().data(), this->payload_type().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "payload_type");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_payload;
+        break;
+      }
+
+      // optional bytes payload = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_payload:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_payload()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.challenge.ChallengeExternalRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.challenge.ChallengeExternalRequest)
+  return false;
+#undef DO_
+}
+
+void ChallengeExternalRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.challenge.ChallengeExternalRequest)
+  // optional string request_token = 1;
+  if (has_request_token()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->request_token().data(), this->request_token().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "request_token");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->request_token(), output);
+  }
+
+  // optional string payload_type = 2;
+  if (has_payload_type()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->payload_type().data(), this->payload_type().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "payload_type");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->payload_type(), output);
+  }
+
+  // optional bytes payload = 3;
+  if (has_payload()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      3, this->payload(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.challenge.ChallengeExternalRequest)
+}
+
+::google::protobuf::uint8* ChallengeExternalRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.challenge.ChallengeExternalRequest)
+  // optional string request_token = 1;
+  if (has_request_token()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->request_token().data(), this->request_token().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "request_token");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->request_token(), target);
+  }
+
+  // optional string payload_type = 2;
+  if (has_payload_type()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->payload_type().data(), this->payload_type().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "payload_type");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->payload_type(), target);
+  }
+
+  // optional bytes payload = 3;
+  if (has_payload()) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        3, this->payload(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.challenge.ChallengeExternalRequest)
+  return target;
+}
+
+int ChallengeExternalRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional string request_token = 1;
+    if (has_request_token()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->request_token());
+    }
+
+    // optional string payload_type = 2;
+    if (has_payload_type()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->payload_type());
+    }
+
+    // optional bytes payload = 3;
+    if (has_payload()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->payload());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChallengeExternalRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChallengeExternalRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChallengeExternalRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChallengeExternalRequest::MergeFrom(const ChallengeExternalRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_request_token()) {
+      set_request_token(from.request_token());
+    }
+    if (from.has_payload_type()) {
+      set_payload_type(from.payload_type());
+    }
+    if (from.has_payload()) {
+      set_payload(from.payload());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChallengeExternalRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChallengeExternalRequest::CopyFrom(const ChallengeExternalRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChallengeExternalRequest::IsInitialized() const {
+
+  return true;
+}
+
 void ChallengeExternalRequest::Swap(ChallengeExternalRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(request_token_, other->request_token_);
+    std::swap(payload_type_, other->payload_type_);
+    std::swap(payload_, other->payload_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ChallengeExternalRequest::GetMetadata() const {
@@ -1413,9 +4230,212 @@ ChallengeExternalResult* ChallengeExternalResult::New() const {
   return new ChallengeExternalResult;
 }
 
+void ChallengeExternalResult::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_request_token()) {
+      if (request_token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        request_token_->clear();
+      }
+    }
+    passed_ = true;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ChallengeExternalResult::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.challenge.ChallengeExternalResult)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string request_token = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_request_token()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->request_token().data(), this->request_token().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "request_token");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_passed;
+        break;
+      }
+
+      // optional bool passed = 2 [default = true];
+      case 2: {
+        if (tag == 16) {
+         parse_passed:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &passed_)));
+          set_has_passed();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.challenge.ChallengeExternalResult)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.challenge.ChallengeExternalResult)
+  return false;
+#undef DO_
+}
+
+void ChallengeExternalResult::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.challenge.ChallengeExternalResult)
+  // optional string request_token = 1;
+  if (has_request_token()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->request_token().data(), this->request_token().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "request_token");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->request_token(), output);
+  }
+
+  // optional bool passed = 2 [default = true];
+  if (has_passed()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->passed(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.challenge.ChallengeExternalResult)
+}
+
+::google::protobuf::uint8* ChallengeExternalResult::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.challenge.ChallengeExternalResult)
+  // optional string request_token = 1;
+  if (has_request_token()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->request_token().data(), this->request_token().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "request_token");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->request_token(), target);
+  }
+
+  // optional bool passed = 2 [default = true];
+  if (has_passed()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->passed(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.challenge.ChallengeExternalResult)
+  return target;
+}
+
+int ChallengeExternalResult::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional string request_token = 1;
+    if (has_request_token()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->request_token());
+    }
+
+    // optional bool passed = 2 [default = true];
+    if (has_passed()) {
+      total_size += 1 + 1;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ChallengeExternalResult::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ChallengeExternalResult* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ChallengeExternalResult*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ChallengeExternalResult::MergeFrom(const ChallengeExternalResult& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_request_token()) {
+      set_request_token(from.request_token());
+    }
+    if (from.has_passed()) {
+      set_passed(from.passed());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ChallengeExternalResult::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ChallengeExternalResult::CopyFrom(const ChallengeExternalResult& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChallengeExternalResult::IsInitialized() const {
+
+  return true;
+}
+
 void ChallengeExternalResult::Swap(ChallengeExternalResult* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(request_token_, other->request_token_);
+    std::swap(passed_, other->passed_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata ChallengeExternalResult::GetMetadata() const {
@@ -1429,320 +4449,216 @@ void ChallengeExternalResult::Swap(ChallengeExternalResult* other) {
 
 // ===================================================================
 
-ChallengeService::~ChallengeService() {}
-
-const ::google::protobuf::ServiceDescriptor* ChallengeService::descriptor() {
+google::protobuf::ServiceDescriptor const* ChallengeService::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return ChallengeService_descriptor_;
 }
 
-const ::google::protobuf::ServiceDescriptor* ChallengeService::GetDescriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return ChallengeService_descriptor_;
-}
+void ChallengeService::CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) {
+  switch(methodId) {
+    case 1: {
+      ::Battlenet::challenge::ChallengePickedRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for ChallengeService.ChallengePicked server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
 
-void ChallengeService::ChallengePicked(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::challenge::ChallengePickedRequest*,
-                         ::Battlenet::challenge::ChallengePickedResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method ChallengePicked() not implemented.");
-  done->Run();
-}
-
-void ChallengeService::ChallengeAnswered(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::challenge::ChallengeAnsweredRequest*,
-                         ::Battlenet::challenge::ChallengeAnsweredResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method ChallengeAnswered() not implemented.");
-  done->Run();
-}
-
-void ChallengeService::ChallengeCancelled(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::challenge::ChallengeCancelledRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method ChallengeCancelled() not implemented.");
-  done->Run();
-}
-
-void ChallengeService::SendChallengeToUser(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::challenge::SendChallengeToUserRequest*,
-                         ::Battlenet::challenge::SendChallengeToUserResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method SendChallengeToUser() not implemented.");
-  done->Run();
-}
-
-void ChallengeService::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                             ::google::protobuf::RpcController* controller,
-                             const ::google::protobuf::Message* request,
-                             ::google::protobuf::Message* response,
-                             ::google::protobuf::Closure* done) {
-  GOOGLE_DCHECK_EQ(method->service(), ChallengeService_descriptor_);
-  switch(method->index()) {
-    case 0:
-      ChallengePicked(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::challenge::ChallengePickedRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::challenge::ChallengePickedResponse*>(response),
-             done);
+      ::Battlenet::challenge::ChallengePickedResponse response;
+      uint32 status = HandleChallengePicked(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method ChallengeService.ChallengePicked(Battlenet.challenge.ChallengePickedRequest{ %s }) returned Battlenet.challenge.ChallengePickedResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 1:
-      ChallengeAnswered(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::challenge::ChallengeAnsweredRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::challenge::ChallengeAnsweredResponse*>(response),
-             done);
+    }
+    case 2: {
+      ::Battlenet::challenge::ChallengeAnsweredRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for ChallengeService.ChallengeAnswered server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::challenge::ChallengeAnsweredResponse response;
+      uint32 status = HandleChallengeAnswered(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method ChallengeService.ChallengeAnswered(Battlenet.challenge.ChallengeAnsweredRequest{ %s }) returned Battlenet.challenge.ChallengeAnsweredResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 2:
-      ChallengeCancelled(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::challenge::ChallengeCancelledRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 3: {
+      ::Battlenet::challenge::ChallengeCancelledRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for ChallengeService.ChallengeCancelled server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleChallengeCancelled(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method ChallengeService.ChallengeCancelled(Battlenet.challenge.ChallengeCancelledRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 3:
-      SendChallengeToUser(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::challenge::SendChallengeToUserRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::challenge::SendChallengeToUserResponse*>(response),
-             done);
+    }
+    case 4: {
+      ::Battlenet::challenge::SendChallengeToUserRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for ChallengeService.SendChallengeToUser server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::challenge::SendChallengeToUserResponse response;
+      uint32 status = HandleSendChallengeToUser(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method ChallengeService.SendChallengeToUser(Battlenet.challenge.SendChallengeToUserRequest{ %s }) returned Battlenet.challenge.SendChallengeToUserResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
+    }
     default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      TC_LOG_ERROR("session.rpc", "Bad method id %u.", methodId);
+      _session->SendResponse(token, ERROR_RPC_INVALID_METHOD);
       break;
-  }
+    }
 }
 
-const ::google::protobuf::Message& ChallengeService::GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::challenge::ChallengePickedRequest::default_instance();
-    case 1:
-      return ::Battlenet::challenge::ChallengeAnsweredRequest::default_instance();
-    case 2:
-      return ::Battlenet::challenge::ChallengeCancelledRequest::default_instance();
-    case 3:
-      return ::Battlenet::challenge::SendChallengeToUserRequest::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 ChallengeService::HandleChallengePicked(::Battlenet::challenge::ChallengePickedRequest const* request, ::Battlenet::challenge::ChallengePickedResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method ChallengeService.ChallengePicked({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-const ::google::protobuf::Message& ChallengeService::GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::challenge::ChallengePickedResponse::default_instance();
-    case 1:
-      return ::Battlenet::challenge::ChallengeAnsweredResponse::default_instance();
-    case 2:
-      return ::Battlenet::NoData::default_instance();
-    case 3:
-      return ::Battlenet::challenge::SendChallengeToUserResponse::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 ChallengeService::HandleChallengeAnswered(::Battlenet::challenge::ChallengeAnsweredRequest const* request, ::Battlenet::challenge::ChallengeAnsweredResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method ChallengeService.ChallengeAnswered({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-ChallengeService_Stub::ChallengeService_Stub(::google::protobuf::RpcChannel* channel)
-  : channel_(channel), owns_channel_(false) {}
-ChallengeService_Stub::ChallengeService_Stub(
-    ::google::protobuf::RpcChannel* channel,
-    ::google::protobuf::Service::ChannelOwnership ownership)
-  : channel_(channel),
-    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
-ChallengeService_Stub::~ChallengeService_Stub() {
-  if (owns_channel_) delete channel_;
+uint32 ChallengeService::HandleChallengeCancelled(::Battlenet::challenge::ChallengeCancelledRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method ChallengeService.ChallengeCancelled({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-void ChallengeService_Stub::ChallengePicked(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::challenge::ChallengePickedRequest* request,
-                              ::Battlenet::challenge::ChallengePickedResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(0),
-                       controller, request, response, done);
+uint32 ChallengeService::HandleSendChallengeToUser(::Battlenet::challenge::SendChallengeToUserRequest const* request, ::Battlenet::challenge::SendChallengeToUserResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method ChallengeService.SendChallengeToUser({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void ChallengeService_Stub::ChallengeAnswered(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::challenge::ChallengeAnsweredRequest* request,
-                              ::Battlenet::challenge::ChallengeAnsweredResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(1),
-                       controller, request, response, done);
-}
-void ChallengeService_Stub::ChallengeCancelled(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::challenge::ChallengeCancelledRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(2),
-                       controller, request, response, done);
-}
-void ChallengeService_Stub::SendChallengeToUser(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::challenge::SendChallengeToUserRequest* request,
-                              ::Battlenet::challenge::SendChallengeToUserResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(3),
-                       controller, request, response, done);
-}
+
 // ===================================================================
 
-ChallengeListener::~ChallengeListener() {}
-
-const ::google::protobuf::ServiceDescriptor* ChallengeListener::descriptor() {
+google::protobuf::ServiceDescriptor const* ChallengeListener::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return ChallengeListener_descriptor_;
 }
 
-const ::google::protobuf::ServiceDescriptor* ChallengeListener::GetDescriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return ChallengeListener_descriptor_;
-}
+void ChallengeListener::CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) {
+  switch(methodId) {
+    case 1: {
+      ::Battlenet::challenge::ChallengeUserRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for ChallengeListener.OnChallengeUser server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
 
-void ChallengeListener::OnChallengeUser(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::challenge::ChallengeUserRequest*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnChallengeUser() not implemented.");
-  done->Run();
-}
-
-void ChallengeListener::OnChallengeResult(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::challenge::ChallengeResultRequest*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnChallengeResult() not implemented.");
-  done->Run();
-}
-
-void ChallengeListener::OnExternalChallenge(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::challenge::ChallengeExternalRequest*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnExternalChallenge() not implemented.");
-  done->Run();
-}
-
-void ChallengeListener::OnExternalChallengeResult(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::challenge::ChallengeExternalResult*,
-                         ::Battlenet::NO_RESPONSE*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method OnExternalChallengeResult() not implemented.");
-  done->Run();
-}
-
-void ChallengeListener::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                             ::google::protobuf::RpcController* controller,
-                             const ::google::protobuf::Message* request,
-                             ::google::protobuf::Message* response,
-                             ::google::protobuf::Closure* done) {
-  GOOGLE_DCHECK_EQ(method->service(), ChallengeListener_descriptor_);
-  switch(method->index()) {
-    case 0:
-      OnChallengeUser(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::challenge::ChallengeUserRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+      uint32 status = HandleOnChallengeUser(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method ChallengeListener.OnChallengeUser(Battlenet.challenge.ChallengeUserRequest{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 1:
-      OnChallengeResult(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::challenge::ChallengeResultRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 2: {
+      ::Battlenet::challenge::ChallengeResultRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for ChallengeListener.OnChallengeResult server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnChallengeResult(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method ChallengeListener.OnChallengeResult(Battlenet.challenge.ChallengeResultRequest{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 2:
-      OnExternalChallenge(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::challenge::ChallengeExternalRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 3: {
+      ::Battlenet::challenge::ChallengeExternalRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for ChallengeListener.OnExternalChallenge server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnExternalChallenge(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method ChallengeListener.OnExternalChallenge(Battlenet.challenge.ChallengeExternalRequest{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
-    case 3:
-      OnExternalChallengeResult(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::challenge::ChallengeExternalResult*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NO_RESPONSE*>(response),
-             done);
+    }
+    case 4: {
+      ::Battlenet::challenge::ChallengeExternalResult request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for ChallengeListener.OnExternalChallengeResult server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      uint32 status = HandleOnExternalChallengeResult(&request);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method ChallengeListener.OnExternalChallengeResult(Battlenet.challenge.ChallengeExternalResult{ %s }) status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), status);
+      if (status)
+        _session->SendResponse(token, status);
       break;
+    }
     default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      TC_LOG_ERROR("session.rpc", "Bad method id %u.", methodId);
+      _session->SendResponse(token, ERROR_RPC_INVALID_METHOD);
       break;
-  }
+    }
 }
 
-const ::google::protobuf::Message& ChallengeListener::GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::challenge::ChallengeUserRequest::default_instance();
-    case 1:
-      return ::Battlenet::challenge::ChallengeResultRequest::default_instance();
-    case 2:
-      return ::Battlenet::challenge::ChallengeExternalRequest::default_instance();
-    case 3:
-      return ::Battlenet::challenge::ChallengeExternalResult::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 ChallengeListener::HandleOnChallengeUser(::Battlenet::challenge::ChallengeUserRequest const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method ChallengeListener.OnChallengeUser({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-const ::google::protobuf::Message& ChallengeListener::GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 1:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 2:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    case 3:
-      return ::Battlenet::NO_RESPONSE::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 ChallengeListener::HandleOnChallengeResult(::Battlenet::challenge::ChallengeResultRequest const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method ChallengeListener.OnChallengeResult({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-ChallengeListener_Stub::ChallengeListener_Stub(::google::protobuf::RpcChannel* channel)
-  : channel_(channel), owns_channel_(false) {}
-ChallengeListener_Stub::ChallengeListener_Stub(
-    ::google::protobuf::RpcChannel* channel,
-    ::google::protobuf::Service::ChannelOwnership ownership)
-  : channel_(channel),
-    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
-ChallengeListener_Stub::~ChallengeListener_Stub() {
-  if (owns_channel_) delete channel_;
+uint32 ChallengeListener::HandleOnExternalChallenge(::Battlenet::challenge::ChallengeExternalRequest const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method ChallengeListener.OnExternalChallenge({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-void ChallengeListener_Stub::OnChallengeUser(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::challenge::ChallengeUserRequest* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(0),
-                       controller, request, response, done);
+uint32 ChallengeListener::HandleOnExternalChallengeResult(::Battlenet::challenge::ChallengeExternalResult const* request) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method ChallengeListener.OnExternalChallengeResult({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void ChallengeListener_Stub::OnChallengeResult(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::challenge::ChallengeResultRequest* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(1),
-                       controller, request, response, done);
-}
-void ChallengeListener_Stub::OnExternalChallenge(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::challenge::ChallengeExternalRequest* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(2),
-                       controller, request, response, done);
-}
-void ChallengeListener_Stub::OnExternalChallengeResult(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::challenge::ChallengeExternalResult* request,
-                              ::Battlenet::NO_RESPONSE* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(3),
-                       controller, request, response, done);
-}
+
 
 // @@protoc_insertion_point(namespace_scope)
 

@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -139,7 +140,7 @@ void protobuf_AddDesc_entity_5ftypes_2eproto() {
     ":\005false\022\025\n\ncountry_id\030\002 \001(\007:\0010\022\022\n\nbattle"
     "_tag\030\003 \001(\t\022\034\n\rmanual_review\030\004 \001(\010:\005false"
     "\022%\n\010identity\030\005 \001(\0132\023.Battlenet.Identity\022"
-    "\034\n\raccount_muted\030\006 \001(\010:\005falseB\002H\002", 393);
+    "\034\n\raccount_muted\030\006 \001(\010:\005falseB\002H\001", 393);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "entity_types.proto", &protobuf_RegisterTypes);
   EntityId::default_instance_ = new EntityId();
@@ -219,9 +220,205 @@ EntityId* EntityId::New() const {
   return new EntityId;
 }
 
+void EntityId::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<EntityId*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  ZR_(high_, low_);
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool EntityId::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.EntityId)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required fixed64 high = 1;
+      case 1: {
+        if (tag == 9) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED64>(
+                 input, &high_)));
+          set_has_high();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(17)) goto parse_low;
+        break;
+      }
+
+      // required fixed64 low = 2;
+      case 2: {
+        if (tag == 17) {
+         parse_low:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED64>(
+                 input, &low_)));
+          set_has_low();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.EntityId)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.EntityId)
+  return false;
+#undef DO_
+}
+
+void EntityId::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.EntityId)
+  // required fixed64 high = 1;
+  if (has_high()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed64(1, this->high(), output);
+  }
+
+  // required fixed64 low = 2;
+  if (has_low()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed64(2, this->low(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.EntityId)
+}
+
+::google::protobuf::uint8* EntityId::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.EntityId)
+  // required fixed64 high = 1;
+  if (has_high()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed64ToArray(1, this->high(), target);
+  }
+
+  // required fixed64 low = 2;
+  if (has_low()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed64ToArray(2, this->low(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.EntityId)
+  return target;
+}
+
+int EntityId::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required fixed64 high = 1;
+    if (has_high()) {
+      total_size += 1 + 8;
+    }
+
+    // required fixed64 low = 2;
+    if (has_low()) {
+      total_size += 1 + 8;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void EntityId::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const EntityId* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const EntityId*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void EntityId::MergeFrom(const EntityId& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_high()) {
+      set_high(from.high());
+    }
+    if (from.has_low()) {
+      set_low(from.low());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void EntityId::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void EntityId::CopyFrom(const EntityId& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool EntityId::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+
+  return true;
+}
+
 void EntityId::Swap(EntityId* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(high_, other->high_);
+    std::swap(low_, other->low_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata EntityId::GetMetadata() const {
@@ -298,9 +495,209 @@ Identity* Identity::New() const {
   return new Identity;
 }
 
+void Identity::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_account_id()) {
+      if (account_id_ != NULL) account_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_game_account_id()) {
+      if (game_account_id_ != NULL) game_account_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool Identity::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.Identity)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId account_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_game_account_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId game_account_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_game_account_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_game_account_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.Identity)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.Identity)
+  return false;
+#undef DO_
+}
+
+void Identity::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.Identity)
+  // optional .Battlenet.EntityId account_id = 1;
+  if (has_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->account_id(), output);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->game_account_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.Identity)
+}
+
+::google::protobuf::uint8* Identity::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.Identity)
+  // optional .Battlenet.EntityId account_id = 1;
+  if (has_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->account_id(), target);
+  }
+
+  // optional .Battlenet.EntityId game_account_id = 2;
+  if (has_game_account_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->game_account_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.Identity)
+  return target;
+}
+
+int Identity::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId account_id = 1;
+    if (has_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->account_id());
+    }
+
+    // optional .Battlenet.EntityId game_account_id = 2;
+    if (has_game_account_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->game_account_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Identity::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const Identity* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Identity*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Identity::MergeFrom(const Identity& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_account_id()) {
+      mutable_account_id()->::Battlenet::EntityId::MergeFrom(from.account_id());
+    }
+    if (from.has_game_account_id()) {
+      mutable_game_account_id()->::Battlenet::EntityId::MergeFrom(from.game_account_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void Identity::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Identity::CopyFrom(const Identity& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Identity::IsInitialized() const {
+
+  if (has_account_id()) {
+    if (!this->account_id().IsInitialized()) return false;
+  }
+  if (has_game_account_id()) {
+    if (!this->game_account_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void Identity::Swap(Identity* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(account_id_, other->account_id_);
+    std::swap(game_account_id_, other->game_account_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata Identity::GetMetadata() const {
@@ -387,9 +784,371 @@ AccountInfo* AccountInfo::New() const {
   return new AccountInfo;
 }
 
+void AccountInfo::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<AccountInfo*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 63) {
+    ZR_(country_id_, account_muted_);
+    if (has_battle_tag()) {
+      if (battle_tag_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        battle_tag_->clear();
+      }
+    }
+    if (has_identity()) {
+      if (identity_ != NULL) identity_->::Battlenet::Identity::Clear();
+    }
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool AccountInfo::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.AccountInfo)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional bool account_paid = 1 [default = false];
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &account_paid_)));
+          set_has_account_paid();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(21)) goto parse_country_id;
+        break;
+      }
+
+      // optional fixed32 country_id = 2 [default = 0];
+      case 2: {
+        if (tag == 21) {
+         parse_country_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, &country_id_)));
+          set_has_country_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_battle_tag;
+        break;
+      }
+
+      // optional string battle_tag = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_battle_tag:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_battle_tag()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->battle_tag().data(), this->battle_tag().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "battle_tag");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_manual_review;
+        break;
+      }
+
+      // optional bool manual_review = 4 [default = false];
+      case 4: {
+        if (tag == 32) {
+         parse_manual_review:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &manual_review_)));
+          set_has_manual_review();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_identity;
+        break;
+      }
+
+      // optional .Battlenet.Identity identity = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_identity:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_identity()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(48)) goto parse_account_muted;
+        break;
+      }
+
+      // optional bool account_muted = 6 [default = false];
+      case 6: {
+        if (tag == 48) {
+         parse_account_muted:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &account_muted_)));
+          set_has_account_muted();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.AccountInfo)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.AccountInfo)
+  return false;
+#undef DO_
+}
+
+void AccountInfo::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.AccountInfo)
+  // optional bool account_paid = 1 [default = false];
+  if (has_account_paid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(1, this->account_paid(), output);
+  }
+
+  // optional fixed32 country_id = 2 [default = 0];
+  if (has_country_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(2, this->country_id(), output);
+  }
+
+  // optional string battle_tag = 3;
+  if (has_battle_tag()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->battle_tag().data(), this->battle_tag().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "battle_tag");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->battle_tag(), output);
+  }
+
+  // optional bool manual_review = 4 [default = false];
+  if (has_manual_review()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(4, this->manual_review(), output);
+  }
+
+  // optional .Battlenet.Identity identity = 5;
+  if (has_identity()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->identity(), output);
+  }
+
+  // optional bool account_muted = 6 [default = false];
+  if (has_account_muted()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(6, this->account_muted(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.AccountInfo)
+}
+
+::google::protobuf::uint8* AccountInfo::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.AccountInfo)
+  // optional bool account_paid = 1 [default = false];
+  if (has_account_paid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(1, this->account_paid(), target);
+  }
+
+  // optional fixed32 country_id = 2 [default = 0];
+  if (has_country_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed32ToArray(2, this->country_id(), target);
+  }
+
+  // optional string battle_tag = 3;
+  if (has_battle_tag()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->battle_tag().data(), this->battle_tag().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "battle_tag");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->battle_tag(), target);
+  }
+
+  // optional bool manual_review = 4 [default = false];
+  if (has_manual_review()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(4, this->manual_review(), target);
+  }
+
+  // optional .Battlenet.Identity identity = 5;
+  if (has_identity()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->identity(), target);
+  }
+
+  // optional bool account_muted = 6 [default = false];
+  if (has_account_muted()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(6, this->account_muted(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.AccountInfo)
+  return target;
+}
+
+int AccountInfo::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional bool account_paid = 1 [default = false];
+    if (has_account_paid()) {
+      total_size += 1 + 1;
+    }
+
+    // optional fixed32 country_id = 2 [default = 0];
+    if (has_country_id()) {
+      total_size += 1 + 4;
+    }
+
+    // optional string battle_tag = 3;
+    if (has_battle_tag()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->battle_tag());
+    }
+
+    // optional bool manual_review = 4 [default = false];
+    if (has_manual_review()) {
+      total_size += 1 + 1;
+    }
+
+    // optional .Battlenet.Identity identity = 5;
+    if (has_identity()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->identity());
+    }
+
+    // optional bool account_muted = 6 [default = false];
+    if (has_account_muted()) {
+      total_size += 1 + 1;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void AccountInfo::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const AccountInfo* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const AccountInfo*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void AccountInfo::MergeFrom(const AccountInfo& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_account_paid()) {
+      set_account_paid(from.account_paid());
+    }
+    if (from.has_country_id()) {
+      set_country_id(from.country_id());
+    }
+    if (from.has_battle_tag()) {
+      set_battle_tag(from.battle_tag());
+    }
+    if (from.has_manual_review()) {
+      set_manual_review(from.manual_review());
+    }
+    if (from.has_identity()) {
+      mutable_identity()->::Battlenet::Identity::MergeFrom(from.identity());
+    }
+    if (from.has_account_muted()) {
+      set_account_muted(from.account_muted());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void AccountInfo::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void AccountInfo::CopyFrom(const AccountInfo& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AccountInfo::IsInitialized() const {
+
+  if (has_identity()) {
+    if (!this->identity().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void AccountInfo::Swap(AccountInfo* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(account_paid_, other->account_paid_);
+    std::swap(country_id_, other->country_id_);
+    std::swap(battle_tag_, other->battle_tag_);
+    std::swap(manual_review_, other->manual_review_);
+    std::swap(identity_, other->identity_);
+    std::swap(account_muted_, other->account_muted_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata AccountInfo::GetMetadata() const {

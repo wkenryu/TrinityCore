@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -60,7 +61,7 @@ void protobuf_AddDesc_method_5foptions_2eproto() {
     "\n\024method_options.proto\022\tBattlenet\032 googl"
     "e/protobuf/descriptor.proto:3\n\tmethod_id"
     "\022\036.google.protobuf.MethodOptions\030\320\206\003 \001(\r"
-    "B\002H\002", 124);
+    "B\002H\001", 124);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "method_options.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::ExtensionSet::RegisterExtension(

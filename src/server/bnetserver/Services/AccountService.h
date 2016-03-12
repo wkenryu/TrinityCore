@@ -19,7 +19,6 @@
 #define AccountService_h__
 
 #include "Common.h"
-#include "ServiceBase.h"
 #include "account_service.pb.h"
 
 namespace pb = google::protobuf;
@@ -30,16 +29,12 @@ namespace Battlenet
 
     namespace Service
     {
-        class Account : public ServiceBase<account::AccountService>
+        class Account : public account::AccountService
         {
-            typedef ServiceBase<account::AccountService> AccountServiceBase;
-
         public:
-            typedef std::integral_constant<uint32, 0x62DA0891> Hash;
-
             Account(Session* session);
 
-            void GetGameAccountState(pb::RpcController* controller, account::GetGameAccountStateRequest const* request, account::GetGameAccountStateResponse* response, pb::Closure* done) override;
+            uint32 HandleGetGameAccountState(account::GetGameAccountStateRequest const* request, account::GetGameAccountStateResponse* response) override;
         };
     }
 }

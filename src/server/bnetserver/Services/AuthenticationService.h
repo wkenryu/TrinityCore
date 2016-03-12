@@ -19,7 +19,6 @@
 #define AuthenticationService_h__
 
 #include "Common.h"
-#include "ServiceBase.h"
 #include "authentication_service.pb.h"
 
 namespace pb = google::protobuf;
@@ -30,17 +29,14 @@ namespace Battlenet
 
     namespace Service
     {
-        class Authentication : public ServiceBase<authentication::AuthenticationService>
+        class Authentication : public authentication::AuthenticationService
         {
-            typedef ServiceBase<authentication::AuthenticationService> AuthenticationServiceBase;
-
         public:
-            typedef std::integral_constant<uint32, 0x0DECFC01> Hash;
-
             Authentication(Session* session);
 
-            void Logon(pb::RpcController* controller, authentication::LogonRequest const* request, NoData* response, pb::Closure* done) override;
-            void VerifyWebCredentials(pb::RpcController* controller, authentication::VerifyWebCredentialsRequest const* request, NoData* response, pb::Closure* done) override;
+            uint32 HandleLogon(authentication::LogonRequest const* request, NoData* respons) override;
+            uint32 HandleVerifyWebCredentials(authentication::VerifyWebCredentialsRequest const* request, NoData* respons) override;
+
         };
     }
 }

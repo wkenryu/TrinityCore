@@ -22,8 +22,8 @@
 #include "LoginRESTService.h"
 #include "ProtobufJSON.h"
 #include "RealmList.h"
+#include "ServiceDispatcher.h"
 #include "SHA256.h"
-#include "challenge_service.pb.h"
 #include "JSONStructures.pb.h"
 #include "rpc_types.pb.h"
 #include <zlib.h>
@@ -67,8 +67,7 @@ void Battlenet::Session::GameAccountInfo::LoadResult(Field* fields)
 }
 
 Battlenet::Session::Session(tcp::socket&& socket) : BattlenetSocket(std::move(socket)), _accountInfo(new AccountInfo()), _gameAccountInfo(nullptr), _locale(),
-    _os(), _build(0), _ipCountry(), K(), _authed(false), _subscribedToRealmListUpdates(false), _toonOnline(false),
-    _accountService(this), _authenticationService(this), _connectionService(this), _gameUtilitiesService(this), _requestToken(0)
+    _os(), _build(0), _ipCountry(), K(), _authed(false), _subscribedToRealmListUpdates(false), _toonOnline(false), _requestToken(0)
 {
     _headerLengthBuffer.Resize(2);
 }
@@ -153,7 +152,6 @@ void Battlenet::Session::AsyncWrite(MessageBuffer* packet)
 void Battlenet::Session::SendResponse(uint32 token, pb::Message* response)
 {
     Header header;
-    header.set_is_response(true);
     header.set_token(token);
     header.set_service_id(0xFE);
     header.set_size(response->ByteSize());
@@ -173,15 +171,31 @@ void Battlenet::Session::SendResponse(uint32 token, pb::Message* response)
     AsyncWrite(&packet);
 }
 
-void Battlenet::Session::CallMethod(pb::MethodDescriptor const* method, pb::RpcController* /*controller*/, pb::Message const* request, pb::Message* /*response*/, pb::Closure* done)
+void Battlenet::Session::SendResponse(uint32 token, uint32 status)
 {
-    TC_LOG_INFO("session.rpc", "%s Server called client method %s with %s { %s }", GetClientInfo().c_str(),
-        method->full_name().c_str(), request->GetTypeName().c_str(), request->ShortDebugString().c_str());
+    Header header;
+    header.set_token(token);
+    header.set_status(status);
+    header.set_service_id(0xFE);
 
+    uint16 headerSize = header.ByteSize();
+    EndianConvertReverse(headerSize);
+
+    MessageBuffer packet;
+    packet.Write(&headerSize, sizeof(headerSize));
+    uint8* ptr = packet.GetWritePointer();
+    packet.WriteCompleted(header.ByteSize());
+    header.SerializeToArray(ptr, header.ByteSize());
+
+    AsyncWrite(&packet);
+}
+
+void Battlenet::Session::SendRequest(uint32 serviceHash, uint32 methodId, pb::Message const* request)
+{
     Header header;
     header.set_service_id(0);
-    header.set_service_hash(HashServiceName(method->service()->options().GetExtension(original_fully_qualified_descriptor_name)));
-    header.set_method_id(method->options().GetExtension(method_id));
+    header.set_service_hash(serviceHash);
+    header.set_method_id(methodId);
     header.set_size(request->ByteSize());
     header.set_token(_requestToken++);
 
@@ -197,14 +211,29 @@ void Battlenet::Session::CallMethod(pb::MethodDescriptor const* method, pb::RpcC
     packet.WriteCompleted(request->ByteSize());
     request->SerializeToArray(ptr, request->ByteSize());
 
-    if (done)
-        _responseCallbacks[header.token()].reset(static_cast<RpcCallback*>(done));
-
     AsyncWrite(&packet);
 }
 
-void Battlenet::Session::HandleLogon(authentication::LogonRequest const* logonRequest)
+uint32 Battlenet::Session::HandleLogon(authentication::LogonRequest const* logonRequest)
 {
+    if (logonRequest->program() != "WoW")
+    {
+        TC_LOG_DEBUG("session", "[Battlenet::LogonRequest] %s attempted to log in with game other than WoW (using %s)!", GetClientInfo().c_str(), logonRequest->program().c_str());
+        return ERROR_BAD_PROGRAM;
+    }
+
+    if (logonRequest->platform() != "Win" && logonRequest->platform() != "Wn64" && logonRequest->platform() != "Mc64")
+    {
+        TC_LOG_DEBUG("session", "[Battlenet::LogonRequest] %s attempted to log in from an unsupported platform (using %s)!", GetClientInfo().c_str(), logonRequest->platform().c_str());
+        return ERROR_BAD_PLATFORM;
+    }
+
+    if (GetLocaleByName(logonRequest->locale()) == LOCALE_enUS && logonRequest->locale() != "enUS")
+    {
+        TC_LOG_DEBUG("session", "[Battlenet::LogonRequest] %s attempted to log in with unsupported locale (using %s)!", GetClientInfo().c_str(), logonRequest->locale().c_str());
+        return ERROR_BAD_LOCALE;
+    }
+
     _locale = logonRequest->locale();
     _os = logonRequest->platform();
 
@@ -213,18 +242,19 @@ void Battlenet::Session::HandleLogon(authentication::LogonRequest const* logonRe
     challenge::ChallengeExternalRequest externalChallenge;
     externalChallenge.set_payload_type("web_auth_url");
     externalChallenge.set_payload(Trinity::StringFormat("https://%s:%u/bnetserver/login/", endpoint.address().to_string().c_str(), endpoint.port()));
-    challenge::ChallengeListener_Stub(this).OnExternalChallenge(nullptr, &externalChallenge, nullptr, nullptr);
+    challenge::ChallengeListener(this).OnExternalChallenge(&externalChallenge);
+    return ERROR_OK;
 }
 
-void Battlenet::Session::HandleVerifyWebCredentials(authentication::VerifyWebCredentialsRequest const* verifyWebCredentialsRequest)
+uint32 Battlenet::Session::HandleVerifyWebCredentials(authentication::VerifyWebCredentialsRequest const* verifyWebCredentialsRequest)
 {
     authentication::LogonResult logonResult;
     logonResult.set_error_code(0);
     _accountInfo = sSessionMgr.VerifyLoginTicket(verifyWebCredentialsRequest->web_credentials());
     if (!_accountInfo)
     {
-        authentication::AuthenticationListener_Stub(this).OnLogonComplete(nullptr, &logonResult, nullptr, nullptr);
-        return;
+        authentication::AuthenticationListener(this).OnLogonComplete(&logonResult);
+        return ERROR_OK;
     }
 
     K.SetRand(8 * 64);
@@ -246,10 +276,11 @@ void Battlenet::Session::HandleVerifyWebCredentials(authentication::VerifyWebCre
 
     logonResult.set_session_key(K.AsByteArray(64).get(), 64);
 
-    authentication::AuthenticationListener_Stub(this).OnLogonComplete(nullptr, &logonResult, nullptr, nullptr);
+    authentication::AuthenticationListener(this).OnLogonComplete(&logonResult);
+    return ERROR_OK;
 }
 
-void Battlenet::Session::HandleGetGameAccountState(account::GetGameAccountStateRequest const* request, account::GetGameAccountStateResponse* response)
+uint32 Battlenet::Session::HandleGetGameAccountState(account::GetGameAccountStateRequest const* request, account::GetGameAccountStateResponse* response)
 {
     if (request->options().field_game_level_info())
     {
@@ -262,6 +293,8 @@ void Battlenet::Session::HandleGetGameAccountState(account::GetGameAccountStateR
 
         response->mutable_tags()->set_game_level_info_tag(0x5C46D483);
     }
+
+    return ERROR_OK;
 }
 
 std::unordered_map<std::string, Battlenet::Session::ClientRequestHandler> const Battlenet::Session::ClientRequestHandlers =
@@ -272,7 +305,7 @@ std::unordered_map<std::string, Battlenet::Session::ClientRequestHandler> const 
     { "Command_RealmJoinRequest_v1_b9", &Battlenet::Session::JoinRealm },
 };
 
-void Battlenet::Session::HandleProcessClientRequest(game_utilities::ClientRequest const* request, game_utilities::ClientResponse* response)
+uint32 Battlenet::Session::HandleProcessClientRequest(game_utilities::ClientRequest const* request, game_utilities::ClientResponse* response)
 {
     Attribute const* command = nullptr;
     std::unordered_map<std::string, Variant const*> params;
@@ -288,17 +321,17 @@ void Battlenet::Session::HandleProcessClientRequest(game_utilities::ClientReques
     if (!command)
     {
         TC_LOG_ERROR("session.rpc", "%s sent ClientRequest with no command.", GetClientInfo().c_str());
-        return;
+        return ERROR_RPC_MALFORMED_REQUEST;
     }
 
     auto itr = ClientRequestHandlers.find(command->name());
     if (itr == ClientRequestHandlers.end())
     {
         TC_LOG_ERROR("session.rpc", "%s sent ClientRequest with unknown command %s.", GetClientInfo().c_str(), command->name().c_str());
-        return;
+        return ERROR_RPC_NOT_IMPLEMENTED;
     }
 
-    (this->*itr->second)(params, response);
+    return (this->*itr->second)(params, response);
 }
 
 inline Battlenet::Variant const* GetParam(std::unordered_map<std::string, Battlenet::Variant const*> const& params, char const* paramName)
@@ -307,7 +340,7 @@ inline Battlenet::Variant const* GetParam(std::unordered_map<std::string, Battle
     return itr != params.end() ? itr->second : nullptr;
 }
 
-void Battlenet::Session::GetRealmListTicket(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response)
+uint32 Battlenet::Session::GetRealmListTicket(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response)
 {
     if (Variant const* identity = GetParam(params, "Param_Identity"))
     {
@@ -320,6 +353,9 @@ void Battlenet::Session::GetRealmListTicket(std::unordered_map<std::string, Vari
                 _gameAccountInfo = &itr->second;
         }
     }
+
+    if (!_gameAccountInfo)
+        return ERROR_UTIL_SERVER_INVALID_IDENTITY_ARGS;
 
     if (Variant const* clientInfo = GetParam(params, "Param_ClientInfo"))
     {
@@ -335,43 +371,46 @@ void Battlenet::Session::GetRealmListTicket(std::unordered_map<std::string, Vari
         }
     }
 
-    if (_gameAccountInfo && _build)
-    {
-        SQLTransaction trans = LoginDatabase.BeginTransaction();
+    if (!_build)
+        return ERROR_WOW_SERVICES_DENIED_REALM_LIST_TICKET;
 
-        PreparedStatement* stmt = LoginDatabase.GetPreparedStatement(LOGIN_UPD_BNET_LAST_LOGIN_INFO);
-        stmt->setString(0, GetRemoteIpAddress().to_string());
-        stmt->setUInt8(1, GetLocaleByName(_locale));
-        stmt->setString(2, _os);
-        stmt->setUInt32(3, _accountInfo->Id);
-        trans->Append(stmt);
+    SQLTransaction trans = LoginDatabase.BeginTransaction();
 
-        stmt = LoginDatabase.GetPreparedStatement(LOGIN_UPD_BNET_SESSION_KEY);
-        stmt->setString(0, K.AsHexStr());
-        stmt->setBool(1, true);
-        stmt->setUInt32(2, _accountInfo->Id);
-        trans->Append(stmt);
+    PreparedStatement* stmt = LoginDatabase.GetPreparedStatement(LOGIN_UPD_BNET_LAST_LOGIN_INFO);
+    stmt->setString(0, GetRemoteIpAddress().to_string());
+    stmt->setUInt8(1, GetLocaleByName(_locale));
+    stmt->setString(2, _os);
+    stmt->setUInt32(3, _accountInfo->Id);
+    trans->Append(stmt);
 
-        LoginDatabase.CommitTransaction(trans);
+    stmt = LoginDatabase.GetPreparedStatement(LOGIN_UPD_BNET_SESSION_KEY);
+    stmt->setString(0, K.AsHexStr());
+    stmt->setBool(1, true);
+    stmt->setUInt32(2, _accountInfo->Id);
+    trans->Append(stmt);
 
-        _authed = true;
-        sSessionMgr.AddSession(this);
+    LoginDatabase.CommitTransaction(trans);
 
-        Attribute* attribute = response->add_attribute();
-        attribute->set_name("Param_RealmListTicket");
-        attribute->mutable_value()->set_blob_value("ListTicket");
-    }
+    _authed = true;
+    sSessionMgr.AddSession(this);
+
+    Attribute* attribute = response->add_attribute();
+    attribute->set_name("Param_RealmListTicket");
+    attribute->mutable_value()->set_blob_value("ListTicket");
+
+    return ERROR_OK;
 }
 
-void Battlenet::Session::GetLastCharPlayed(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response)
+uint32 Battlenet::Session::GetLastCharPlayed(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response)
 {
     // TODO: this is important for rejoining last played realm, realmName cvar was removed
+    return ERROR_OK;
 }
 
-void Battlenet::Session::GetRealmList(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response)
+uint32 Battlenet::Session::GetRealmList(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response)
 {
     if (!_gameAccountInfo)
-        return;
+        return ERROR_USER_SERVER_BAD_WOW_ACCOUNT;
 
     std::string subRegionId;
     if (Variant const* subRegion = GetParam(params, "Command_RealmListRequest_v1_b9"))
@@ -427,7 +466,7 @@ void Battlenet::Session::GetRealmList(std::unordered_map<std::string, Variant co
     *reinterpret_cast<uint32*>(compressed.data()) = json.length() + 1;
 
     if (compress(compressed.data() + 4, &compressedLength, reinterpret_cast<uint8 const*>(json.c_str()), json.length() + 1) != Z_OK)
-        return;
+        return ERROR_UTIL_SERVER_FAILED_TO_SERIALIZE_RESPONSE;
 
     Attribute* attribute = response->add_attribute();
     attribute->set_name("Param_RealmList");
@@ -455,21 +494,22 @@ void Battlenet::Session::GetRealmList(std::unordered_map<std::string, Variant co
     *reinterpret_cast<uint32*>(compressed.data()) = json.length() + 1;
 
     if (compress(compressed.data() + 4, &compressedLength, reinterpret_cast<uint8 const*>(json.c_str()), json.length() + 1) != Z_OK)
-        return;
+        return ERROR_UTIL_SERVER_FAILED_TO_SERIALIZE_RESPONSE;
 
     attribute = response->add_attribute();
     attribute->set_name("Param_CharacterCountList");
     attribute->mutable_value()->set_blob_value(compressed.data(), compressedLength + 4);
+    return ERROR_OK;
 }
 
-void Battlenet::Session::JoinRealm(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response)
+uint32 Battlenet::Session::JoinRealm(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response)
 {
     if (Variant const* realmAddress = GetParam(params, "Param_RealmAddress"))
     {
         if (Realm const* realm = sRealmList->GetRealm(RealmHandle(realmAddress->uint_value())))
         {
             if (realm->Flags & (REALM_FLAG_OFFLINE | REALM_FLAG_VERSION_MISMATCH) || realm->Build != _build)
-                return;
+                return ERROR_USER_SERVER_NOT_PERMITTED_ON_REALM;
 
             JSON::RealmListServerIPAddresses serverAddresses;
             JSON::RealmIPAddressFamily* addressFamily = serverAddresses.add_families();
@@ -486,7 +526,7 @@ void Battlenet::Session::JoinRealm(std::unordered_map<std::string, Variant const
             *reinterpret_cast<uint32*>(compressed.data()) = json.length() + 1;
 
             if (compress(compressed.data() + 4, &compressedLength, reinterpret_cast<uint8 const*>(json.c_str()), json.length() + 1) != Z_OK)
-                return;
+                return ERROR_UTIL_SERVER_FAILED_TO_SERIALIZE_RESPONSE;
 
             BigNumber serverSecret;
             serverSecret.SetRand(8 * 32);
@@ -511,15 +551,26 @@ void Battlenet::Session::JoinRealm(std::unordered_map<std::string, Variant const
             attribute = response->add_attribute();
             attribute->set_name("Param_JoinSecret");
             attribute->mutable_value()->set_blob_value(serverSecret.AsByteArray(32).get(), 32);
+            return ERROR_OK;
         }
+
+        return ERROR_UTIL_SERVER_UNKNOWN_REALM;
     }
+
+    return ERROR_WOW_SERVICES_INVALID_JOIN_TICKET;
 }
 
-void Battlenet::Session::HandleGetAllValuesForAttribute(game_utilities::GetAllValuesForAttributeRequest const* request, game_utilities::GetAllValuesForAttributeResponse* response)
+uint32 Battlenet::Session::HandleGetAllValuesForAttribute(game_utilities::GetAllValuesForAttributeRequest const* request, game_utilities::GetAllValuesForAttributeResponse* response)
 {
     if (request->attribute_key() == "Command_RealmListRequest_v1_b9")
+    {
         for (std::string const& subRegion : sRealmList->GetSubRegions())
             response->add_attribute_value()->set_string_value(subRegion);
+
+        return ERROR_OK;
+    }
+
+    return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
 void Battlenet::Session::HandshakeHandler(boost::system::error_code const& error)
@@ -614,31 +665,14 @@ bool Battlenet::Session::ReadDataHandler()
 
     if (header.service_id() != 0xFE)
     {
-        switch (header.service_hash())
-        {
-            case Service::Account::Hash::value:
-                _accountService.HandleMessage(header.method_id(), header.token(), std::move(_packetBuffer));
-                break;
-            case Service::Authentication::Hash::value:
-                _authenticationService.HandleMessage(header.method_id(), header.token(), std::move(_packetBuffer));
-                break;
-            case Service::Connection::Hash::value:
-                _connectionService.HandleMessage(header.method_id(), header.token(), std::move(_packetBuffer));
-                break;
-            case Service::GameUtilities::Hash::value:
-                _gameUtilitiesService.HandleMessage(header.method_id(), header.token(), std::move(_packetBuffer));
-                break;
-            default:
-                TC_LOG_INFO("session.rpc", "Unhandled service_hash 0x%X method_id %u", header.service_hash(), header.method_id());
-                break;
-        }
+        sServiceDispatcher.Dispatch(this, header.service_hash(), header.token(), header.method_id(), std::move(_packetBuffer));
     }
     else
     {
         auto itr = _responseCallbacks.find(header.token());
         if (itr != _responseCallbacks.end())
         {
-            itr->second->Invoke(std::move(_packetBuffer));
+            itr->second(std::move(_packetBuffer));
             _responseCallbacks.erase(header.token());
         }
         else

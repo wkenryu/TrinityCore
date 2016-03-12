@@ -69,6 +69,19 @@ class PlayerVariables : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   PlayerVariables* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PlayerVariables& from);
+  void MergeFrom(const PlayerVariables& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -160,6 +173,19 @@ class ClientInfo : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ClientInfo* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ClientInfo& from);
+  void MergeFrom(const ClientInfo& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -211,6 +237,9 @@ class ClientInfo : public ::google::protobuf::Message {
   void InitAsDefaultInstance();
   static ClientInfo* default_instance_;
 };
+// ===================================================================
+
+
 // ===================================================================
 
 

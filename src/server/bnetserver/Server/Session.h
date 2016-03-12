@@ -23,13 +23,11 @@
 #include "Socket.h"
 #include "BigNumber.h"
 #include "Callback.h"
-#include "AccountService.h"
-#include "AuthenticationService.h"
-#include "ConnectionService.h"
-#include "GameUtilitiesService.h"
-#include <memory>
+#include "ErrorCodes.h"
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl.hpp>
+#include <google/protobuf/message.h>
+#include <memory>
 
 struct Realm;
 using boost::asio::ip::tcp;
@@ -38,7 +36,29 @@ namespace pb = google::protobuf;
 
 namespace Battlenet
 {
-    class Session : public Socket<Session, SslSocket<SslContext>>, public pb::RpcChannel
+    class Variant;
+
+    namespace account
+    {
+        class GetGameAccountStateRequest;
+        class GetGameAccountStateResponse;
+    }
+
+    namespace authentication
+    {
+        class LogonRequest;
+        class VerifyWebCredentialsRequest;
+    }
+
+    namespace game_utilities
+    {
+        class ClientRequest;
+        class ClientResponse;
+        class GetAllValuesForAttributeRequest;
+        class GetAllValuesForAttributeResponse;
+    }
+
+    class Session : public Socket<Session, SslSocket<SslContext>>
     {
         typedef Socket<Session, SslSocket<SslContext>> BattlenetSocket;
 
@@ -85,15 +105,23 @@ namespace Battlenet
 
         bool IsSubscribedToRealmListUpdates() const { return _subscribedToRealmListUpdates; }
 
-        void AsyncWrite(MessageBuffer* packet);
         void SendResponse(uint32 token, pb::Message* response);
-        void CallMethod(pb::MethodDescriptor const* method, pb::RpcController* controller, pb::Message const* request, pb::Message* response, pb::Closure* done) override;
+        void SendResponse(uint32 token, uint32 status);
 
-        void HandleLogon(authentication::LogonRequest const* logonRequest);
-        void HandleVerifyWebCredentials(authentication::VerifyWebCredentialsRequest const* verifyWebCredentialsRequest);
-        void HandleGetGameAccountState(account::GetGameAccountStateRequest const* request, account::GetGameAccountStateResponse* response);
-        void HandleProcessClientRequest(game_utilities::ClientRequest const* request, game_utilities::ClientResponse* response);
-        void HandleGetAllValuesForAttribute(game_utilities::GetAllValuesForAttributeRequest const* request, game_utilities::GetAllValuesForAttributeResponse* response);
+        template<class ResponseType, void(Session::*Handler)(ResponseType const*)>
+        void SendRequestWithCallback(uint32 serviceHash, uint32 methodId, pb::Message const* request)
+        {
+            _responseCallbacks[_requestToken] = std::bind(&Session::HandleResponse<ResponseType, Handler>, this);
+            SendRequest(serviceHash, methodId, request);
+        }
+
+        void SendRequest(uint32 serviceHash, uint32 methodId, pb::Message const* request);
+
+        uint32 HandleLogon(authentication::LogonRequest const* logonRequest);
+        uint32 HandleVerifyWebCredentials(authentication::VerifyWebCredentialsRequest const* verifyWebCredentialsRequest);
+        uint32 HandleGetGameAccountState(account::GetGameAccountStateRequest const* request, account::GetGameAccountStateResponse* response);
+        uint32 HandleProcessClientRequest(game_utilities::ClientRequest const* request, game_utilities::ClientResponse* response);
+        uint32 HandleGetAllValuesForAttribute(game_utilities::GetAllValuesForAttributeRequest const* request, game_utilities::GetAllValuesForAttributeResponse* response);
 
         std::string GetClientInfo() const;
 
@@ -105,17 +133,27 @@ namespace Battlenet
         bool ReadDataHandler();
 
     private:
+        void AsyncWrite(MessageBuffer* packet);
+
+        template<class ResponseType, void(Session::*Handler)(ResponseType const*)>
+        void HandleResponse(MessageBuffer buffer)
+        {
+            ResponseType message;
+            if (message.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize()))
+                this->*Handler(&message);
+        }
+
         void AsyncHandshake();
 
         void CheckIpCallback(PreparedQueryResult result);
 
-        typedef void(Session::*ClientRequestHandler)(std::unordered_map<std::string, Battlenet::Variant const*> const&, Battlenet::game_utilities::ClientResponse*);
+        typedef uint32(Session::*ClientRequestHandler)(std::unordered_map<std::string, Battlenet::Variant const*> const&, Battlenet::game_utilities::ClientResponse*);
         static std::unordered_map<std::string, ClientRequestHandler> const ClientRequestHandlers;
 
-        void GetRealmListTicket(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response);
-        void GetLastCharPlayed(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response);
-        void GetRealmList(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response);
-        void JoinRealm(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response);
+        uint32 GetRealmListTicket(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response);
+        uint32 GetLastCharPlayed(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response);
+        uint32 GetRealmList(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response);
+        uint32 JoinRealm(std::unordered_map<std::string, Variant const*> const& params, game_utilities::ClientResponse* response);
 
         MessageBuffer _headerLengthBuffer;
         MessageBuffer _headerBuffer;
@@ -140,12 +178,7 @@ namespace Battlenet
         PreparedQueryResultFuture _queryFuture;
         std::function<void(PreparedQueryResult)> _queryCallback;
 
-        Service::Account _accountService;
-        Service::Authentication _authenticationService;
-        Service::Connection _connectionService;
-        Service::GameUtilities _gameUtilitiesService;
-
-        std::unordered_map<uint32, std::unique_ptr<RpcCallback>> _responseCallbacks;
+        std::unordered_map<uint32, std::function<void(MessageBuffer)>> _responseCallbacks;
         uint32 _requestToken;
     };
 }

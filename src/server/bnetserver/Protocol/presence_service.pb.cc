@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -265,7 +266,7 @@ void protobuf_AddDesc_presence_5fservice_2eproto() {
     "ification\0220.Battlenet.presence.Subscribe"
     "NotificationRequest\032\021.Battlenet.NoData\"\004"
     "\200\265\030\007\032)\312>&bnet.protocol.presence.Presence"
-    "ServiceB\005H\002\200\001\001", 1494);
+    "ServiceB\005H\001\200\001\000", 1494);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "presence_service.proto", &protobuf_RegisterTypes);
   SubscribeRequest::default_instance_ = new SubscribeRequest();
@@ -362,9 +363,323 @@ SubscribeRequest* SubscribeRequest::New() const {
   return new SubscribeRequest;
 }
 
+void SubscribeRequest::Clear() {
+  if (_has_bits_[0 / 32] & 23) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_entity_id()) {
+      if (entity_id_ != NULL) entity_id_->::Battlenet::EntityId::Clear();
+    }
+    object_id_ = GOOGLE_ULONGLONG(0);
+    flag_public_ = true;
+  }
+  program_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SubscribeRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.presence.SubscribeRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_entity_id;
+        break;
+      }
+
+      // required .Battlenet.EntityId entity_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_entity_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_entity_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_object_id;
+        break;
+      }
+
+      // required uint64 object_id = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_object_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &object_id_)));
+          set_has_object_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(37)) goto parse_program;
+        break;
+      }
+
+      // repeated fixed32 program = 4;
+      case 4: {
+        if (tag == 37) {
+         parse_program:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 1, 37, input, this->mutable_program())));
+        } else if (tag == 34) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED32>(
+                 input, this->mutable_program())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(37)) goto parse_program;
+        if (input->ExpectTag(40)) goto parse_flag_public;
+        break;
+      }
+
+      // optional bool flag_public = 5 [default = true, deprecated = true];
+      case 5: {
+        if (tag == 40) {
+         parse_flag_public:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &flag_public_)));
+          set_has_flag_public();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.presence.SubscribeRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.presence.SubscribeRequest)
+  return false;
+#undef DO_
+}
+
+void SubscribeRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.presence.SubscribeRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // required .Battlenet.EntityId entity_id = 2;
+  if (has_entity_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->entity_id(), output);
+  }
+
+  // required uint64 object_id = 3;
+  if (has_object_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(3, this->object_id(), output);
+  }
+
+  // repeated fixed32 program = 4;
+  for (int i = 0; i < this->program_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed32(
+      4, this->program(i), output);
+  }
+
+  // optional bool flag_public = 5 [default = true, deprecated = true];
+  if (has_flag_public()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(5, this->flag_public(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.presence.SubscribeRequest)
+}
+
+::google::protobuf::uint8* SubscribeRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.presence.SubscribeRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // required .Battlenet.EntityId entity_id = 2;
+  if (has_entity_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->entity_id(), target);
+  }
+
+  // required uint64 object_id = 3;
+  if (has_object_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(3, this->object_id(), target);
+  }
+
+  // repeated fixed32 program = 4;
+  for (int i = 0; i < this->program_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteFixed32ToArray(4, this->program(i), target);
+  }
+
+  // optional bool flag_public = 5 [default = true, deprecated = true];
+  if (has_flag_public()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(5, this->flag_public(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.presence.SubscribeRequest)
+  return target;
+}
+
+int SubscribeRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // required .Battlenet.EntityId entity_id = 2;
+    if (has_entity_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->entity_id());
+    }
+
+    // required uint64 object_id = 3;
+    if (has_object_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->object_id());
+    }
+
+    // optional bool flag_public = 5 [default = true, deprecated = true];
+    if (has_flag_public()) {
+      total_size += 1 + 1;
+    }
+
+  }
+  // repeated fixed32 program = 4;
+  {
+    int data_size = 0;
+    data_size = 4 * this->program_size();
+    total_size += 1 * this->program_size() + data_size;
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SubscribeRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SubscribeRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SubscribeRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SubscribeRequest::MergeFrom(const SubscribeRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  program_.MergeFrom(from.program_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_entity_id()) {
+      mutable_entity_id()->::Battlenet::EntityId::MergeFrom(from.entity_id());
+    }
+    if (from.has_object_id()) {
+      set_object_id(from.object_id());
+    }
+    if (from.has_flag_public()) {
+      set_flag_public(from.flag_public());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SubscribeRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SubscribeRequest::CopyFrom(const SubscribeRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SubscribeRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000006) != 0x00000006) return false;
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  if (has_entity_id()) {
+    if (!this->entity_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void SubscribeRequest::Swap(SubscribeRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(entity_id_, other->entity_id_);
+    std::swap(object_id_, other->object_id_);
+    program_.Swap(&other->program_);
+    std::swap(flag_public_, other->flag_public_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata SubscribeRequest::GetMetadata() const {
@@ -437,9 +752,165 @@ SubscribeNotificationRequest* SubscribeNotificationRequest::New() const {
   return new SubscribeNotificationRequest;
 }
 
+void SubscribeNotificationRequest::Clear() {
+  if (has_entity_id()) {
+    if (entity_id_ != NULL) entity_id_->::Battlenet::EntityId::Clear();
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SubscribeNotificationRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.presence.SubscribeNotificationRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.EntityId entity_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_entity_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.presence.SubscribeNotificationRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.presence.SubscribeNotificationRequest)
+  return false;
+#undef DO_
+}
+
+void SubscribeNotificationRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.presence.SubscribeNotificationRequest)
+  // required .Battlenet.EntityId entity_id = 1;
+  if (has_entity_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->entity_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.presence.SubscribeNotificationRequest)
+}
+
+::google::protobuf::uint8* SubscribeNotificationRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.presence.SubscribeNotificationRequest)
+  // required .Battlenet.EntityId entity_id = 1;
+  if (has_entity_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->entity_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.presence.SubscribeNotificationRequest)
+  return target;
+}
+
+int SubscribeNotificationRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.EntityId entity_id = 1;
+    if (has_entity_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->entity_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SubscribeNotificationRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SubscribeNotificationRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SubscribeNotificationRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SubscribeNotificationRequest::MergeFrom(const SubscribeNotificationRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_entity_id()) {
+      mutable_entity_id()->::Battlenet::EntityId::MergeFrom(from.entity_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SubscribeNotificationRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SubscribeNotificationRequest::CopyFrom(const SubscribeNotificationRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SubscribeNotificationRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_entity_id()) {
+    if (!this->entity_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void SubscribeNotificationRequest::Swap(SubscribeNotificationRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(entity_id_, other->entity_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata SubscribeNotificationRequest::GetMetadata() const {
@@ -518,9 +989,247 @@ UnsubscribeRequest* UnsubscribeRequest::New() const {
   return new UnsubscribeRequest;
 }
 
+void UnsubscribeRequest::Clear() {
+  if (_has_bits_[0 / 32] & 7) {
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_entity_id()) {
+      if (entity_id_ != NULL) entity_id_->::Battlenet::EntityId::Clear();
+    }
+    object_id_ = GOOGLE_ULONGLONG(0);
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool UnsubscribeRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.presence.UnsubscribeRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .Battlenet.EntityId agent_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_entity_id;
+        break;
+      }
+
+      // required .Battlenet.EntityId entity_id = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_entity_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_entity_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_object_id;
+        break;
+      }
+
+      // optional uint64 object_id = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_object_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &object_id_)));
+          set_has_object_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.presence.UnsubscribeRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.presence.UnsubscribeRequest)
+  return false;
+#undef DO_
+}
+
+void UnsubscribeRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.presence.UnsubscribeRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->agent_id(), output);
+  }
+
+  // required .Battlenet.EntityId entity_id = 2;
+  if (has_entity_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->entity_id(), output);
+  }
+
+  // optional uint64 object_id = 3;
+  if (has_object_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(3, this->object_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.presence.UnsubscribeRequest)
+}
+
+::google::protobuf::uint8* UnsubscribeRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.presence.UnsubscribeRequest)
+  // optional .Battlenet.EntityId agent_id = 1;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->agent_id(), target);
+  }
+
+  // required .Battlenet.EntityId entity_id = 2;
+  if (has_entity_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->entity_id(), target);
+  }
+
+  // optional uint64 object_id = 3;
+  if (has_object_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(3, this->object_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.presence.UnsubscribeRequest)
+  return target;
+}
+
+int UnsubscribeRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .Battlenet.EntityId agent_id = 1;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+    // required .Battlenet.EntityId entity_id = 2;
+    if (has_entity_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->entity_id());
+    }
+
+    // optional uint64 object_id = 3;
+    if (has_object_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->object_id());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void UnsubscribeRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const UnsubscribeRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const UnsubscribeRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void UnsubscribeRequest::MergeFrom(const UnsubscribeRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+    if (from.has_entity_id()) {
+      mutable_entity_id()->::Battlenet::EntityId::MergeFrom(from.entity_id());
+    }
+    if (from.has_object_id()) {
+      set_object_id(from.object_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void UnsubscribeRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UnsubscribeRequest::CopyFrom(const UnsubscribeRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UnsubscribeRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
+
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  if (has_entity_id()) {
+    if (!this->entity_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void UnsubscribeRequest::Swap(UnsubscribeRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(entity_id_, other->entity_id_);
+    std::swap(object_id_, other->object_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata UnsubscribeRequest::GetMetadata() const {
@@ -600,9 +1309,284 @@ UpdateRequest* UpdateRequest::New() const {
   return new UpdateRequest;
 }
 
+void UpdateRequest::Clear() {
+  if (_has_bits_[0 / 32] & 13) {
+    if (has_entity_id()) {
+      if (entity_id_ != NULL) entity_id_->::Battlenet::EntityId::Clear();
+    }
+    no_create_ = false;
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  field_operation_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool UpdateRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.presence.UpdateRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.EntityId entity_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_entity_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_field_operation;
+        break;
+      }
+
+      // repeated .Battlenet.presence.FieldOperation field_operation = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_field_operation:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_field_operation()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_field_operation;
+        if (input->ExpectTag(24)) goto parse_no_create;
+        break;
+      }
+
+      // optional bool no_create = 3 [default = false];
+      case 3: {
+        if (tag == 24) {
+         parse_no_create:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &no_create_)));
+          set_has_no_create();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_agent_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId agent_id = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_agent_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.presence.UpdateRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.presence.UpdateRequest)
+  return false;
+#undef DO_
+}
+
+void UpdateRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.presence.UpdateRequest)
+  // required .Battlenet.EntityId entity_id = 1;
+  if (has_entity_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->entity_id(), output);
+  }
+
+  // repeated .Battlenet.presence.FieldOperation field_operation = 2;
+  for (int i = 0; i < this->field_operation_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->field_operation(i), output);
+  }
+
+  // optional bool no_create = 3 [default = false];
+  if (has_no_create()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->no_create(), output);
+  }
+
+  // optional .Battlenet.EntityId agent_id = 4;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->agent_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.presence.UpdateRequest)
+}
+
+::google::protobuf::uint8* UpdateRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.presence.UpdateRequest)
+  // required .Battlenet.EntityId entity_id = 1;
+  if (has_entity_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->entity_id(), target);
+  }
+
+  // repeated .Battlenet.presence.FieldOperation field_operation = 2;
+  for (int i = 0; i < this->field_operation_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->field_operation(i), target);
+  }
+
+  // optional bool no_create = 3 [default = false];
+  if (has_no_create()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->no_create(), target);
+  }
+
+  // optional .Battlenet.EntityId agent_id = 4;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->agent_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.presence.UpdateRequest)
+  return target;
+}
+
+int UpdateRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.EntityId entity_id = 1;
+    if (has_entity_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->entity_id());
+    }
+
+    // optional bool no_create = 3 [default = false];
+    if (has_no_create()) {
+      total_size += 1 + 1;
+    }
+
+    // optional .Battlenet.EntityId agent_id = 4;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+  }
+  // repeated .Battlenet.presence.FieldOperation field_operation = 2;
+  total_size += 1 * this->field_operation_size();
+  for (int i = 0; i < this->field_operation_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->field_operation(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void UpdateRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const UpdateRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const UpdateRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void UpdateRequest::MergeFrom(const UpdateRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  field_operation_.MergeFrom(from.field_operation_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_entity_id()) {
+      mutable_entity_id()->::Battlenet::EntityId::MergeFrom(from.entity_id());
+    }
+    if (from.has_no_create()) {
+      set_no_create(from.no_create());
+    }
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void UpdateRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UpdateRequest::CopyFrom(const UpdateRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdateRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_entity_id()) {
+    if (!this->entity_id().IsInitialized()) return false;
+  }
+  if (!::google::protobuf::internal::AllAreInitialized(this->field_operation())) return false;
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void UpdateRequest::Swap(UpdateRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(entity_id_, other->entity_id_);
+    field_operation_.Swap(&other->field_operation_);
+    std::swap(no_create_, other->no_create_);
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata UpdateRequest::GetMetadata() const {
@@ -680,9 +1664,249 @@ QueryRequest* QueryRequest::New() const {
   return new QueryRequest;
 }
 
+void QueryRequest::Clear() {
+  if (_has_bits_[0 / 32] & 5) {
+    if (has_entity_id()) {
+      if (entity_id_ != NULL) entity_id_->::Battlenet::EntityId::Clear();
+    }
+    if (has_agent_id()) {
+      if (agent_id_ != NULL) agent_id_->::Battlenet::EntityId::Clear();
+    }
+  }
+  key_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool QueryRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.presence.QueryRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.EntityId entity_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_entity_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_key;
+        break;
+      }
+
+      // repeated .Battlenet.presence.FieldKey key = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_key:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_key()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_key;
+        if (input->ExpectTag(26)) goto parse_agent_id;
+        break;
+      }
+
+      // optional .Battlenet.EntityId agent_id = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_agent_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_agent_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.presence.QueryRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.presence.QueryRequest)
+  return false;
+#undef DO_
+}
+
+void QueryRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.presence.QueryRequest)
+  // required .Battlenet.EntityId entity_id = 1;
+  if (has_entity_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->entity_id(), output);
+  }
+
+  // repeated .Battlenet.presence.FieldKey key = 2;
+  for (int i = 0; i < this->key_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->key(i), output);
+  }
+
+  // optional .Battlenet.EntityId agent_id = 3;
+  if (has_agent_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->agent_id(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.presence.QueryRequest)
+}
+
+::google::protobuf::uint8* QueryRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.presence.QueryRequest)
+  // required .Battlenet.EntityId entity_id = 1;
+  if (has_entity_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->entity_id(), target);
+  }
+
+  // repeated .Battlenet.presence.FieldKey key = 2;
+  for (int i = 0; i < this->key_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->key(i), target);
+  }
+
+  // optional .Battlenet.EntityId agent_id = 3;
+  if (has_agent_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->agent_id(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.presence.QueryRequest)
+  return target;
+}
+
+int QueryRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.EntityId entity_id = 1;
+    if (has_entity_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->entity_id());
+    }
+
+    // optional .Battlenet.EntityId agent_id = 3;
+    if (has_agent_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->agent_id());
+    }
+
+  }
+  // repeated .Battlenet.presence.FieldKey key = 2;
+  total_size += 1 * this->key_size();
+  for (int i = 0; i < this->key_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->key(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void QueryRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const QueryRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const QueryRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void QueryRequest::MergeFrom(const QueryRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  key_.MergeFrom(from.key_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_entity_id()) {
+      mutable_entity_id()->::Battlenet::EntityId::MergeFrom(from.entity_id());
+    }
+    if (from.has_agent_id()) {
+      mutable_agent_id()->::Battlenet::EntityId::MergeFrom(from.agent_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void QueryRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void QueryRequest::CopyFrom(const QueryRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool QueryRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_entity_id()) {
+    if (!this->entity_id().IsInitialized()) return false;
+  }
+  if (!::google::protobuf::internal::AllAreInitialized(this->key())) return false;
+  if (has_agent_id()) {
+    if (!this->agent_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void QueryRequest::Swap(QueryRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(entity_id_, other->entity_id_);
+    key_.Swap(&other->key_);
+    std::swap(agent_id_, other->agent_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata QueryRequest::GetMetadata() const {
@@ -752,9 +1976,157 @@ QueryResponse* QueryResponse::New() const {
   return new QueryResponse;
 }
 
+void QueryResponse::Clear() {
+  field_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool QueryResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.presence.QueryResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .Battlenet.presence.Field field = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_field:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_field()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_field;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.presence.QueryResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.presence.QueryResponse)
+  return false;
+#undef DO_
+}
+
+void QueryResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.presence.QueryResponse)
+  // repeated .Battlenet.presence.Field field = 2;
+  for (int i = 0; i < this->field_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->field(i), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.presence.QueryResponse)
+}
+
+::google::protobuf::uint8* QueryResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.presence.QueryResponse)
+  // repeated .Battlenet.presence.Field field = 2;
+  for (int i = 0; i < this->field_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->field(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.presence.QueryResponse)
+  return target;
+}
+
+int QueryResponse::ByteSize() const {
+  int total_size = 0;
+
+  // repeated .Battlenet.presence.Field field = 2;
+  total_size += 1 * this->field_size();
+  for (int i = 0; i < this->field_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->field(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void QueryResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const QueryResponse* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const QueryResponse*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void QueryResponse::MergeFrom(const QueryResponse& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  field_.MergeFrom(from.field_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void QueryResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void QueryResponse::CopyFrom(const QueryResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool QueryResponse::IsInitialized() const {
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->field())) return false;
+  return true;
+}
+
 void QueryResponse::Swap(QueryResponse* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    field_.Swap(&other->field_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata QueryResponse::GetMetadata() const {
@@ -829,9 +2201,202 @@ OwnershipRequest* OwnershipRequest::New() const {
   return new OwnershipRequest;
 }
 
+void OwnershipRequest::Clear() {
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_entity_id()) {
+      if (entity_id_ != NULL) entity_id_->::Battlenet::EntityId::Clear();
+    }
+    release_ownership_ = false;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool OwnershipRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.presence.OwnershipRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.EntityId entity_id = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_entity_id()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_release_ownership;
+        break;
+      }
+
+      // optional bool release_ownership = 2 [default = false];
+      case 2: {
+        if (tag == 16) {
+         parse_release_ownership:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &release_ownership_)));
+          set_has_release_ownership();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.presence.OwnershipRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.presence.OwnershipRequest)
+  return false;
+#undef DO_
+}
+
+void OwnershipRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.presence.OwnershipRequest)
+  // required .Battlenet.EntityId entity_id = 1;
+  if (has_entity_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->entity_id(), output);
+  }
+
+  // optional bool release_ownership = 2 [default = false];
+  if (has_release_ownership()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->release_ownership(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.presence.OwnershipRequest)
+}
+
+::google::protobuf::uint8* OwnershipRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.presence.OwnershipRequest)
+  // required .Battlenet.EntityId entity_id = 1;
+  if (has_entity_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->entity_id(), target);
+  }
+
+  // optional bool release_ownership = 2 [default = false];
+  if (has_release_ownership()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->release_ownership(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.presence.OwnershipRequest)
+  return target;
+}
+
+int OwnershipRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.EntityId entity_id = 1;
+    if (has_entity_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->entity_id());
+    }
+
+    // optional bool release_ownership = 2 [default = false];
+    if (has_release_ownership()) {
+      total_size += 1 + 1;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void OwnershipRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const OwnershipRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const OwnershipRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void OwnershipRequest::MergeFrom(const OwnershipRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_entity_id()) {
+      mutable_entity_id()->::Battlenet::EntityId::MergeFrom(from.entity_id());
+    }
+    if (from.has_release_ownership()) {
+      set_release_ownership(from.release_ownership());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void OwnershipRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void OwnershipRequest::CopyFrom(const OwnershipRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool OwnershipRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_entity_id()) {
+    if (!this->entity_id().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void OwnershipRequest::Swap(OwnershipRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(entity_id_, other->entity_id_);
+    std::swap(release_ownership_, other->release_ownership_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata OwnershipRequest::GetMetadata() const {
@@ -845,212 +2410,164 @@ void OwnershipRequest::Swap(OwnershipRequest* other) {
 
 // ===================================================================
 
-PresenceService::~PresenceService() {}
-
-const ::google::protobuf::ServiceDescriptor* PresenceService::descriptor() {
+google::protobuf::ServiceDescriptor const* PresenceService::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return PresenceService_descriptor_;
 }
 
-const ::google::protobuf::ServiceDescriptor* PresenceService::GetDescriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return PresenceService_descriptor_;
-}
+void PresenceService::CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) {
+  switch(methodId) {
+    case 1: {
+      ::Battlenet::presence::SubscribeRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for PresenceService.Subscribe server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
 
-void PresenceService::Subscribe(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::presence::SubscribeRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Subscribe() not implemented.");
-  done->Run();
-}
-
-void PresenceService::Unsubscribe(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::presence::UnsubscribeRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Unsubscribe() not implemented.");
-  done->Run();
-}
-
-void PresenceService::Update(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::presence::UpdateRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Update() not implemented.");
-  done->Run();
-}
-
-void PresenceService::Query(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::presence::QueryRequest*,
-                         ::Battlenet::presence::QueryResponse*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Query() not implemented.");
-  done->Run();
-}
-
-void PresenceService::Ownership(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::presence::OwnershipRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Ownership() not implemented.");
-  done->Run();
-}
-
-void PresenceService::SubscribeNotification(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::presence::SubscribeNotificationRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method SubscribeNotification() not implemented.");
-  done->Run();
-}
-
-void PresenceService::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                             ::google::protobuf::RpcController* controller,
-                             const ::google::protobuf::Message* request,
-                             ::google::protobuf::Message* response,
-                             ::google::protobuf::Closure* done) {
-  GOOGLE_DCHECK_EQ(method->service(), PresenceService_descriptor_);
-  switch(method->index()) {
-    case 0:
-      Subscribe(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::presence::SubscribeRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+      ::Battlenet::NoData response;
+      uint32 status = HandleSubscribe(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method PresenceService.Subscribe(Battlenet.presence.SubscribeRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 1:
-      Unsubscribe(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::presence::UnsubscribeRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 2: {
+      ::Battlenet::presence::UnsubscribeRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for PresenceService.Unsubscribe server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleUnsubscribe(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method PresenceService.Unsubscribe(Battlenet.presence.UnsubscribeRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 2:
-      Update(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::presence::UpdateRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 3: {
+      ::Battlenet::presence::UpdateRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for PresenceService.Update server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleUpdate(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method PresenceService.Update(Battlenet.presence.UpdateRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 3:
-      Query(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::presence::QueryRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::presence::QueryResponse*>(response),
-             done);
+    }
+    case 4: {
+      ::Battlenet::presence::QueryRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for PresenceService.Query server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::presence::QueryResponse response;
+      uint32 status = HandleQuery(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method PresenceService.Query(Battlenet.presence.QueryRequest{ %s }) returned Battlenet.presence.QueryResponse{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 4:
-      Ownership(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::presence::OwnershipRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 5: {
+      ::Battlenet::presence::OwnershipRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for PresenceService.Ownership server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleOwnership(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method PresenceService.Ownership(Battlenet.presence.OwnershipRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
-    case 5:
-      SubscribeNotification(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::presence::SubscribeNotificationRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+    }
+    case 7: {
+      ::Battlenet::presence::SubscribeNotificationRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for PresenceService.SubscribeNotification server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
+
+      ::Battlenet::NoData response;
+      uint32 status = HandleSubscribeNotification(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method PresenceService.SubscribeNotification(Battlenet.presence.SubscribeNotificationRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
+    }
     default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      TC_LOG_ERROR("session.rpc", "Bad method id %u.", methodId);
+      _session->SendResponse(token, ERROR_RPC_INVALID_METHOD);
       break;
-  }
+    }
 }
 
-const ::google::protobuf::Message& PresenceService::GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::presence::SubscribeRequest::default_instance();
-    case 1:
-      return ::Battlenet::presence::UnsubscribeRequest::default_instance();
-    case 2:
-      return ::Battlenet::presence::UpdateRequest::default_instance();
-    case 3:
-      return ::Battlenet::presence::QueryRequest::default_instance();
-    case 4:
-      return ::Battlenet::presence::OwnershipRequest::default_instance();
-    case 5:
-      return ::Battlenet::presence::SubscribeNotificationRequest::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 PresenceService::HandleSubscribe(::Battlenet::presence::SubscribeRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method PresenceService.Subscribe({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-const ::google::protobuf::Message& PresenceService::GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::NoData::default_instance();
-    case 1:
-      return ::Battlenet::NoData::default_instance();
-    case 2:
-      return ::Battlenet::NoData::default_instance();
-    case 3:
-      return ::Battlenet::presence::QueryResponse::default_instance();
-    case 4:
-      return ::Battlenet::NoData::default_instance();
-    case 5:
-      return ::Battlenet::NoData::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 PresenceService::HandleUnsubscribe(::Battlenet::presence::UnsubscribeRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method PresenceService.Unsubscribe({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-PresenceService_Stub::PresenceService_Stub(::google::protobuf::RpcChannel* channel)
-  : channel_(channel), owns_channel_(false) {}
-PresenceService_Stub::PresenceService_Stub(
-    ::google::protobuf::RpcChannel* channel,
-    ::google::protobuf::Service::ChannelOwnership ownership)
-  : channel_(channel),
-    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
-PresenceService_Stub::~PresenceService_Stub() {
-  if (owns_channel_) delete channel_;
+uint32 PresenceService::HandleUpdate(::Battlenet::presence::UpdateRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method PresenceService.Update({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-void PresenceService_Stub::Subscribe(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::presence::SubscribeRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(0),
-                       controller, request, response, done);
+uint32 PresenceService::HandleQuery(::Battlenet::presence::QueryRequest const* request, ::Battlenet::presence::QueryResponse* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method PresenceService.Query({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void PresenceService_Stub::Unsubscribe(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::presence::UnsubscribeRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(1),
-                       controller, request, response, done);
+
+uint32 PresenceService::HandleOwnership(::Battlenet::presence::OwnershipRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method PresenceService.Ownership({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void PresenceService_Stub::Update(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::presence::UpdateRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(2),
-                       controller, request, response, done);
+
+uint32 PresenceService::HandleSubscribeNotification(::Battlenet::presence::SubscribeNotificationRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method PresenceService.SubscribeNotification({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
-void PresenceService_Stub::Query(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::presence::QueryRequest* request,
-                              ::Battlenet::presence::QueryResponse* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(3),
-                       controller, request, response, done);
-}
-void PresenceService_Stub::Ownership(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::presence::OwnershipRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(4),
-                       controller, request, response, done);
-}
-void PresenceService_Stub::SubscribeNotification(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::presence::SubscribeNotificationRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(5),
-                       controller, request, response, done);
-}
+
 
 // @@protoc_insertion_point(namespace_scope)
 

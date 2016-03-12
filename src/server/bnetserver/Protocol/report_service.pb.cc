@@ -14,6 +14,7 @@
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+#include "Log.h"
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -124,7 +125,7 @@ void protobuf_AddDesc_report_5fservice_2eproto() {
     "vice\022J\n\nSendReport\022#.Battlenet.report.Se"
     "ndReportRequest\032\021.Battlenet.NoData\"\004\200\265\030\001"
     "\032%\312>\"bnet.protocol.report.ReportServiceB"
-    "\005H\002\200\001\001", 526);
+    "\005H\001\200\001\000", 526);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "report_service.proto", &protobuf_RegisterTypes);
   Report::default_instance_ = new Report();
@@ -217,9 +218,388 @@ Report* Report::New() const {
   return new Report;
 }
 
+void Report::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<Report*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 61) {
+    ZR_(report_timestamp_, report_qos_);
+    if (has_report_type()) {
+      if (report_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        report_type_->clear();
+      }
+    }
+    if (has_reporting_account()) {
+      if (reporting_account_ != NULL) reporting_account_->::Battlenet::EntityId::Clear();
+    }
+    if (has_reporting_game_account()) {
+      if (reporting_game_account_ != NULL) reporting_game_account_->::Battlenet::EntityId::Clear();
+    }
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  attribute_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool Report::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.report.Report)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required string report_type = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_report_type()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->report_type().data(), this->report_type().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "report_type");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_attribute;
+        break;
+      }
+
+      // repeated .Battlenet.Attribute attribute = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_attribute:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_attribute()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_attribute;
+        if (input->ExpectTag(24)) goto parse_report_qos;
+        break;
+      }
+
+      // optional int32 report_qos = 3 [default = 0];
+      case 3: {
+        if (tag == 24) {
+         parse_report_qos:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &report_qos_)));
+          set_has_report_qos();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_reporting_account;
+        break;
+      }
+
+      // optional .Battlenet.EntityId reporting_account = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_reporting_account:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_reporting_account()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_reporting_game_account;
+        break;
+      }
+
+      // optional .Battlenet.EntityId reporting_game_account = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_reporting_game_account:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_reporting_game_account()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(49)) goto parse_report_timestamp;
+        break;
+      }
+
+      // optional fixed64 report_timestamp = 6;
+      case 6: {
+        if (tag == 49) {
+         parse_report_timestamp:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED64>(
+                 input, &report_timestamp_)));
+          set_has_report_timestamp();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.report.Report)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.report.Report)
+  return false;
+#undef DO_
+}
+
+void Report::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.report.Report)
+  // required string report_type = 1;
+  if (has_report_type()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->report_type().data(), this->report_type().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "report_type");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->report_type(), output);
+  }
+
+  // repeated .Battlenet.Attribute attribute = 2;
+  for (int i = 0; i < this->attribute_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->attribute(i), output);
+  }
+
+  // optional int32 report_qos = 3 [default = 0];
+  if (has_report_qos()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->report_qos(), output);
+  }
+
+  // optional .Battlenet.EntityId reporting_account = 4;
+  if (has_reporting_account()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->reporting_account(), output);
+  }
+
+  // optional .Battlenet.EntityId reporting_game_account = 5;
+  if (has_reporting_game_account()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->reporting_game_account(), output);
+  }
+
+  // optional fixed64 report_timestamp = 6;
+  if (has_report_timestamp()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFixed64(6, this->report_timestamp(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.report.Report)
+}
+
+::google::protobuf::uint8* Report::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.report.Report)
+  // required string report_type = 1;
+  if (has_report_type()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->report_type().data(), this->report_type().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "report_type");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->report_type(), target);
+  }
+
+  // repeated .Battlenet.Attribute attribute = 2;
+  for (int i = 0; i < this->attribute_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->attribute(i), target);
+  }
+
+  // optional int32 report_qos = 3 [default = 0];
+  if (has_report_qos()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->report_qos(), target);
+  }
+
+  // optional .Battlenet.EntityId reporting_account = 4;
+  if (has_reporting_account()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->reporting_account(), target);
+  }
+
+  // optional .Battlenet.EntityId reporting_game_account = 5;
+  if (has_reporting_game_account()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->reporting_game_account(), target);
+  }
+
+  // optional fixed64 report_timestamp = 6;
+  if (has_report_timestamp()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFixed64ToArray(6, this->report_timestamp(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.report.Report)
+  return target;
+}
+
+int Report::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required string report_type = 1;
+    if (has_report_type()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->report_type());
+    }
+
+    // optional int32 report_qos = 3 [default = 0];
+    if (has_report_qos()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->report_qos());
+    }
+
+    // optional .Battlenet.EntityId reporting_account = 4;
+    if (has_reporting_account()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->reporting_account());
+    }
+
+    // optional .Battlenet.EntityId reporting_game_account = 5;
+    if (has_reporting_game_account()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->reporting_game_account());
+    }
+
+    // optional fixed64 report_timestamp = 6;
+    if (has_report_timestamp()) {
+      total_size += 1 + 8;
+    }
+
+  }
+  // repeated .Battlenet.Attribute attribute = 2;
+  total_size += 1 * this->attribute_size();
+  for (int i = 0; i < this->attribute_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->attribute(i));
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Report::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const Report* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Report*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Report::MergeFrom(const Report& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  attribute_.MergeFrom(from.attribute_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_report_type()) {
+      set_report_type(from.report_type());
+    }
+    if (from.has_report_qos()) {
+      set_report_qos(from.report_qos());
+    }
+    if (from.has_reporting_account()) {
+      mutable_reporting_account()->::Battlenet::EntityId::MergeFrom(from.reporting_account());
+    }
+    if (from.has_reporting_game_account()) {
+      mutable_reporting_game_account()->::Battlenet::EntityId::MergeFrom(from.reporting_game_account());
+    }
+    if (from.has_report_timestamp()) {
+      set_report_timestamp(from.report_timestamp());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void Report::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Report::CopyFrom(const Report& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Report::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->attribute())) return false;
+  if (has_reporting_account()) {
+    if (!this->reporting_account().IsInitialized()) return false;
+  }
+  if (has_reporting_game_account()) {
+    if (!this->reporting_game_account().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void Report::Swap(Report* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(report_type_, other->report_type_);
+    attribute_.Swap(&other->attribute_);
+    std::swap(report_qos_, other->report_qos_);
+    std::swap(reporting_account_, other->reporting_account_);
+    std::swap(reporting_game_account_, other->reporting_game_account_);
+    std::swap(report_timestamp_, other->report_timestamp_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata Report::GetMetadata() const {
@@ -292,9 +672,165 @@ SendReportRequest* SendReportRequest::New() const {
   return new SendReportRequest;
 }
 
+void SendReportRequest::Clear() {
+  if (has_report()) {
+    if (report_ != NULL) report_->::Battlenet::report::Report::Clear();
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool SendReportRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Battlenet.report.SendReportRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Battlenet.report.Report report = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_report()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Battlenet.report.SendReportRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Battlenet.report.SendReportRequest)
+  return false;
+#undef DO_
+}
+
+void SendReportRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Battlenet.report.SendReportRequest)
+  // required .Battlenet.report.Report report = 1;
+  if (has_report()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->report(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Battlenet.report.SendReportRequest)
+}
+
+::google::protobuf::uint8* SendReportRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Battlenet.report.SendReportRequest)
+  // required .Battlenet.report.Report report = 1;
+  if (has_report()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->report(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Battlenet.report.SendReportRequest)
+  return target;
+}
+
+int SendReportRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .Battlenet.report.Report report = 1;
+    if (has_report()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->report());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SendReportRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SendReportRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SendReportRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void SendReportRequest::MergeFrom(const SendReportRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_report()) {
+      mutable_report()->::Battlenet::report::Report::MergeFrom(from.report());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SendReportRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SendReportRequest::CopyFrom(const SendReportRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SendReportRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_report()) {
+    if (!this->report().IsInitialized()) return false;
+  }
+  return true;
+}
+
 void SendReportRequest::Swap(SendReportRequest* other) {
   if (other != this) {
-    GetReflection()->Swap(this, other);}
+    std::swap(report_, other->report_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
 }
 
 ::google::protobuf::Metadata SendReportRequest::GetMetadata() const {
@@ -308,87 +844,44 @@ void SendReportRequest::Swap(SendReportRequest* other) {
 
 // ===================================================================
 
-ReportService::~ReportService() {}
-
-const ::google::protobuf::ServiceDescriptor* ReportService::descriptor() {
+google::protobuf::ServiceDescriptor const* ReportService::descriptor() {
   protobuf_AssignDescriptorsOnce();
   return ReportService_descriptor_;
 }
 
-const ::google::protobuf::ServiceDescriptor* ReportService::GetDescriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return ReportService_descriptor_;
-}
+void ReportService::CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) {
+  switch(methodId) {
+    case 1: {
+      ::Battlenet::report::SendReportRequest request;
+      if (!request.ParseFromArray(buffer.GetReadPointer(), buffer.GetActiveSize())) {
+        TC_LOG_DEBUG("session.rpc", "%s Failed to parse request for ReportService.SendReport server method call.", _session->GetClientInfo().c_str());
+        _session->SendResponse(token, ERROR_RPC_MALFORMED_REQUEST);
+        return;
+      }
 
-void ReportService::SendReport(::google::protobuf::RpcController* controller,
-                         const ::Battlenet::report::SendReportRequest*,
-                         ::Battlenet::NoData*,
-                         ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method SendReport() not implemented.");
-  done->Run();
-}
-
-void ReportService::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                             ::google::protobuf::RpcController* controller,
-                             const ::google::protobuf::Message* request,
-                             ::google::protobuf::Message* response,
-                             ::google::protobuf::Closure* done) {
-  GOOGLE_DCHECK_EQ(method->service(), ReportService_descriptor_);
-  switch(method->index()) {
-    case 0:
-      SendReport(controller,
-             ::google::protobuf::down_cast<const ::Battlenet::report::SendReportRequest*>(request),
-             ::google::protobuf::down_cast< ::Battlenet::NoData*>(response),
-             done);
+      ::Battlenet::NoData response;
+      uint32 status = HandleSendReport(&request, &response);
+      TC_LOG_DEBUG("session.rpc", "%s Client called server method ReportService.SendReport(Battlenet.report.SendReportRequest{ %s }) returned Battlenet.NoData{ %s } status %u.",
+        _session->GetClientInfo().c_str(), request.ShortDebugString().c_str(), response.ShortDebugString().c_str(), status);
+      if (!status)
+        _session->SendResponse(token, &response);
+      else
+        _session->SendResponse(token, status);
       break;
+    }
     default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      TC_LOG_ERROR("session.rpc", "Bad method id %u.", methodId);
+      _session->SendResponse(token, ERROR_RPC_INVALID_METHOD);
       break;
-  }
+    }
 }
 
-const ::google::protobuf::Message& ReportService::GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::report::SendReportRequest::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
+uint32 ReportService::HandleSendReport(::Battlenet::report::SendReportRequest const* request, ::Battlenet::NoData* response) {
+  TC_LOG_ERROR("session.rpc", "%s Client tried to call not implemented method ReportService.SendReport({ %s })",
+    _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+  return ERROR_RPC_NOT_IMPLEMENTED;
 }
 
-const ::google::protobuf::Message& ReportService::GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const {
-  GOOGLE_DCHECK_EQ(method->service(), descriptor());
-  switch(method->index()) {
-    case 0:
-      return ::Battlenet::NoData::default_instance();
-    default:
-      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
-      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
-  }
-}
-
-ReportService_Stub::ReportService_Stub(::google::protobuf::RpcChannel* channel)
-  : channel_(channel), owns_channel_(false) {}
-ReportService_Stub::ReportService_Stub(
-    ::google::protobuf::RpcChannel* channel,
-    ::google::protobuf::Service::ChannelOwnership ownership)
-  : channel_(channel),
-    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
-ReportService_Stub::~ReportService_Stub() {
-  if (owns_channel_) delete channel_;
-}
-
-void ReportService_Stub::SendReport(::google::protobuf::RpcController* controller,
-                              const ::Battlenet::report::SendReportRequest* request,
-                              ::Battlenet::NoData* response,
-                              ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(0),
-                       controller, request, response, done);
-}
 
 // @@protoc_insertion_point(namespace_scope)
 

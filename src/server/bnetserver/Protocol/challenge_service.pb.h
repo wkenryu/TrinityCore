@@ -23,11 +23,14 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "attribute_types.pb.h"
 #include "entity_types.pb.h"
 #include "rpc_types.pb.h"
+#include "ServiceBase.h"
+#include "Session.h"
+#include "MessageBuffer.h"
+#include <type_traits>
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -81,6 +84,19 @@ class Challenge : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   Challenge* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Challenge& from);
+  void MergeFrom(const Challenge& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -187,6 +203,19 @@ class ChallengePickedRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ChallengePickedRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ChallengePickedRequest& from);
+  void MergeFrom(const ChallengePickedRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -273,6 +302,19 @@ class ChallengePickedResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ChallengePickedResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ChallengePickedResponse& from);
+  void MergeFrom(const ChallengePickedResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -344,6 +386,19 @@ class ChallengeAnsweredRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ChallengeAnsweredRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ChallengeAnsweredRequest& from);
+  void MergeFrom(const ChallengeAnsweredRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -440,6 +495,19 @@ class ChallengeAnsweredResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ChallengeAnsweredResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ChallengeAnsweredResponse& from);
+  void MergeFrom(const ChallengeAnsweredResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -531,6 +599,19 @@ class ChallengeCancelledRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ChallengeCancelledRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ChallengeCancelledRequest& from);
+  void MergeFrom(const ChallengeCancelledRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -597,6 +678,19 @@ class SendChallengeToUserRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SendChallengeToUserRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SendChallengeToUserRequest& from);
+  void MergeFrom(const SendChallengeToUserRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -747,6 +841,19 @@ class SendChallengeToUserResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SendChallengeToUserResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SendChallengeToUserResponse& from);
+  void MergeFrom(const SendChallengeToUserResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -813,6 +920,19 @@ class ChallengeUserRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ChallengeUserRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ChallengeUserRequest& from);
+  void MergeFrom(const ChallengeUserRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -937,6 +1057,19 @@ class ChallengeResultRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ChallengeResultRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ChallengeResultRequest& from);
+  void MergeFrom(const ChallengeResultRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1038,6 +1171,19 @@ class ChallengeExternalRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ChallengeExternalRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ChallengeExternalRequest& from);
+  void MergeFrom(const ChallengeExternalRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1139,6 +1285,19 @@ class ChallengeExternalResult : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ChallengeExternalResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ChallengeExternalResult& from);
+  void MergeFrom(const ChallengeExternalResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1192,169 +1351,115 @@ class ChallengeExternalResult : public ::google::protobuf::Message {
 };
 // ===================================================================
 
-class ChallengeService_Stub;
-
-class ChallengeService : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline ChallengeService() {};
+class ChallengeService : public ServiceBase
+{
  public:
-  virtual ~ChallengeService();
+  explicit ChallengeService(Battlenet::Session* session) : _session(session) { }
+  ~ChallengeService() { }
 
-  typedef ChallengeService_Stub Stub;
+  typedef std::integral_constant<uint32, 0xDBBF6F19u> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void ChallengePicked(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengePickedRequest* request,
-                       ::Battlenet::challenge::ChallengePickedResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void ChallengeAnswered(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengeAnsweredRequest* request,
-                       ::Battlenet::challenge::ChallengeAnsweredResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void ChallengeCancelled(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengeCancelledRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void SendChallengeToUser(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::SendChallengeToUserRequest* request,
-                       ::Battlenet::challenge::SendChallengeToUserResponse* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  template<void(Battlenet::Session::*Handler)(::Battlenet::challenge::ChallengePickedResponse const*)>
+  inline void ChallengePicked(::Battlenet::challenge::ChallengePickedRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChallengeService.ChallengePicked(Battlenet.challenge.ChallengePickedRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::challenge::ChallengePickedResponse, Handler>(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  template<void(Battlenet::Session::*Handler)(::Battlenet::challenge::ChallengeAnsweredResponse const*)>
+  inline void ChallengeAnswered(::Battlenet::challenge::ChallengeAnsweredRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChallengeService.ChallengeAnswered(Battlenet.challenge.ChallengeAnsweredRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::challenge::ChallengeAnsweredResponse, Handler>(Hash::value, 2, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void ChallengeCancelled(::Battlenet::challenge::ChallengeCancelledRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChallengeService.ChallengeCancelled(Battlenet.challenge.ChallengeCancelledRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 3, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::challenge::SendChallengeToUserResponse const*)>
+  inline void SendChallengeToUser(::Battlenet::challenge::SendChallengeToUserRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChallengeService.SendChallengeToUser(Battlenet.challenge.SendChallengeToUserRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::challenge::SendChallengeToUserResponse, Handler>(Hash::value, 4, request);
+  }
+
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleChallengePicked(::Battlenet::challenge::ChallengePickedRequest const* request, ::Battlenet::challenge::ChallengePickedResponse* response);
+  virtual uint32 HandleChallengeAnswered(::Battlenet::challenge::ChallengeAnsweredRequest const* request, ::Battlenet::challenge::ChallengeAnsweredResponse* response);
+  virtual uint32 HandleChallengeCancelled(::Battlenet::challenge::ChallengeCancelledRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleSendChallengeToUser(::Battlenet::challenge::SendChallengeToUserRequest const* request, ::Battlenet::challenge::SendChallengeToUserResponse* response);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ChallengeService);
 };
 
-class ChallengeService_Stub : public ChallengeService {
- public:
-  ChallengeService_Stub(::google::protobuf::RpcChannel* channel);
-  ChallengeService_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~ChallengeService_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements ChallengeService ------------------------------------------
-
-  void ChallengePicked(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengePickedRequest* request,
-                       ::Battlenet::challenge::ChallengePickedResponse* response,
-                       ::google::protobuf::Closure* done);
-  void ChallengeAnswered(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengeAnsweredRequest* request,
-                       ::Battlenet::challenge::ChallengeAnsweredResponse* response,
-                       ::google::protobuf::Closure* done);
-  void ChallengeCancelled(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengeCancelledRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void SendChallengeToUser(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::SendChallengeToUserRequest* request,
-                       ::Battlenet::challenge::SendChallengeToUserResponse* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ChallengeService_Stub);
-};
-
-
 // -------------------------------------------------------------------
 
-class ChallengeListener_Stub;
-
-class ChallengeListener : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline ChallengeListener() {};
+class ChallengeListener : public ServiceBase
+{
  public:
-  virtual ~ChallengeListener();
+  explicit ChallengeListener(Battlenet::Session* session) : _session(session) { }
+  ~ChallengeListener() { }
 
-  typedef ChallengeListener_Stub Stub;
+  typedef std::integral_constant<uint32, 0xBBDA171Fu> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void OnChallengeUser(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengeUserRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnChallengeResult(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengeResultRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnExternalChallenge(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengeExternalRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnExternalChallengeResult(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengeExternalResult* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  inline void OnChallengeUser(::Battlenet::challenge::ChallengeUserRequest const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChallengeListener.OnChallengeUser(Battlenet.challenge.ChallengeUserRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  inline void OnChallengeResult(::Battlenet::challenge::ChallengeResultRequest const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChallengeListener.OnChallengeResult(Battlenet.challenge.ChallengeResultRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 2, request);
+  }
+
+  inline void OnExternalChallenge(::Battlenet::challenge::ChallengeExternalRequest const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChallengeListener.OnExternalChallenge(Battlenet.challenge.ChallengeExternalRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 3, request);
+  }
+
+  inline void OnExternalChallengeResult(::Battlenet::challenge::ChallengeExternalResult const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method ChallengeListener.OnExternalChallengeResult(Battlenet.challenge.ChallengeExternalResult{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 4, request);
+  }
+
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleOnChallengeUser(::Battlenet::challenge::ChallengeUserRequest const* request);
+  virtual uint32 HandleOnChallengeResult(::Battlenet::challenge::ChallengeResultRequest const* request);
+  virtual uint32 HandleOnExternalChallenge(::Battlenet::challenge::ChallengeExternalRequest const* request);
+  virtual uint32 HandleOnExternalChallengeResult(::Battlenet::challenge::ChallengeExternalResult const* request);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ChallengeListener);
 };
-
-class ChallengeListener_Stub : public ChallengeListener {
- public:
-  ChallengeListener_Stub(::google::protobuf::RpcChannel* channel);
-  ChallengeListener_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~ChallengeListener_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements ChallengeListener ------------------------------------------
-
-  void OnChallengeUser(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengeUserRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnChallengeResult(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengeResultRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnExternalChallenge(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengeExternalRequest* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnExternalChallengeResult(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::challenge::ChallengeExternalResult* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ChallengeListener_Stub);
-};
-
 
 // ===================================================================
 

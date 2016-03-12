@@ -23,12 +23,15 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "user_manager_types.pb.h"
 #include "entity_types.pb.h"
 #include "role_types.pb.h"
 #include "rpc_types.pb.h"
+#include "ServiceBase.h"
+#include "Session.h"
+#include "MessageBuffer.h"
+#include <type_traits>
 // @@protoc_insertion_point(includes)
 
 namespace Battlenet {
@@ -83,6 +86,19 @@ class SubscribeRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SubscribeRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SubscribeRequest& from);
+  void MergeFrom(const SubscribeRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -161,6 +177,19 @@ class SubscribeResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   SubscribeResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SubscribeResponse& from);
+  void MergeFrom(const SubscribeResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -256,6 +285,19 @@ class UnsubscribeRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UnsubscribeRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UnsubscribeRequest& from);
+  void MergeFrom(const UnsubscribeRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -334,6 +376,19 @@ class AddRecentPlayersRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   AddRecentPlayersRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const AddRecentPlayersRequest& from);
+  void MergeFrom(const AddRecentPlayersRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -425,6 +480,19 @@ class AddRecentPlayersResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   AddRecentPlayersResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const AddRecentPlayersResponse& from);
+  void MergeFrom(const AddRecentPlayersResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -507,6 +575,19 @@ class ClearRecentPlayersRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ClearRecentPlayersRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ClearRecentPlayersRequest& from);
+  void MergeFrom(const ClearRecentPlayersRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -585,6 +666,19 @@ class ClearRecentPlayersResponse : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   ClearRecentPlayersResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ClearRecentPlayersResponse& from);
+  void MergeFrom(const ClearRecentPlayersResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -654,6 +748,19 @@ class BlockPlayerRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   BlockPlayerRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BlockPlayerRequest& from);
+  void MergeFrom(const BlockPlayerRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -744,6 +851,19 @@ class UnblockPlayerRequest : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   UnblockPlayerRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const UnblockPlayerRequest& from);
+  void MergeFrom(const UnblockPlayerRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -824,6 +944,19 @@ class BlockedPlayerAddedNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   BlockedPlayerAddedNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BlockedPlayerAddedNotification& from);
+  void MergeFrom(const BlockedPlayerAddedNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -916,6 +1049,19 @@ class BlockedPlayerRemovedNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   BlockedPlayerRemovedNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BlockedPlayerRemovedNotification& from);
+  void MergeFrom(const BlockedPlayerRemovedNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1008,6 +1154,19 @@ class RecentPlayersAddedNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   RecentPlayersAddedNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RecentPlayersAddedNotification& from);
+  void MergeFrom(const RecentPlayersAddedNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1077,6 +1236,19 @@ class RecentPlayersRemovedNotification : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   RecentPlayersRemovedNotification* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RecentPlayersRemovedNotification& from);
+  void MergeFrom(const RecentPlayersRemovedNotification& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1118,201 +1290,147 @@ class RecentPlayersRemovedNotification : public ::google::protobuf::Message {
 };
 // ===================================================================
 
-class UserManagerService_Stub;
-
-class UserManagerService : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline UserManagerService() {};
+class UserManagerService : public ServiceBase
+{
  public:
-  virtual ~UserManagerService();
+  explicit UserManagerService(Battlenet::Session* session) : _session(session) { }
+  ~UserManagerService() { }
 
-  typedef UserManagerService_Stub Stub;
+  typedef std::integral_constant<uint32, 0x3E19268Au> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void Subscribe(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::SubscribeRequest* request,
-                       ::Battlenet::user_manager::SubscribeResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void AddRecentPlayers(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::AddRecentPlayersRequest* request,
-                       ::Battlenet::user_manager::AddRecentPlayersResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void ClearRecentPlayers(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::ClearRecentPlayersRequest* request,
-                       ::Battlenet::user_manager::ClearRecentPlayersResponse* response,
-                       ::google::protobuf::Closure* done);
-  virtual void BlockPlayer(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::BlockPlayerRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void UnblockPlayer(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::UnblockPlayerRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void BlockPlayerForSession(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::BlockPlayerRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void LoadBlockList(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::EntityId* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  virtual void Unsubscribe(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::UnsubscribeRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  template<void(Battlenet::Session::*Handler)(::Battlenet::user_manager::SubscribeResponse const*)>
+  inline void Subscribe(::Battlenet::user_manager::SubscribeRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method UserManagerService.Subscribe(Battlenet.user_manager.SubscribeRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::user_manager::SubscribeResponse, Handler>(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  template<void(Battlenet::Session::*Handler)(::Battlenet::user_manager::AddRecentPlayersResponse const*)>
+  inline void AddRecentPlayers(::Battlenet::user_manager::AddRecentPlayersRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method UserManagerService.AddRecentPlayers(Battlenet.user_manager.AddRecentPlayersRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::user_manager::AddRecentPlayersResponse, Handler>(Hash::value, 10, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::user_manager::ClearRecentPlayersResponse const*)>
+  inline void ClearRecentPlayers(::Battlenet::user_manager::ClearRecentPlayersRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method UserManagerService.ClearRecentPlayers(Battlenet.user_manager.ClearRecentPlayersRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::user_manager::ClearRecentPlayersResponse, Handler>(Hash::value, 11, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void BlockPlayer(::Battlenet::user_manager::BlockPlayerRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method UserManagerService.BlockPlayer(Battlenet.user_manager.BlockPlayerRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 20, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void UnblockPlayer(::Battlenet::user_manager::UnblockPlayerRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method UserManagerService.UnblockPlayer(Battlenet.user_manager.UnblockPlayerRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 21, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void BlockPlayerForSession(::Battlenet::user_manager::BlockPlayerRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method UserManagerService.BlockPlayerForSession(Battlenet.user_manager.BlockPlayerRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 40, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void LoadBlockList(::Battlenet::EntityId const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method UserManagerService.LoadBlockList(Battlenet.EntityId{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 50, request);
+  }
+
+  template<void(Battlenet::Session::*Handler)(::Battlenet::NoData const*)>
+  inline void Unsubscribe(::Battlenet::user_manager::UnsubscribeRequest const* request) { 
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method UserManagerService.Unsubscribe(Battlenet.user_manager.UnsubscribeRequest{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequestWithCallback<::Battlenet::NoData, Handler>(Hash::value, 51, request);
+  }
+
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleSubscribe(::Battlenet::user_manager::SubscribeRequest const* request, ::Battlenet::user_manager::SubscribeResponse* response);
+  virtual uint32 HandleAddRecentPlayers(::Battlenet::user_manager::AddRecentPlayersRequest const* request, ::Battlenet::user_manager::AddRecentPlayersResponse* response);
+  virtual uint32 HandleClearRecentPlayers(::Battlenet::user_manager::ClearRecentPlayersRequest const* request, ::Battlenet::user_manager::ClearRecentPlayersResponse* response);
+  virtual uint32 HandleBlockPlayer(::Battlenet::user_manager::BlockPlayerRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleUnblockPlayer(::Battlenet::user_manager::UnblockPlayerRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleBlockPlayerForSession(::Battlenet::user_manager::BlockPlayerRequest const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleLoadBlockList(::Battlenet::EntityId const* request, ::Battlenet::NoData* response);
+  virtual uint32 HandleUnsubscribe(::Battlenet::user_manager::UnsubscribeRequest const* request, ::Battlenet::NoData* response);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(UserManagerService);
 };
 
-class UserManagerService_Stub : public UserManagerService {
- public:
-  UserManagerService_Stub(::google::protobuf::RpcChannel* channel);
-  UserManagerService_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~UserManagerService_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements UserManagerService ------------------------------------------
-
-  void Subscribe(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::SubscribeRequest* request,
-                       ::Battlenet::user_manager::SubscribeResponse* response,
-                       ::google::protobuf::Closure* done);
-  void AddRecentPlayers(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::AddRecentPlayersRequest* request,
-                       ::Battlenet::user_manager::AddRecentPlayersResponse* response,
-                       ::google::protobuf::Closure* done);
-  void ClearRecentPlayers(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::ClearRecentPlayersRequest* request,
-                       ::Battlenet::user_manager::ClearRecentPlayersResponse* response,
-                       ::google::protobuf::Closure* done);
-  void BlockPlayer(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::BlockPlayerRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void UnblockPlayer(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::UnblockPlayerRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void BlockPlayerForSession(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::BlockPlayerRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void LoadBlockList(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::EntityId* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
-  void Unsubscribe(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::UnsubscribeRequest* request,
-                       ::Battlenet::NoData* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(UserManagerService_Stub);
-};
-
-
 // -------------------------------------------------------------------
 
-class UserManagerListener_Stub;
-
-class UserManagerListener : public ::google::protobuf::Service {
- protected:
-  // This class should be treated as an abstract interface.
-  inline UserManagerListener() {};
+class UserManagerListener : public ServiceBase
+{
  public:
-  virtual ~UserManagerListener();
+  explicit UserManagerListener(Battlenet::Session* session) : _session(session) { }
+  ~UserManagerListener() { }
 
-  typedef UserManagerListener_Stub Stub;
+  typedef std::integral_constant<uint32, 0xBC872C22u> Hash;
 
-  static const ::google::protobuf::ServiceDescriptor* descriptor();
+  static google::protobuf::ServiceDescriptor const* descriptor();
 
-  virtual void OnBlockedPlayerAdded(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::BlockedPlayerAddedNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnBlockedPlayerRemoved(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::BlockedPlayerRemovedNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnRecentPlayersAdded(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::RecentPlayersAddedNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  virtual void OnRecentPlayersRemoved(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::RecentPlayersRemovedNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
+  // client methods --------------------------------------------------
 
-  // implements Service ----------------------------------------------
+  inline void OnBlockedPlayerAdded(::Battlenet::user_manager::BlockedPlayerAddedNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method UserManagerListener.OnBlockedPlayerAdded(Battlenet.user_manager.BlockedPlayerAddedNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 1, request);
+  }
 
-  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
-  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                  ::google::protobuf::RpcController* controller,
-                  const ::google::protobuf::Message* request,
-                  ::google::protobuf::Message* response,
-                  ::google::protobuf::Closure* done);
-  const ::google::protobuf::Message& GetRequestPrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
-  const ::google::protobuf::Message& GetResponsePrototype(
-    const ::google::protobuf::MethodDescriptor* method) const;
+  inline void OnBlockedPlayerRemoved(::Battlenet::user_manager::BlockedPlayerRemovedNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method UserManagerListener.OnBlockedPlayerRemoved(Battlenet.user_manager.BlockedPlayerRemovedNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 2, request);
+  }
+
+  inline void OnRecentPlayersAdded(::Battlenet::user_manager::RecentPlayersAddedNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method UserManagerListener.OnRecentPlayersAdded(Battlenet.user_manager.RecentPlayersAddedNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 11, request);
+  }
+
+  inline void OnRecentPlayersRemoved(::Battlenet::user_manager::RecentPlayersRemovedNotification const* request) {
+    TC_LOG_DEBUG("session.rpc", "%s Server called client method UserManagerListener.OnRecentPlayersRemoved(Battlenet.user_manager.RecentPlayersRemovedNotification{ %s })",
+      _session->GetClientInfo().c_str(), request->ShortDebugString().c_str());
+    _session->SendRequest(Hash::value, 12, request);
+  }
+
+  // server methods --------------------------------------------------
+
+  void CallServerMethod(uint32 token, uint32 methodId, MessageBuffer buffer) override final;
+
+ protected:
+  virtual uint32 HandleOnBlockedPlayerAdded(::Battlenet::user_manager::BlockedPlayerAddedNotification const* request);
+  virtual uint32 HandleOnBlockedPlayerRemoved(::Battlenet::user_manager::BlockedPlayerRemovedNotification const* request);
+  virtual uint32 HandleOnRecentPlayersAdded(::Battlenet::user_manager::RecentPlayersAddedNotification const* request);
+  virtual uint32 HandleOnRecentPlayersRemoved(::Battlenet::user_manager::RecentPlayersRemovedNotification const* request);
+
+  Battlenet::Session* _session;
 
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(UserManagerListener);
 };
-
-class UserManagerListener_Stub : public UserManagerListener {
- public:
-  UserManagerListener_Stub(::google::protobuf::RpcChannel* channel);
-  UserManagerListener_Stub(::google::protobuf::RpcChannel* channel,
-                   ::google::protobuf::Service::ChannelOwnership ownership);
-  ~UserManagerListener_Stub();
-
-  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
-
-  // implements UserManagerListener ------------------------------------------
-
-  void OnBlockedPlayerAdded(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::BlockedPlayerAddedNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnBlockedPlayerRemoved(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::BlockedPlayerRemovedNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnRecentPlayersAdded(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::RecentPlayersAddedNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
-  void OnRecentPlayersRemoved(::google::protobuf::RpcController* controller,
-                       const ::Battlenet::user_manager::RecentPlayersRemovedNotification* request,
-                       ::Battlenet::NO_RESPONSE* response,
-                       ::google::protobuf::Closure* done);
- private:
-  ::google::protobuf::RpcChannel* channel_;
-  bool owns_channel_;
-  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(UserManagerListener_Stub);
-};
-
 
 // ===================================================================
 

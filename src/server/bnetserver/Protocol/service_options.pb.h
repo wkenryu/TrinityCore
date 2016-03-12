@@ -38,6 +38,9 @@ void protobuf_ShutdownFile_service_5foptions_2eproto();
 
 // ===================================================================
 
+
+// ===================================================================
+
 static const int kOriginalFullyQualifiedDescriptorNameFieldNumber = 1001;
 extern ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::ServiceOptions,
     ::google::protobuf::internal::StringTypeTraits, 9, false >

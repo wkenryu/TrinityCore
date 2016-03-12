@@ -19,7 +19,6 @@
 #define GameUtilitiesServiceService_h__
 
 #include "Common.h"
-#include "ServiceBase.h"
 #include "game_utilities_service.pb.h"
 
 namespace pb = google::protobuf;
@@ -30,17 +29,13 @@ namespace Battlenet
 
     namespace Service
     {
-        class GameUtilities : public ServiceBase<game_utilities::GameUtilitiesService>
+        class GameUtilities : public game_utilities::GameUtilitiesService
         {
-            typedef ServiceBase<game_utilities::GameUtilitiesService> GameUtilitiesServiceBase;
-
         public:
-            typedef std::integral_constant<uint32, 0x3FC1274D> Hash;
-
             GameUtilities(Session* session);
 
-            void ProcessClientRequest(pb::RpcController* controller, game_utilities::ClientRequest const* request, game_utilities::ClientResponse* response, pb::Closure* done) override;
-            void GetAllValuesForAttribute(pb::RpcController* controller, game_utilities::GetAllValuesForAttributeRequest const* request, game_utilities::GetAllValuesForAttributeResponse* response, pb::Closure* done) override;
+            uint32 HandleProcessClientRequest(game_utilities::ClientRequest const* request, game_utilities::ClientResponse* response) override;
+            uint32 HandleGetAllValuesForAttribute(game_utilities::GetAllValuesForAttributeRequest const* request, game_utilities::GetAllValuesForAttributeResponse* response) override;
         };
     }
 }

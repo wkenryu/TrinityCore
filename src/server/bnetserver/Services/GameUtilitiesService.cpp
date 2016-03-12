@@ -18,16 +18,16 @@
 #include "GameUtilitiesService.h"
 #include "Session.h"
 
-Battlenet::Service::GameUtilities::GameUtilities(Session* session) : GameUtilitiesServiceBase(session)
+Battlenet::Service::GameUtilities::GameUtilities(Session* session) : game_utilities::GameUtilitiesService(session)
 {
 }
 
-void Battlenet::Service::GameUtilities::ProcessClientRequest(pb::RpcController* /*controller*/, game_utilities::ClientRequest const* request, game_utilities::ClientResponse* response, pb::Closure* /*done*/)
+uint32 Battlenet::Service::GameUtilities::HandleProcessClientRequest(game_utilities::ClientRequest const* request, game_utilities::ClientResponse* response)
 {
-    _session->HandleProcessClientRequest(request, response);
+    return _session->HandleProcessClientRequest(request, response);
 }
 
-void Battlenet::Service::GameUtilities::GetAllValuesForAttribute(pb::RpcController* /*controller*/, game_utilities::GetAllValuesForAttributeRequest const* request, game_utilities::GetAllValuesForAttributeResponse* response, pb::Closure* /*done*/)
+uint32 Battlenet::Service::GameUtilities::HandleGetAllValuesForAttribute(game_utilities::GetAllValuesForAttributeRequest const* request, game_utilities::GetAllValuesForAttributeResponse* response)
 {
-    _session->HandleGetAllValuesForAttribute(request, response);
+    return _session->HandleGetAllValuesForAttribute(request, response);
 }

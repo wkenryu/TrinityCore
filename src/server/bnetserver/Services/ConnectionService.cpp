@@ -21,11 +21,11 @@
 #include "Session.h"
 #include "Util.h"
 
-Battlenet::Service::Connection::Connection(Session* session) : ConnectionServiceBase(session)
+Battlenet::Service::Connection::Connection(Session* session) : connection::ConnectionService(session)
 {
 }
-#include "ProtobufJSON.h"
-void Battlenet::Service::Connection::Connect(pb::RpcController* /*controller*/, connection::ConnectRequest const* request, connection::ConnectResponse* response, pb::Closure* /*done*/)
+
+uint32 Battlenet::Service::Connection::HandleConnect(connection::ConnectRequest const* request, connection::ConnectResponse* response)
 {
     if (request->has_client_id())
         response->mutable_client_id()->CopyFrom(request->client_id());
@@ -37,13 +37,20 @@ void Battlenet::Service::Connection::Connect(pb::RpcController* /*controller*/, 
     response->set_server_time(std::chrono::duration_cast<Milliseconds>(now).count());
 
     response->set_use_bindless_rpc(request->use_bindless_rpc());
+    return ERROR_OK;
 }
 
-void Battlenet::Service::Connection::RequestDisconnect(pb::RpcController* /*controller*/, connection::DisconnectRequest const* request, NO_RESPONSE* /*response*/, pb::Closure* /*done*/)
+uint32 Battlenet::Service::Connection::HandleKeepAlive(NoData const* /*request*/)
+{
+    return ERROR_OK;
+}
+
+uint32 Battlenet::Service::Connection::HandleRequestDisconnect(connection::DisconnectRequest const* request)
 {
     connection::DisconnectNotification disconnectNotification;
     disconnectNotification.set_error_code(request->error_code());
-    Stub(_session).ForceDisconnect(nullptr, &disconnectNotification, nullptr, nullptr);
+    ForceDisconnect(&disconnectNotification);
 
     _session->DelayedCloseSocket();
+    return ERROR_OK;
 }

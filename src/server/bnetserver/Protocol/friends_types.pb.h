@@ -71,6 +71,19 @@ class Friend : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   Friend* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Friend& from);
+  void MergeFrom(const Friend& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -174,6 +187,7 @@ class Friend : public ::google::protobuf::Message {
   ::Battlenet::EntityId* account_id_;
   ::google::protobuf::RepeatedPtrField< ::Battlenet::Attribute > attribute_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > role_;
+  mutable int _role_cached_byte_size_;
   ::google::protobuf::uint64 privileges_;
   ::google::protobuf::uint64 attributes_epoch_;
   ::std::string* full_name_;
@@ -215,6 +229,19 @@ class FriendInvitation : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   FriendInvitation* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FriendInvitation& from);
+  void MergeFrom(const FriendInvitation& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -260,6 +287,7 @@ class FriendInvitation : public ::google::protobuf::Message {
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > role_;
+  mutable int _role_cached_byte_size_;
   bool first_received_;
   friend void  protobuf_AddDesc_friends_5ftypes_2eproto();
   friend void protobuf_AssignDesc_friends_5ftypes_2eproto();
@@ -298,6 +326,19 @@ class FriendInvitationParams : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
 
   FriendInvitationParams* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FriendInvitationParams& from);
+  void MergeFrom(const FriendInvitationParams& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -421,7 +462,9 @@ class FriendInvitationParams : public ::google::protobuf::Message {
   ::std::string* inviter_full_name_;
   ::std::string* invitee_display_name_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > role_;
+  mutable int _role_cached_byte_size_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > previous_role_deprecated_;
+  mutable int _previous_role_deprecated_cached_byte_size_;
   friend void  protobuf_AddDesc_friends_5ftypes_2eproto();
   friend void protobuf_AssignDesc_friends_5ftypes_2eproto();
   friend void protobuf_ShutdownFile_friends_5ftypes_2eproto();
@@ -429,6 +472,9 @@ class FriendInvitationParams : public ::google::protobuf::Message {
   void InitAsDefaultInstance();
   static FriendInvitationParams* default_instance_;
 };
+// ===================================================================
+
+
 // ===================================================================
 
 
