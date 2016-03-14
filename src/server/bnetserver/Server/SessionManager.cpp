@@ -78,11 +78,15 @@ std::list<Battlenet::Session*> Battlenet::SessionManager::GetSessions(uint32 acc
 
 void Battlenet::SessionManager::AddLoginTicket(std::string const& id, std::unique_ptr<Session::AccountInfo> accountInfo)
 {
+    std::unique_lock<std::mutex> lock(_loginTicketMutex);
+
     _validLoginTickets[id] = { id, std::move(accountInfo), time(nullptr) + 10 };
 }
 
 std::unique_ptr<Battlenet::Session::AccountInfo> Battlenet::SessionManager::VerifyLoginTicket(std::string const& id)
 {
+    std::unique_lock<std::mutex> lock(_loginTicketMutex);
+
     auto itr = _validLoginTickets.find(id);
     if (itr != _validLoginTickets.end())
     {

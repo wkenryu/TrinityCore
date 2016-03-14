@@ -22,6 +22,7 @@
 #include "SocketMgr.h"
 #include <boost/thread/locks.hpp>
 #include <boost/thread/shared_mutex.hpp>
+#include <mutex>
 
 namespace Battlenet
 {
@@ -91,6 +92,7 @@ namespace Battlenet
             std::time_t ExpiryTime;
         };
 
+        std::mutex _loginTicketMutex;
         std::unordered_map<std::string, LoginTicket> _validLoginTickets;
     };
 }
