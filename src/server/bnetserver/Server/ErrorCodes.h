@@ -18,6 +18,8 @@
 #ifndef ErrorCodes_h__
 #define ErrorCodes_h__
 
+#include "Define.h"
+
 enum ErrorCode : uint32
 {
     ERROR_OK                                                                = 0x00000000,

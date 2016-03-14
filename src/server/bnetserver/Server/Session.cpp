@@ -252,9 +252,47 @@ uint32 Battlenet::Session::HandleVerifyWebCredentials(authentication::VerifyWebC
     logonResult.set_error_code(0);
     _accountInfo = sSessionMgr.VerifyLoginTicket(verifyWebCredentialsRequest->web_credentials());
     if (!_accountInfo)
+        return ERROR_DENIED;
+
+    std::string ip_address = GetRemoteIpAddress().to_string();
+
+    // If the IP is 'locked', check that the player comes indeed from the correct IP address
+    if (_accountInfo->IsLockedToIP)
     {
-        authentication::AuthenticationListener(this).OnLogonComplete(&logonResult);
-        return ERROR_OK;
+        TC_LOG_DEBUG("session", "[Battlenet::LogonRequest] Account '%s' is locked to IP - '%s' is logging in from '%s'",
+            _accountInfo->Login.c_str(), _accountInfo->LastIP.c_str(), ip_address.c_str());
+
+        if (_accountInfo->LastIP != ip_address)
+            return ERROR_RISK_ACCOUNT_LOCKED;
+    }
+    else
+    {
+        TC_LOG_DEBUG("session", "[Battlenet::LogonRequest] Account '%s' is not locked to ip", _accountInfo->Login.c_str());
+        if (_accountInfo->LockCountry.empty() || _accountInfo->LockCountry == "00")
+            TC_LOG_DEBUG("session", "[Battlenet::LogonRequest] Account '%s' is not locked to country", _accountInfo->Login.c_str());
+        else if (!_accountInfo->LockCountry.empty() && !_ipCountry.empty())
+        {
+            TC_LOG_DEBUG("session", "[Battlenet::LogonRequest] Account '%s' is locked to country: '%s' Player country is '%s'",
+                _accountInfo->Login.c_str(), _accountInfo->LockCountry.c_str(), _ipCountry.c_str());
+
+            if (_ipCountry != _accountInfo->LockCountry)
+                return ERROR_RISK_ACCOUNT_LOCKED;
+        }
+    }
+
+    // If the account is banned, reject the logon attempt
+    if (_accountInfo->IsBanned)
+    {
+        if (_accountInfo->IsPermanenetlyBanned)
+        {
+            TC_LOG_DEBUG("session", "%s [Battlenet::LogonRequest] Banned account %s tried to login!", GetClientInfo().c_str(), _accountInfo->Login.c_str());
+            return ERROR_GAME_ACCOUNT_BANNED;
+        }
+        else
+        {
+            TC_LOG_DEBUG("session", "%s [Battlenet::LogonRequest] Temporarily banned account %s tried to login!", GetClientInfo().c_str(), _accountInfo->Login.c_str());
+            return ERROR_GAME_ACCOUNT_SUSPENDED;
+        }
     }
 
     K.SetRand(8 * 64);

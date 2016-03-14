@@ -217,67 +217,25 @@ int32 LoginRESTService::HandlePost(soap* soapClient)
     if (strstr(soapClient->path, expectedPath.c_str()) != &soapClient->path[0])
         return 404;
 
-    if (soap_register_plugin_arg(soapClient, &ResponseCodePlugin::Init, nullptr) != SOAP_OK)
-        return 500;
-
-    ResponseCodePlugin* responseCode = reinterpret_cast<ResponseCodePlugin*>(soap_lookup_plugin(soapClient, ResponseCodePlugin::PluginId));
-    ASSERT(responseCode);
-
-    Battlenet::JSON::LoginResult loginResult;
-    responseCode->ErrorCode = 400;
-
-    std::string ipCountry;
-
-    PreparedStatement* stmt = LoginDatabase.GetPreparedStatement(LOGIN_SEL_IP_INFO);
-    stmt->setString(0, ip_address);
-    stmt->setUInt32(1, address.to_ulong());
-    if (PreparedQueryResult result = LoginDatabase.Query(stmt))
-    {
-        bool banned = false;
-        do
-        {
-            Field* fields = result->Fetch();
-            if (fields[0].GetUInt64() != 0)
-                banned = true;
-
-            if (!fields[1].GetString().empty())
-                ipCountry = fields[1].GetString();
-
-        } while (result->NextRow());
-
-        if (banned)
-        {
-            TC_LOG_DEBUG("session", "%s tries to log in using banned IP!", ip_address.c_str());
-            loginResult.set_error_code("ACCOUNT_BANNED");
-            loginResult.set_error_message("Your account has been banned.");
-            return SendResponse(soapClient, loginResult);
-        }
-    }
-
     char *buf;
     size_t len;
     soap_http_body(soapClient, &buf, &len);
 
     Battlenet::JSON::LoginForm loginForm;
-    loginResult.set_authentication_state(Battlenet::JSON::LOGIN);
+    Battlenet::JSON::LoginResult loginResult;
     if (!Battlenet::JSON::Deserialize(buf, &loginForm))
     {
+        if (soap_register_plugin_arg(soapClient, &ResponseCodePlugin::Init, nullptr) != SOAP_OK)
+            return 500;
+
+        ResponseCodePlugin* responseCode = reinterpret_cast<ResponseCodePlugin*>(soap_lookup_plugin(soapClient, ResponseCodePlugin::PluginId));
+        ASSERT(responseCode);
+
+        responseCode->ErrorCode = 400;
+
+        loginResult.set_authentication_state(Battlenet::JSON::LOGIN);
         loginResult.set_error_code("UNABLE_TO_DECODE");
         loginResult.set_error_message("There was an internal error while connecting to Battle.net. Please try again later.");
-        return SendResponse(soapClient, loginResult);
-    }
-
-    if (loginForm.program_id() != "WoW")
-    {
-        loginResult.set_error_code("INVALID_PROGRAM");
-        loginResult.set_error_message("You have attempted to log into Battle.net with a program not permitted to connect to the service.");
-        return SendResponse(soapClient, loginResult);
-    }
-
-    if (loginForm.platform_id() != "Win" && loginForm.platform_id() != "Wn64" && loginForm.platform_id() != "Mc64")
-    {
-        loginResult.set_error_code("INVALID_PLATFORM");
-        loginResult.set_error_message("You have attempted to log into Battle.net from an unsupported operating system.");
         return SendResponse(soapClient, loginResult);
     }
 
@@ -295,80 +253,23 @@ int32 LoginRESTService::HandlePost(soap* soapClient)
     Utf8ToUpperOnlyLatin(login);
     Utf8ToUpperOnlyLatin(password);
 
-    stmt = LoginDatabase.GetPreparedStatement(LOGIN_SEL_BNET_ACCOUNT_INFO);
+    PreparedStatement* stmt = LoginDatabase.GetPreparedStatement(LOGIN_SEL_BNET_ACCOUNT_INFO);
     stmt->setString(0, login);
     stmt->setString(1, CalculateShaPassHash(login, std::move(password)));
-    PreparedQueryResult result = LoginDatabase.Query(stmt);
-    if (!result)
+    if (PreparedQueryResult result = LoginDatabase.Query(stmt))
     {
-        loginResult.set_error_code("UNKNOWN_ACCOUNT");
-        loginResult.set_error_message("Your login information was incorrect. Please try again.");
-        return SendResponse(soapClient, loginResult);
+        std::unique_ptr<Battlenet::Session::AccountInfo> accountInfo = Trinity::make_unique<Battlenet::Session::AccountInfo>();
+        accountInfo->LoadResult(result);
+
+        BigNumber ticket;
+        ticket.SetRand(20 * 8);
+
+        loginResult.set_login_ticket("TC-" + ByteArrayToHexStr(ticket.AsByteArray(20).get(), 20));
+
+        sSessionMgr.AddLoginTicket(loginResult.login_ticket(), std::move(accountInfo));
     }
-
-    std::unique_ptr<Battlenet::Session::AccountInfo> accountInfo = Trinity::make_unique<Battlenet::Session::AccountInfo>();
-    accountInfo->LoadResult(result);
-
-    // If the IP is 'locked', check that the player comes indeed from the correct IP address
-    if (accountInfo->IsLockedToIP)
-    {
-        TC_LOG_DEBUG("server.rest", "[Battlenet::LogonRequest] Account '%s' is locked to IP - '%s' is logging in from '%s'", accountInfo->Login.c_str(), accountInfo->LastIP.c_str(), ip_address.c_str());
-
-        if (accountInfo->LastIP != ip_address)
-        {
-            loginResult.set_error_code("ACCOUNT_LOCKED");
-            loginResult.set_error_message("Our login system has detected a change in your access pattern.");
-            return SendResponse(soapClient, loginResult);
-        }
-    }
-    else
-    {
-        TC_LOG_DEBUG("server.rest", "[Battlenet::LogonRequest] Account '%s' is not locked to ip", accountInfo->Login.c_str());
-        if (accountInfo->LockCountry.empty() || accountInfo->LockCountry == "00")
-            TC_LOG_DEBUG("server.rest", "[Battlenet::LogonRequest] Account '%s' is not locked to country", accountInfo->Login.c_str());
-        else if (!accountInfo->LockCountry.empty() && !ipCountry.empty())
-        {
-            TC_LOG_DEBUG("server.rest", "[Battlenet::LogonRequest] Account '%s' is locked to country: '%s' Player country is '%s'", accountInfo->Login.c_str(), accountInfo->LockCountry.c_str(), ipCountry.c_str());
-            if (ipCountry != accountInfo->LockCountry)
-            {
-                loginResult.set_error_code("ACCOUNT_LOCKED");
-                loginResult.set_error_message("Our login system has detected a change in your access pattern.");
-                return SendResponse(soapClient, loginResult);
-            }
-        }
-    }
-
-    // If the account is banned, reject the logon attempt
-    if (accountInfo->IsBanned)
-    {
-        if (accountInfo->IsPermanenetlyBanned)
-        {
-            TC_LOG_DEBUG("server.rest", "'%s:%d' [Battlenet::LogonRequest] Banned account %s tried to login!", ip_address.c_str(), soapClient->port, accountInfo->Login.c_str());
-            loginResult.set_error_code("ACCOUNT_BANNED");
-            loginResult.set_error_message("Your account has been banned.");
-            return SendResponse(soapClient, loginResult);
-        }
-        else
-        {
-            TC_LOG_DEBUG("server.rest", "'%s:%d' [Battlenet::LogonRequest] Temporarily banned account %s tried to login!", ip_address.c_str(), soapClient->port, accountInfo->Login.c_str());
-            loginResult.set_error_code("ACCOUNT_SUSPENDED");
-            loginResult.set_error_message("Your account has been suspended.");
-            return SendResponse(soapClient, loginResult);
-        }
-    }
-
-    responseCode->ErrorCode = 0;
-
-    BigNumber ticket;
-    ticket.SetRand(20 * 8);
-
-    std::string loginTicket = ("TC-" + ByteArrayToHexStr(ticket.AsByteArray(20).get(), 20)).c_str();
 
     loginResult.set_authentication_state(Battlenet::JSON::DONE);
-    loginResult.set_login_ticket(loginTicket);
-
-    sSessionMgr.AddLoginTicket(loginTicket, std::move(accountInfo));
-
     return SendResponse(soapClient, loginResult);
 }
 
