@@ -22,6 +22,11 @@ Battlenet::Service::Account::Account(Session* session) : account::AccountService
 {
 }
 
+uint32 Battlenet::Service::Account::HandleGetAccountState(account::GetAccountStateRequest const* request, account::GetAccountStateResponse* response)
+{
+    return _session->HandleGetAccountState(request, response);
+}
+
 uint32 Battlenet::Service::Account::HandleGetGameAccountState(account::GetGameAccountStateRequest const* request, account::GetGameAccountStateResponse* response)
 {
     return _session->HandleGetGameAccountState(request, response);

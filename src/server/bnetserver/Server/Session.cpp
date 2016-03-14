@@ -318,6 +318,20 @@ uint32 Battlenet::Session::HandleVerifyWebCredentials(authentication::VerifyWebC
     return ERROR_OK;
 }
 
+uint32 Battlenet::Session::HandleGetAccountState(account::GetAccountStateRequest const* request, account::GetAccountStateResponse* response)
+{
+    if (request->options().field_privacy_info())
+    {
+        response->mutable_state()->mutable_privacy_info()->set_is_using_rid(false);
+        response->mutable_state()->mutable_privacy_info()->set_is_real_id_visible_for_view_friends(false);
+        response->mutable_state()->mutable_privacy_info()->set_is_hidden_from_friend_finder(true);
+
+        response->mutable_tags()->set_privacy_info_tag(0xD7CA834D);
+    }
+
+    return ERROR_OK;
+}
+
 uint32 Battlenet::Session::HandleGetGameAccountState(account::GetGameAccountStateRequest const* request, account::GetGameAccountStateResponse* response)
 {
     if (request->options().field_game_level_info())
@@ -330,6 +344,19 @@ uint32 Battlenet::Session::HandleGetGameAccountState(account::GetGameAccountStat
         }
 
         response->mutable_tags()->set_game_level_info_tag(0x5C46D483);
+    }
+
+    if (request->options().field_game_status())
+    {
+        auto itr = _accountInfo->GameAccounts.find(request->game_account_id().low());
+        if (itr != _accountInfo->GameAccounts.end())
+        {
+            response->mutable_state()->mutable_game_status()->set_is_suspended(itr->second.IsBanned);
+            response->mutable_state()->mutable_game_status()->set_is_banned(itr->second.IsPermanenetlyBanned);
+        }
+
+        response->mutable_state()->mutable_game_status()->set_program(5730135); // WoW
+        response->mutable_tags()->set_game_status_tag(0x98B75F99);
     }
 
     return ERROR_OK;

@@ -40,6 +40,8 @@ namespace Battlenet
 
     namespace account
     {
+        class GetAccountStateRequest;
+        class GetAccountStateResponse;
         class GetGameAccountStateRequest;
         class GetGameAccountStateResponse;
     }
@@ -119,6 +121,7 @@ namespace Battlenet
 
         uint32 HandleLogon(authentication::LogonRequest const* logonRequest);
         uint32 HandleVerifyWebCredentials(authentication::VerifyWebCredentialsRequest const* verifyWebCredentialsRequest);
+        uint32 HandleGetAccountState(account::GetAccountStateRequest const* request, account::GetAccountStateResponse* response);
         uint32 HandleGetGameAccountState(account::GetGameAccountStateRequest const* request, account::GetGameAccountStateResponse* response);
         uint32 HandleProcessClientRequest(game_utilities::ClientRequest const* request, game_utilities::ClientResponse* response);
         uint32 HandleGetAllValuesForAttribute(game_utilities::GetAllValuesForAttributeRequest const* request, game_utilities::GetAllValuesForAttributeResponse* response);

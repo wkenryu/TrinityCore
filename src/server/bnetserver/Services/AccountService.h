@@ -34,6 +34,7 @@ namespace Battlenet
         public:
             Account(Session* session);
 
+            uint32 HandleGetAccountState(account::GetAccountStateRequest const* request, account::GetAccountStateResponse* response) override;
             uint32 HandleGetGameAccountState(account::GetGameAccountStateRequest const* request, account::GetGameAccountStateResponse* response) override;
         };
     }
