@@ -55,7 +55,7 @@ struct BattlegroundTemplate
     bool IsArena() const { return BattlemasterEntry->type == MAP_ARENA; }
 };
 
-class TC_GAME_API BattlegroundMgr
+class BattlegroundMgr
 {
     private:
         BattlegroundMgr();

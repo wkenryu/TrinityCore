@@ -21,7 +21,7 @@
 #include "DatabaseEnv.h"
 #include "ScriptMgr.h"
 
-TC_GAME_API ScriptPointVector const SystemMgr::_empty;
+ScriptPointVector const SystemMgr::_empty;
 
 SystemMgr* SystemMgr::instance()
 {

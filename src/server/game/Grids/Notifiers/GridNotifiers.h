@@ -38,7 +38,7 @@ class Player;
 
 namespace Trinity
 {
-    struct TC_GAME_API VisibleNotifier
+    struct VisibleNotifier
     {
         Player &i_player;
         UpdateData i_data;
@@ -61,7 +61,7 @@ namespace Trinity
         void Visit(DynamicObjectMapType &);
     };
 
-    struct TC_GAME_API PlayerRelocationNotifier : public VisibleNotifier
+    struct PlayerRelocationNotifier : public VisibleNotifier
     {
         PlayerRelocationNotifier(Player &player) : VisibleNotifier(player) { }
 
@@ -70,7 +70,7 @@ namespace Trinity
         void Visit(PlayerMapType &);
     };
 
-    struct TC_GAME_API CreatureRelocationNotifier
+    struct CreatureRelocationNotifier
     {
         Creature &i_creature;
         CreatureRelocationNotifier(Creature &c) : i_creature(c) { }
@@ -79,7 +79,7 @@ namespace Trinity
         void Visit(PlayerMapType &);
     };
 
-    struct TC_GAME_API DelayedUnitRelocation
+    struct DelayedUnitRelocation
     {
         Map &i_map;
         Cell &cell;
@@ -92,7 +92,7 @@ namespace Trinity
         void Visit(PlayerMapType   &);
     };
 
-    struct TC_GAME_API AIRelocationNotifier
+    struct AIRelocationNotifier
     {
         Unit &i_unit;
         bool isCreature;
@@ -120,7 +120,7 @@ namespace Trinity
         void Visit(CorpseMapType &m) { updateObjects<Corpse>(m); }
     };
 
-    struct TC_GAME_API MessageDistDeliverer
+    struct MessageDistDeliverer
     {
         WorldObject* i_source;
         WorldPacket* i_message;
@@ -566,7 +566,7 @@ namespace Trinity
 
     // WorldObject check classes
 
-    class TC_GAME_API AnyDeadUnitObjectInRangeCheck
+    class AnyDeadUnitObjectInRangeCheck
     {
         public:
             AnyDeadUnitObjectInRangeCheck(Unit* searchObj, float range) : i_searchObj(searchObj), i_range(range) { }
@@ -579,7 +579,7 @@ namespace Trinity
             float i_range;
     };
 
-    class TC_GAME_API AnyDeadUnitSpellTargetInRangeCheck : public AnyDeadUnitObjectInRangeCheck
+    class AnyDeadUnitSpellTargetInRangeCheck : public AnyDeadUnitObjectInRangeCheck
     {
         public:
             AnyDeadUnitSpellTargetInRangeCheck(Unit* searchObj, float range, SpellInfo const* spellInfo, SpellTargetCheckTypes check)

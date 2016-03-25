@@ -28,7 +28,7 @@
 class Transport;
 struct TransportCreatureProto;
 
-class TC_GAME_API MapManager
+class MapManager
 {
     public:
         static MapManager* instance();

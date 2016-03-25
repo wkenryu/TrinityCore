@@ -159,7 +159,7 @@ enum MaxConditionTargets
     MAX_CONDITION_TARGETS = 3
 };
 
-struct TC_GAME_API ConditionSourceInfo
+struct ConditionSourceInfo
 {
     WorldObject* mConditionTargets[MAX_CONDITION_TARGETS]; // an array of targets available for conditions
     Condition const* mLastFailedCondition;
@@ -172,7 +172,7 @@ struct TC_GAME_API ConditionSourceInfo
     }
 };
 
-struct TC_GAME_API Condition
+struct Condition
 {
     ConditionSourceType     SourceType;        //SourceTypeOrReferenceId
     uint32                  SourceGroup;
@@ -224,7 +224,7 @@ typedef std::unordered_map<uint32, ConditionsByEntryMap> ConditionEntriesByCreat
 typedef std::unordered_map<std::pair<int32, uint32 /*SAI source_type*/>, ConditionsByEntryMap> SmartEventConditionContainer;
 typedef std::unordered_map<uint32, ConditionContainer> ConditionReferenceContainer;//only used for references
 
-class TC_GAME_API ConditionMgr
+class ConditionMgr
 {
     private:
         ConditionMgr();

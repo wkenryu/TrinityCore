@@ -80,7 +80,7 @@ enum SpellRangeFlag
     SPELL_RANGE_RANGED              = 2      //hunter range and ranged weapon
 };
 
-struct TC_GAME_API SpellDestination
+struct SpellDestination
 {
     SpellDestination();
     SpellDestination(float x, float y, float z, float orientation = 0.0f, uint32 mapId = MAPID_INVALID);
@@ -95,7 +95,7 @@ struct TC_GAME_API SpellDestination
     Position _transportOffset;
 };
 
-class TC_GAME_API SpellCastTargets
+class SpellCastTargets
 {
     public:
         SpellCastTargets();
@@ -218,7 +218,7 @@ enum SpellEffectHandleMode
 
 typedef std::list<std::pair<uint32, ObjectGuid>> DispelList;
 
-class TC_GAME_API Spell
+class Spell
 {
     friend void Unit::SetCurrentCastSpell(Spell* pSpell);
     friend class SpellScript;
@@ -708,7 +708,7 @@ class TC_GAME_API Spell
 
 namespace Trinity
 {
-    struct TC_GAME_API WorldObjectSpellTargetCheck
+    struct WorldObjectSpellTargetCheck
     {
         Unit* _caster;
         Unit* _referer;
@@ -723,7 +723,7 @@ namespace Trinity
         bool operator()(WorldObject* target);
     };
 
-    struct TC_GAME_API WorldObjectSpellNearbyTargetCheck : public WorldObjectSpellTargetCheck
+    struct WorldObjectSpellNearbyTargetCheck : public WorldObjectSpellTargetCheck
     {
         float _range;
         Position const* _position;
@@ -732,7 +732,7 @@ namespace Trinity
         bool operator()(WorldObject* target);
     };
 
-    struct TC_GAME_API WorldObjectSpellAreaTargetCheck : public WorldObjectSpellTargetCheck
+    struct WorldObjectSpellAreaTargetCheck : public WorldObjectSpellTargetCheck
     {
         float _range;
         Position const* _position;
@@ -741,7 +741,7 @@ namespace Trinity
         bool operator()(WorldObject* target);
     };
 
-    struct TC_GAME_API WorldObjectSpellConeTargetCheck : public WorldObjectSpellAreaTargetCheck
+    struct WorldObjectSpellConeTargetCheck : public WorldObjectSpellAreaTargetCheck
     {
         float _coneAngle;
         WorldObjectSpellConeTargetCheck(float coneAngle, float range, Unit* caster,
@@ -749,7 +749,7 @@ namespace Trinity
         bool operator()(WorldObject* target);
     };
 
-    struct TC_GAME_API WorldObjectSpellTrajTargetCheck : public WorldObjectSpellAreaTargetCheck
+    struct WorldObjectSpellTrajTargetCheck : public WorldObjectSpellAreaTargetCheck
     {
         WorldObjectSpellTrajTargetCheck(float range, Position const* position, Unit* caster, SpellInfo const* spellInfo);
         bool operator()(WorldObject* target);
@@ -758,7 +758,7 @@ namespace Trinity
 
 typedef void(Spell::*pEffect)(SpellEffIndex effIndex);
 
-class TC_GAME_API SpellEvent : public BasicEvent
+class SpellEvent : public BasicEvent
 {
     public:
         SpellEvent(Spell* spell);

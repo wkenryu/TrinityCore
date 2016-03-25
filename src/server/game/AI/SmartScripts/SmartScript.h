@@ -28,7 +28,7 @@
 #include "SmartScriptMgr.h"
 //#include "SmartAI.h"
 
-class TC_GAME_API SmartScript
+class SmartScript
 {
     public:
         SmartScript();

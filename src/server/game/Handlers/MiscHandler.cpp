@@ -773,11 +773,17 @@ void WorldSession::HandleResurrectResponseOpcode(WorldPacket& recvData)
 
     if (status == 0)
     {
-        GetPlayer()->ClearResurrectRequestData();           // reject
+        GetPlayer()->clearResurrectRequestData();           // reject
         return;
     }
 
-    if (!GetPlayer()->IsResurrectRequestedBy(guid))
+    if (GetPlayer()->IsValidGhoulResurrectRequest(guid))
+    {
+        GetPlayer()->GhoulResurrect();
+        return;
+    }
+
+    if (!GetPlayer()->isResurrectRequestedBy(guid))
         return;
 
     GetPlayer()->ResurrectUsingRequestData();

@@ -19,14 +19,12 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "Define.h"
-
 #include <string>
 #include <list>
 #include <mutex>
 #include <boost/property_tree/ptree.hpp>
 
-class TC_COMMON_API ConfigMgr
+class ConfigMgr
 {
     ConfigMgr() { }
     ~ConfigMgr() { }

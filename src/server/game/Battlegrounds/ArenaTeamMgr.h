@@ -20,7 +20,7 @@
 
 #include "ArenaTeam.h"
 
-class TC_GAME_API ArenaTeamMgr
+class ArenaTeamMgr
 {
 private:
     ArenaTeamMgr();

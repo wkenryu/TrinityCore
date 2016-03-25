@@ -221,7 +221,7 @@ This class is used to:
 3. some certain cases, same for all battlegrounds
 4. It has properties same for all battlegrounds
 */
-class TC_GAME_API Battleground
+class Battleground
 {
     public:
         Battleground();

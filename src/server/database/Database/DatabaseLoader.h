@@ -27,7 +27,7 @@
 
 // A helper class to initiate all database worker pools,
 // handles updating, delays preparing of statements and cleans up on failure.
-class TC_DATABASE_API DatabaseLoader
+class DatabaseLoader
 {
 public:
     DatabaseLoader(std::string const& logger, uint32 const defaultUpdateMask);

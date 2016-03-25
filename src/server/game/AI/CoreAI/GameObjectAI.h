@@ -26,7 +26,7 @@
 #include "GameObject.h"
 #include "CreatureAI.h"
 
-class TC_GAME_API GameObjectAI
+class GameObjectAI
 {
     protected:
         GameObject* const go;
@@ -63,7 +63,7 @@ class TC_GAME_API GameObjectAI
         virtual void EventInform(uint32 /*eventId*/) { }
 };
 
-class TC_GAME_API NullGameObjectAI : public GameObjectAI
+class NullGameObjectAI : public GameObjectAI
 {
     public:
         explicit NullGameObjectAI(GameObject* g);

@@ -25,7 +25,7 @@
 class Creature;
 class Spell;
 
-class TC_GAME_API PetAI : public CreatureAI
+class PetAI : public CreatureAI
 {
     public:
 

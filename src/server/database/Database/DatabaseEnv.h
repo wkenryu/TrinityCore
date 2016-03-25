@@ -39,10 +39,10 @@
 #include "Implementation/WorldDatabase.h"
 
 /// Accessor to the world database
-TC_DATABASE_API extern WorldDatabaseWorkerPool WorldDatabase;
+extern WorldDatabaseWorkerPool WorldDatabase;
 /// Accessor to the character database
-TC_DATABASE_API extern CharacterDatabaseWorkerPool CharacterDatabase;
+extern CharacterDatabaseWorkerPool CharacterDatabase;
 /// Accessor to the realm/login database
-TC_DATABASE_API extern LoginDatabaseWorkerPool LoginDatabase;
+extern LoginDatabaseWorkerPool LoginDatabase;
 
 #endif

@@ -126,7 +126,7 @@ enum CalendarError
 #define CALENDAR_MAX_GUILD_EVENTS   100
 #define CALENDAR_MAX_INVITES        100
 
-struct TC_GAME_API CalendarInvite
+struct CalendarInvite
 {
     public:
         CalendarInvite(CalendarInvite const& calendarInvite, uint64 inviteId, uint64 eventId)
@@ -186,7 +186,7 @@ struct TC_GAME_API CalendarInvite
         std::string _text;
 };
 
-struct TC_GAME_API CalendarEvent
+struct CalendarEvent
 {
     public:
         CalendarEvent(CalendarEvent const& calendarEvent, uint64 eventId)
@@ -266,7 +266,7 @@ typedef std::vector<CalendarInvite*> CalendarInviteStore;
 typedef std::set<CalendarEvent*> CalendarEventStore;
 typedef std::map<uint64 /* eventId */, CalendarInviteStore > CalendarEventInviteStore;
 
-class TC_GAME_API CalendarMgr
+class CalendarMgr
 {
     private:
         CalendarMgr();

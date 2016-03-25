@@ -22,7 +22,7 @@
 #include <openssl/evp.h>
 #include "Define.h"
 
-class TC_COMMON_API ARC4
+class ARC4
 {
     public:
         ARC4(uint8 len);

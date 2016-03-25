@@ -20,7 +20,7 @@
 
 #include "Log.h"
 
-class TC_DATABASE_API MySQL
+class MySQL
 {
     public:
         static void Library_Init()

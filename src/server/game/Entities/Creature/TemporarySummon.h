@@ -37,7 +37,7 @@ struct TempSummonData
     uint32 time;         ///< Despawn time, usable only with certain temp summon types
 };
 
-class TC_GAME_API TempSummon : public Creature
+class TempSummon : public Creature
 {
     public:
         explicit TempSummon(SummonPropertiesEntry const* properties, Unit* owner, bool isWorldObject);
@@ -64,7 +64,7 @@ class TC_GAME_API TempSummon : public Creature
         ObjectGuid m_summonerGUID;
 };
 
-class TC_GAME_API Minion : public TempSummon
+class Minion : public TempSummon
 {
     public:
         Minion(SummonPropertiesEntry const* properties, Unit* owner, bool isWorldObject);
@@ -82,7 +82,7 @@ class TC_GAME_API Minion : public TempSummon
         float m_followAngle;
 };
 
-class TC_GAME_API Guardian : public Minion
+class Guardian : public Minion
 {
     public:
         Guardian(SummonPropertiesEntry const* properties, Unit* owner, bool isWorldObject);
@@ -106,7 +106,7 @@ class TC_GAME_API Guardian : public Minion
         float   m_statFromOwner[MAX_STATS];
 };
 
-class TC_GAME_API Puppet : public Minion
+class Puppet : public Minion
 {
     public:
         Puppet(SummonPropertiesEntry const* properties, Unit* owner);
@@ -116,7 +116,7 @@ class TC_GAME_API Puppet : public Minion
         void RemoveFromWorld() override;
 };
 
-class TC_GAME_API ForcedUnsummonDelayEvent : public BasicEvent
+class ForcedUnsummonDelayEvent : public BasicEvent
 {
 public:
     ForcedUnsummonDelayEvent(TempSummon& owner) : BasicEvent(), m_owner(owner) { }

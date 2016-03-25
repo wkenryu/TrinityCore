@@ -25,7 +25,7 @@
 #include <memory>
 #include <vector>
 
-class TC_DATABASE_API UpdateFetcher
+class UpdateFetcher
 {
     typedef boost::filesystem::path Path;
 

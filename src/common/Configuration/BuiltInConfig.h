@@ -19,7 +19,6 @@
 #define BUILT_IN_CONFIG_H
 
 #include <string>
-#include "Define.h"
 
 /// Provides helper functions to access built-in values
 /// which can be overwritten in config
@@ -27,16 +26,16 @@ namespace BuiltInConfig
 {
     /// Returns the CMake command when any is specified in the config,
     /// returns the built-in path otherwise
-    TC_COMMON_API std::string GetCMakeCommand();
+    std::string GetCMakeCommand();
     /// Returns the build directory path when any is specified in the config,
     /// returns the built-in one otherwise
-    TC_COMMON_API std::string GetBuildDirectory();
+    std::string GetBuildDirectory();
     /// Returns the source directory path when any is specified in the config,
     /// returns the built-in one otherwise
-    TC_COMMON_API std::string GetSourceDirectory();
+    std::string GetSourceDirectory();
     /// Returns the path to the mysql executable (`mysql`) when any is specified
     /// in the config, returns the built-in one otherwise
-    TC_COMMON_API std::string GetMySQLExecutable();
+    std::string GetMySQLExecutable();
 
 } // namespace BuiltInConfig
 

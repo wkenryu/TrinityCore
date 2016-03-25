@@ -225,16 +225,25 @@ void PetAI::UpdateAI(uint32 diff)
         //found units to cast on to
         if (!targetSpellStore.empty())
         {
-            TargetSpellList::iterator it = targetSpellStore.begin();
-            std::advance(it, urand(0, targetSpellStore.size() - 1));
+            uint32 index = urand(0, targetSpellStore.size() - 1);
 
-            Spell* spell  = (*it).second;
-            Unit*  target = (*it).first;
+            Spell* spell  = targetSpellStore[index].second;
+            Unit*  target = targetSpellStore[index].first;
 
-            targetSpellStore.erase(it);
+            targetSpellStore.erase(targetSpellStore.begin() + index);
 
             SpellCastTargets targets;
             targets.SetUnitTarget(target);
+
+            if (!me->HasInArc(float(M_PI), target))
+            {
+                me->SetInFront(target);
+                if (target && target->GetTypeId() == TYPEID_PLAYER)
+                    me->SendUpdateToPlayer(target->ToPlayer());
+
+                if (owner && owner->GetTypeId() == TYPEID_PLAYER)
+                    me->SendUpdateToPlayer(owner->ToPlayer());
+            }
 
             spell->prepare(&targets);
         }

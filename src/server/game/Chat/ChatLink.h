@@ -34,7 +34,7 @@ class Quest;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // ChatLink - abstract base class for various links
-class TC_GAME_API ChatLink
+class ChatLink
 {
 public:
     ChatLink() : _color(0), _startPos(0), _endPos(0) { }
@@ -54,7 +54,7 @@ protected:
 };
 
 // ItemChatLink - link to item
-class TC_GAME_API ItemChatLink : public ChatLink
+class ItemChatLink : public ChatLink
 {
 public:
     ItemChatLink() : ChatLink(), _item(NULL), _suffix(NULL), _property(NULL)
@@ -74,7 +74,7 @@ protected:
 };
 
 // QuestChatLink - link to quest
-class TC_GAME_API QuestChatLink : public ChatLink
+class QuestChatLink : public ChatLink
 {
 public:
     QuestChatLink() : ChatLink(), _quest(nullptr), _questLevel(0) { }
@@ -87,7 +87,7 @@ protected:
 };
 
 // SpellChatLink - link to quest
-class TC_GAME_API SpellChatLink : public ChatLink
+class SpellChatLink : public ChatLink
 {
 public:
     SpellChatLink() : ChatLink(), _spell(nullptr) { }
@@ -99,7 +99,7 @@ protected:
 };
 
 // AchievementChatLink - link to quest
-class TC_GAME_API AchievementChatLink : public ChatLink
+class AchievementChatLink : public ChatLink
 {
 public:
     AchievementChatLink() : ChatLink(), _guid(0), _achievement(NULL)
@@ -116,7 +116,7 @@ protected:
 };
 
 // TradeChatLink - link to trade info
-class TC_GAME_API TradeChatLink : public SpellChatLink
+class TradeChatLink : public SpellChatLink
 {
 public:
     TradeChatLink() : SpellChatLink(), _minSkillLevel(0), _maxSkillLevel(0), _guid(0) { }
@@ -129,7 +129,7 @@ private:
 };
 
 // TalentChatLink - link to talent
-class TC_GAME_API TalentChatLink : public SpellChatLink
+class TalentChatLink : public SpellChatLink
 {
 public:
     TalentChatLink() : SpellChatLink(), _talentId(0), _rankId(0) { }
@@ -141,7 +141,7 @@ private:
 };
 
 // EnchantmentChatLink - link to enchantment
-class TC_GAME_API EnchantmentChatLink : public SpellChatLink
+class EnchantmentChatLink : public SpellChatLink
 {
 public:
     EnchantmentChatLink() : SpellChatLink() { }
@@ -149,7 +149,7 @@ public:
 };
 
 // GlyphChatLink - link to glyph
-class TC_GAME_API GlyphChatLink : public SpellChatLink
+class GlyphChatLink : public SpellChatLink
 {
 public:
     GlyphChatLink() : SpellChatLink(), _slotId(0), _glyph(NULL) { }
@@ -159,7 +159,7 @@ private:
     GlyphPropertiesEntry const* _glyph;
 };
 
-class TC_GAME_API LinkExtractor
+class LinkExtractor
 {
 public:
     explicit LinkExtractor(const char* msg);

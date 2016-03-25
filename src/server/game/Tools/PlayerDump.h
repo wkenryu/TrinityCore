@@ -62,7 +62,7 @@ enum DumpReturn
     DUMP_CHARACTER_DELETED
 };
 
-class TC_GAME_API PlayerDump
+class PlayerDump
 {
     public:
         typedef std::set<ObjectGuid::LowType> DumpGuidSet;
@@ -72,7 +72,7 @@ class TC_GAME_API PlayerDump
         PlayerDump() { }
 };
 
-class TC_GAME_API PlayerDumpWriter : public PlayerDump
+class PlayerDumpWriter : public PlayerDump
 {
     public:
         PlayerDumpWriter() { }
@@ -90,7 +90,7 @@ class TC_GAME_API PlayerDumpWriter : public PlayerDump
         DumpGuidSet items;
 };
 
-class TC_GAME_API PlayerDumpReader : public PlayerDump
+class PlayerDumpReader : public PlayerDump
 {
     public:
         PlayerDumpReader() { }

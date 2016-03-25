@@ -19,12 +19,11 @@
 #define LOGOPERATION_H
 
 #include <memory>
-#include "Define.h"
 
 class Logger;
 struct LogMessage;
 
-class TC_COMMON_API LogOperation
+class LogOperation
 {
     public:
         LogOperation(Logger const* _logger, std::unique_ptr<LogMessage>&& _msg)

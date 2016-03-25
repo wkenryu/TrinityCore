@@ -58,7 +58,7 @@ namespace MMAP
 
     // singleton class
     // holds all all access to mmap loading unloading and meshes
-    class TC_COMMON_API MMapManager
+    class MMapManager
     {
         public:
             MMapManager() : loadedTiles(0), thread_safe_environment(true) {}

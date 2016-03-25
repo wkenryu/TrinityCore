@@ -131,25 +131,25 @@ public:
                 Reset();
             else
             {
-                uint8 timeGround;
+                uint8 secondsGround;
                 switch (balconyCount)
                 {
                     case 0:
-                        timeGround =  90;
+                        secondsGround =  90;
                         break;
                     case 1:
-                        timeGround = 110;
+                        secondsGround = 110;
                         break;
                     case 2:
                     default:
-                        timeGround = 180;
+                        secondsGround = 180;
                 }
-                events.ScheduleEvent(EVENT_GROUND_ATTACKABLE, Seconds(2), 0, PHASE_GROUND);
-                events.ScheduleEvent(EVENT_BALCONY, Seconds(timeGround), 0, PHASE_GROUND);
-                events.ScheduleEvent(EVENT_CURSE, randtime(Seconds(10), Seconds(25)), 0, PHASE_GROUND);
-                events.ScheduleEvent(EVENT_WARRIOR, randtime(Seconds(20), Seconds(30)), 0, PHASE_GROUND);
+                events.ScheduleEvent(EVENT_GROUND_ATTACKABLE, 2 * IN_MILLISECONDS, 0, PHASE_GROUND);
+                events.ScheduleEvent(EVENT_BALCONY, secondsGround * IN_MILLISECONDS, 0, PHASE_GROUND);
+                events.ScheduleEvent(EVENT_CURSE, urand(10,25) * IN_MILLISECONDS, 0, PHASE_GROUND);
+                events.ScheduleEvent(EVENT_WARRIOR, urand(20,30) * IN_MILLISECONDS, 0, PHASE_GROUND);
                 if (GetDifficulty() == RAID_DIFFICULTY_25MAN_NORMAL)
-                    events.ScheduleEvent(EVENT_BLINK, randtime(Seconds(20), Seconds(30)), 0, PHASE_GROUND);
+                    events.ScheduleEvent(EVENT_BLINK, urand(20,30) * IN_MILLISECONDS, 0, PHASE_GROUND);
             }
         }
 
@@ -220,7 +220,7 @@ public:
                     case EVENT_CURSE:
                     {
                         DoCastAOE(SPELL_CURSE);
-                        events.Repeat(randtime(Seconds(50), Seconds(70)));
+                        events.ScheduleEvent(EVENT_CURSE, urand(50, 70) * IN_MILLISECONDS, 0, PHASE_GROUND);
                         break;
                     }
                     case EVENT_WARRIOR:
@@ -229,7 +229,7 @@ public:
 
                         CastSummon(RAID_MODE(2, 3), 0, 0);
 
-                        events.Repeat(Seconds(40));
+                        events.ScheduleEvent(EVENT_WARRIOR, 40 * IN_MILLISECONDS, 0, PHASE_GROUND);
                         break;
                     case EVENT_BLINK:
                         DoCastAOE(SPELL_CRIPPLE, true);
@@ -237,7 +237,7 @@ public:
                         DoResetThreat();
                         justBlinked = true;
 
-                        events.Repeat(Seconds(40));
+                        events.ScheduleEvent(EVENT_BLINK, 40000, 0, PHASE_GROUND);
                         break;
                     case EVENT_BALCONY:
                         events.SetPhase(PHASE_BALCONY);
@@ -247,24 +247,24 @@ public:
                         me->StopMoving();
                         me->RemoveAllAuras();
 
-                        events.ScheduleEvent(EVENT_BALCONY_TELEPORT, Seconds(3), 0, PHASE_BALCONY);
-                        events.ScheduleEvent(EVENT_WAVE, randtime(Seconds(5), Seconds(8)), 0, PHASE_BALCONY);
+                        events.ScheduleEvent(EVENT_BALCONY_TELEPORT, 3 * IN_MILLISECONDS, 0, PHASE_BALCONY);
+                        events.ScheduleEvent(EVENT_WAVE, urand(5 * IN_MILLISECONDS, 8 * IN_MILLISECONDS), 0, PHASE_BALCONY);
 
-                        uint8 timeBalcony;
+                        uint8 secondsBalcony;
                         switch (balconyCount)
                         {
                             case 0:
-                                timeBalcony = 70;
+                                secondsBalcony = 70;
                                 break;
                             case 1:
-                                timeBalcony = 97;
+                                secondsBalcony = 97;
                                 break;
                             case 2:
                             default:
-                                timeBalcony = 120;
+                                secondsBalcony = 120;
                                 break;
                         }
-                        events.ScheduleEvent(EVENT_GROUND, Seconds(timeBalcony), 0, PHASE_BALCONY);
+                        events.ScheduleEvent(EVENT_GROUND, secondsBalcony * IN_MILLISECONDS, 0, PHASE_BALCONY);
                         break;
                     case EVENT_BALCONY_TELEPORT:
                         Talk(EMOTE_TELEPORT_1);
@@ -287,7 +287,7 @@ public:
                                 CastSummon(0, RAID_MODE(5, 10), RAID_MODE(5, 10));
                                 break;
                         }
-                        events.Repeat(randtime(Seconds(30), Seconds(45)));
+                        events.ScheduleEvent(EVENT_WAVE, urand(30, 45) * IN_MILLISECONDS, 0, PHASE_BALCONY);
                         break;
                     case EVENT_GROUND:
                         ++balconyCount;

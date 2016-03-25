@@ -116,7 +116,7 @@ enum LoginDatabaseStatements
     MAX_LOGINDATABASE_STATEMENTS
 };
 
-class TC_DATABASE_API LoginDatabaseConnection : public MySQLConnection
+class LoginDatabaseConnection : public MySQLConnection
 {
 public:
     typedef LoginDatabaseStatements Statements;

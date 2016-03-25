@@ -37,7 +37,7 @@
 class MessageBuffer;
 
 // Root of ByteBuffer exception hierarchy
-class TC_SHARED_API ByteBufferException : public std::exception
+class ByteBufferException : public std::exception
 {
 public:
     ~ByteBufferException() throw() { }
@@ -51,7 +51,7 @@ private:
     std::string msg_;
 };
 
-class TC_SHARED_API ByteBufferPositionException : public ByteBufferException
+class ByteBufferPositionException : public ByteBufferException
 {
 public:
     ByteBufferPositionException(bool add, size_t pos, size_t size, size_t valueSize);
@@ -59,7 +59,7 @@ public:
     ~ByteBufferPositionException() throw() { }
 };
 
-class TC_SHARED_API ByteBufferSourceException : public ByteBufferException
+class ByteBufferSourceException : public ByteBufferException
 {
 public:
     ByteBufferSourceException(size_t pos, size_t size, size_t valueSize);
@@ -67,7 +67,7 @@ public:
     ~ByteBufferSourceException() throw() { }
 };
 
-class TC_SHARED_API ByteBuffer
+class ByteBuffer
 {
     public:
         const static size_t DEFAULT_SIZE = 0x1000;

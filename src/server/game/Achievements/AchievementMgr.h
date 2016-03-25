@@ -212,7 +212,7 @@ struct AchievementCriteriaData
     bool Meets(uint32 criteria_id, Player const* source, Unit const* target, uint32 miscValue1 = 0) const;
 };
 
-struct TC_GAME_API AchievementCriteriaDataSet
+struct AchievementCriteriaDataSet
 {
         AchievementCriteriaDataSet() : criteria_id(0) { }
         typedef std::vector<AchievementCriteriaData> Storage;
@@ -262,7 +262,7 @@ enum ProgressType
     PROGRESS_HIGHEST
 };
 
-class TC_GAME_API AchievementMgr
+class AchievementMgr
 {
     public:
         AchievementMgr(Player* player);
@@ -306,7 +306,7 @@ class TC_GAME_API AchievementMgr
         TimedAchievementMap m_timedAchievements;      // Criteria id/time left in MS
 };
 
-class TC_GAME_API AchievementGlobalMgr
+class AchievementGlobalMgr
 {
         AchievementGlobalMgr() { }
         ~AchievementGlobalMgr() { }

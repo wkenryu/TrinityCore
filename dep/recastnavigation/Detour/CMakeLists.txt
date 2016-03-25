@@ -16,18 +16,14 @@ set(Detour_STAT_SRCS
     Source/DetourNavMeshQuery.cpp 
     Source/DetourNode.cpp 
 )
+include_directories(Include)
+
+if(WIN32)
+  include_directories(
+    ${CMAKE_SOURCE_DIR}/dep/zlib
+  )
+endif()
 
 add_library(Detour STATIC ${Detour_STAT_SRCS})
 
-target_include_directories(Detour
-  PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/Include)
-
-target_link_libraries(Detour
-  PUBLIC
-    zlib)
-
-set_target_properties(Detour
-    PROPERTIES
-      FOLDER
-        "dep")
+target_link_libraries(Detour ${ZLIB_LIBRARIES})

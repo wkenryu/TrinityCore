@@ -21,7 +21,7 @@
 #include "BattlegroundScore.h"
 #include "SharedDefines.h"
 
-struct TC_GAME_API ArenaScore : public BattlegroundScore
+struct ArenaScore : public BattlegroundScore
 {
     friend class Arena;
 
@@ -56,7 +56,7 @@ struct TC_GAME_API ArenaScore : public BattlegroundScore
         uint8 TeamId; // BattlegroundTeamId
 };
 
-struct TC_GAME_API ArenaTeamScore
+struct ArenaTeamScore
 {
     friend class Arena;
     friend class Battleground;

@@ -31,7 +31,7 @@ class SpellInfo;
 class Unit;
 struct SpellCategoryEntry;
 
-class TC_GAME_API SpellHistory
+class SpellHistory
 {
 public:
     typedef std::chrono::system_clock Clock;

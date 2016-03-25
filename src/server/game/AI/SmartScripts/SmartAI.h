@@ -42,7 +42,7 @@ enum SmartEscortVars
     SMART_MAX_AID_DIST    = SMART_ESCORT_MAX_PLAYER_DIST / 2
 };
 
-class TC_GAME_API SmartAI : public CreatureAI
+class SmartAI : public CreatureAI
 {
     public:
         ~SmartAI(){ }
@@ -230,7 +230,7 @@ class TC_GAME_API SmartAI : public CreatureAI
         bool mJustReset;
 };
 
-class TC_GAME_API SmartGameObjectAI : public GameObjectAI
+class SmartGameObjectAI : public GameObjectAI
 {
     public:
         SmartGameObjectAI(GameObject* g) : GameObjectAI(g) { }
@@ -257,8 +257,4 @@ class TC_GAME_API SmartGameObjectAI : public GameObjectAI
     private:
         SmartScript mScript;
 };
-
-/// Registers scripts required by the SAI scripting system
-void AddSC_SmartScripts();
-
 #endif

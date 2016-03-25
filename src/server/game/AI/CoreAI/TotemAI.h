@@ -25,7 +25,7 @@
 class Creature;
 class Totem;
 
-class TC_GAME_API TotemAI : public CreatureAI
+class TotemAI : public CreatureAI
 {
     public:
 
