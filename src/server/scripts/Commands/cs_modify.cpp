@@ -477,11 +477,11 @@ public:
         if (handler->needReportToTarget(target))
             ChatHandler(target->GetSession()).PSendSysMessage(LANG_YOURS_ASPEED_CHANGED, handler->GetNameLink().c_str(), ASpeed);
 
-        target->SetSpeed(MOVE_WALK,    ASpeed, true);
-        target->SetSpeed(MOVE_RUN,     ASpeed, true);
-        target->SetSpeed(MOVE_SWIM,    ASpeed, true);
-        //target->SetSpeed(MOVE_TURN,    ASpeed, true);
-        target->SetSpeed(MOVE_FLIGHT,     ASpeed, true);
+        target->SetSpeedRate(MOVE_WALK,    ASpeed);
+        target->SetSpeedRate(MOVE_RUN,     ASpeed);
+        target->SetSpeedRate(MOVE_SWIM,    ASpeed);
+        //target->SetSpeedRate(MOVE_TURN,    ASpeed);
+        target->SetSpeedRate(MOVE_FLIGHT,     ASpeed);
         return true;
     }
 
@@ -525,7 +525,7 @@ public:
         if (handler->needReportToTarget(target))
             ChatHandler(target->GetSession()).PSendSysMessage(LANG_YOURS_SPEED_CHANGED, handler->GetNameLink().c_str(), Speed);
 
-        target->SetSpeed(MOVE_RUN, Speed, true);
+        target->SetSpeedRate(MOVE_RUN, Speed);
 
         return true;
     }
@@ -570,7 +570,7 @@ public:
         if (handler->needReportToTarget(target))
             ChatHandler(target->GetSession()).PSendSysMessage(LANG_YOURS_SWIM_SPEED_CHANGED, handler->GetNameLink().c_str(), Swim);
 
-        target->SetSpeed(MOVE_SWIM, Swim, true);
+        target->SetSpeedRate(MOVE_SWIM, Swim);
 
         return true;
     }
@@ -615,7 +615,7 @@ public:
         if (handler->needReportToTarget(target))
             ChatHandler(target->GetSession()).PSendSysMessage(LANG_YOURS_BACK_SPEED_CHANGED, handler->GetNameLink().c_str(), BSpeed);
 
-        target->SetSpeed(MOVE_RUN_BACK, BSpeed, true);
+        target->SetSpeedRate(MOVE_RUN_BACK, BSpeed);
 
         return true;
     }
@@ -651,7 +651,7 @@ public:
         if (handler->needReportToTarget(target))
             ChatHandler(target->GetSession()).PSendSysMessage(LANG_YOURS_FLY_SPEED_CHANGED, handler->GetNameLink().c_str(), FSpeed);
 
-        target->SetSpeed(MOVE_FLIGHT, FSpeed, true);
+        target->SetSpeedRate(MOVE_FLIGHT, FSpeed);
 
         return true;
     }
@@ -1339,8 +1339,8 @@ public:
         }
 
         // Set gender
-        target->SetByteValue(UNIT_FIELD_BYTES_0, 2, gender);
-        target->SetByteValue(PLAYER_BYTES_3, 0, gender);
+        target->SetByteValue(UNIT_FIELD_BYTES_0, UNIT_BYTES_0_OFFSET_GENDER, gender);
+        target->SetByteValue(PLAYER_BYTES_3, PLAYER_BYTES_3_OFFSET_GENDER, gender);
 
         // Change display ID
         target->InitDisplayIds();
