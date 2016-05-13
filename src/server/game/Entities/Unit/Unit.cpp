@@ -7859,6 +7859,10 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, uint32 damage, AuraEffect* trigg
                             RemoveAurasDueToSpell(50240);
                         break;
                     }
+                    // Battle Experience
+                    // already handled in gunship battle script
+                    case 71201:
+                        return false;
                 }
                 break;
             case SPELLFAMILY_MAGE:
@@ -11935,6 +11939,7 @@ void Unit::ClearInCombat()
         ToPlayer()->UpdatePotionCooldown();
 
     RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PET_IN_COMBAT);
+    RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_LEAVE_COMBAT);
 }
 
 bool Unit::isTargetableForAttack(bool checkFakeDeath) const
@@ -12512,7 +12517,7 @@ void Unit::SetSpeedRate(UnitMoveType mtype, float rate)
         WorldPacket self;
         self.Initialize(moveTypeToOpcode[mtype][1], mtype != MOVE_RUN ? 8 + 4 + 4 : 8 + 4 + 1 + 4);
         self << GetPackGUID();
-        self << (uint32)0;                                  // Movement counter. Unimplemented at the moment! NUM_PMOVE_EVTS = 0x39Z. 
+        self << (uint32)0;                                  // Movement counter. Unimplemented at the moment! NUM_PMOVE_EVTS = 0x39Z.
         if (mtype == MOVE_RUN)
             self << uint8(1);                               // unknown byte added in 2.1.0
         self << float(GetSpeed(mtype));
@@ -17660,7 +17665,7 @@ void Unit::SetFacingToObject(WorldObject const* object)
 
     /// @todo figure out under what conditions creature will move towards object instead of facing it where it currently is.
     Movement::MoveSplineInit init(this);
-    init.MoveTo(GetPositionX(), GetPositionY(), GetPositionZMinusOffset());
+    init.MoveTo(GetPositionX(), GetPositionY(), GetPositionZMinusOffset(), false);
     init.SetFacing(GetAngle(object));   // when on transport, GetAngle will still return global coordinates (and angle) that needs transforming
     init.Launch();
 }
